@@ -5,24 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ch07 · Split Squat · SBST</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg-primary: #0a0a0f;
-  --bg-secondary: #1a1a24;
-  --bg-tertiary: #2a2a3a;
-  --accent: #00d4ff;
-  --accent-dim: rgba(0, 212, 255, 0.15);
-  --accent-glow: rgba(0, 212, 255, 0.4);
-  --text-primary: #e0e0e0;
-  --text-secondary: #a0a0b0;
-  --text-muted: #606070;
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --bg-tertiary: #21262d;
+  --accent: #58a6ff;
+  --accent-dim: rgba(88, 166, 255, 0.15);
+  --accent-glow: rgba(88, 166, 255, 0.4);
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --text-muted: #6e7681;
   --border: rgba(255, 255, 255, 0.06);
-  --border-hover: rgba(0, 212, 255, 0.3);
+  --border-hover: rgba(88, 166, 255, 0.3);
   --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-  --glow-sm: 0 0 8px rgba(0, 212, 255, 0.2);
-  --glow-md: 0 0 20px rgba(0, 212, 255, 0.15);
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+  --glow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --glow-md: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --radius: 12px;
   --radius-sm: 8px;
@@ -38,17 +38,7 @@ body {
   overflow-x: hidden;
   line-height: 1.6;
 }
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-  background-size: 60px 60px;
-  pointer-events: none;
-  z-index: 0;
-}
+
 .container { max-width: 960px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
 
 /* ========== NAV ========== */
@@ -282,7 +272,7 @@ body::before {
   vertical-align: top;
 }
 .lecture-table tr:last-child td { border-bottom: none; }
-.lecture-table tr:hover td { background: rgba(0, 212, 255, 0.02); }
+.lecture-table tr:hover td { background: rgba(88, 166, 255, 0.02); }
 
 /* ========== FLASHCARDS ========== */
 .flashcard-grid {
@@ -319,7 +309,7 @@ body::before {
 .flashcard-front {
   background: linear-gradient(145deg, var(--bg-tertiary), var(--bg-secondary));
   border: 1px solid var(--border-hover);
-  box-shadow: inset 0 1px 0 rgba(0, 212, 255, 0.08);
+  box-shadow: inset 0 1px 0 rgba(88, 166, 255, 0.08);
 }
 .flashcard-back {
   background: linear-gradient(145deg, var(--bg-secondary), var(--bg-primary));
@@ -356,7 +346,7 @@ body::before {
   align-items: center;
 }
 .sop-row:last-child { border-bottom: none; }
-.sop-row:hover { background: rgba(0, 212, 255, 0.02); }
+.sop-row:hover { background: rgba(88, 166, 255, 0.02); }
 .sop-num {
   font-family: var(--font-mono);
   font-size: 0.85rem;
@@ -399,8 +389,8 @@ body::before {
 }
 .quiz-opt:hover { border-color: var(--border-hover); color: var(--text-primary); }
 .quiz-opt.selected { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
-.quiz-opt.correct { border-color: #4ade80; color: #4ade80; background: rgba(74, 222, 128, 0.1); }
-.quiz-opt.incorrect { border-color: #f87171; color: #f87171; background: rgba(248, 113, 113, 0.1); }
+.quiz-opt.correct { border-color: #3fb950; color: #3fb950; background: rgba(74, 222, 128, 0.1); }
+.quiz-opt.incorrect { border-color: #f85149; color: #f85149; background: rgba(248, 113, 113, 0.1); }
 
 /* ========== AI CHAT ========== */
 .chat-fab {
@@ -410,17 +400,17 @@ body::before {
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), #00a0cc);
+  background: linear-gradient(135deg, var(--accent), #388bfd);
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   transition: all var(--transition);
   z-index: 1000;
 }
-.chat-fab:hover { transform: scale(1.08); box-shadow: 0 6px 30px rgba(0, 212, 255, 0.45); }
+.chat-fab:hover { transform: scale(1.08); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); }
 .chat-fab svg { width: 24px; height: 24px; fill: var(--bg-primary); }
 
 .chat-modal-overlay {
