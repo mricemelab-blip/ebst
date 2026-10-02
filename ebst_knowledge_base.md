@@ -1,8 +1,8 @@
-# EBST Knowledge Base - Ch11-Ch14
+# EBST Knowledge Base - All Chapters
 
 
 ---
-## Chapter 11: Breathing: Mechanics & Training (呼吸：力学基础与训练应用)
+## Chapter 1: Breathing: Mechanics & Training (呼吸：力学基础与训练应用)
 
 2015年，Luca Cavaggioni等人研究了呼吸结合伸展的训练效果。32名有运动习惯、没有下背痛的健康男性分为两组，每组16人，在六周内分别完成呼吸结合姿势伸展，或传统腹部与髋伸练习。研究期间要求受试者不参加其他体育锻炼。两组每周训练两次，每次在10分钟单车热身后完成15分钟指定练习。研究测量了卷腹次数、功能性动作筛查（FMS）评分以及用力肺活量（FVC）等指标。呼吸与伸展组在部分指标上的改善较大。这为健康男性的训练提供了一种组合方案；效果同时涉及呼吸、姿势和伸展三个部分。卷腹次数反映特定条件下的腹部耐力，FMS描述筛查动作的完成表现，FVC属于肺功能指标。这些测量分别回答不同问题，与最大力量、专项表现及最大摄氧量的评估有所区别。
 
@@ -289,7 +289,7 @@ Kirkpatrick AW, et al. (2013). Intra-abdominal hypertension and the abdominal co
 
 
 ---
-## Chapter 12: Bear Crawl & Quadrupedal Coordination (熊爬与四肢协调训练)
+## [Archived] Chapter 12: Bear Crawl & Quadrupedal Coordination (熊爬与四肢协调训练) — Removed from curriculum
 
 本章首先介绍动作学习与感觉、神经控制之间的关系，并说明如何利用熊爬观察成人的四肢协调和负荷耐受。
 
@@ -519,7 +519,7 @@ Pyka DT, Costa PB, Coburn JW, Brown LE. (2017). Effects of Static, Stationary, a
 
 
 ---
-## Chapter 13: Dead Bug & Trunk Control (死虫与躯干控制)
+## Chapter 3: Dead Bug & Trunk Control (死虫与躯干控制)
 
 死虫看似简单，却需要专注于手脚与躯干的协调。许多学员刚开始练习时，会发现自己很容易屏气、挺腰或让骨盆随四肢移动。把一个动作拆小，在可控制的范围内反复练习，是学习这项技能的起点。
 
@@ -733,7 +733,7 @@ Dewberry MJ, et al. (2003). Pelvic and femoral contributions to bilateral hip fl
 
 
 ---
-## Chapter 14: Curl-Up (卷腹)
+## Chapter 2: Curl-Up (卷腹)
 
 我曾在練習捲腹的過程中經歷腹直肌分離，也曾在調整訓練後感到腹部功能改善。這段經驗使我更重視動作選擇與負荷安排。個人的症狀變化受到訓練、恢復和生活等多方面影響；評估腹直肌分離時，還需要結合腹直肌間距、腹壁張力、疼痛與日常功能。本章介紹腹壁肌肉的結構、捲腹的研究結果，以及如何依照學員的目標與反應安排練習。
 
