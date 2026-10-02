@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SBST · Science-Based Strength Training Specialist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ========== CSS VARIABLES ========== */
+:root {
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #1a1a24;
+  --bg-tertiary: #2a2a3a;
+  --accent: #00d4ff;
+  --accent-dim: rgba(0, 212, 255, 0.15);
+  --accent-glow: rgba(0, 212, 255, 0.4);
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0b0;
+  --text-muted: #606070;
+  --border: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(0, 212, 255, 0.3);
+  --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --glow-sm: 0 0 8px rgba(0, 212, 255, 0.2);
+  --glow-md: 0 0 20px rgba(0, 212, 255, 0.15);
+  --glow-lg: 0 0 40px rgba(0, 212, 255, 0.1);
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ========== RESET ========== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ========== GRID BACKGROUND ========== */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at 30% 20%, rgba(0, 212, 255, 0.04) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 80%, rgba(0, 212, 255, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ========== LAYOUT ========== */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+/* ========== HEADER ========== */
+.site-header {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 10;
+}
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand-mark {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.header-nav a {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color var(--transition);
+}
+.header-nav a:hover { color: var(--accent); }
+
+/* ========== HERO ========== */
+.hero {
+  padding: 120px 0 80px;
+  text-align: center;
+}
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  opacity: 0.8;
+}
+.hero-title {
+  font-family: var(--font-mono);
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.15));
+}
+.hero-subtitle-en {
+  font-family: var(--font-mono);
+  font-size: clamp(0.85rem, 2vw, 1.1rem);
+  color: var(--text-secondary);
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  font-weight: 400;
+}
+.hero-subtitle-zh {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+  margin-bottom: 48px;
+}
+.hero-line {
+  width: 60px;
+  height: 2px;
+  background: var(--accent);
+  margin: 0 auto 48px;
+  box-shadow: var(--glow-sm);
+}
+
+/* ========== LOGIN FORM ========== */
+.login-section {
+  max-width: 440px;
+  margin: 0 auto 100px;
+}
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+.input-group input {
+  width: 100%;
+  padding: 16px 20px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: all var(--transition);
+}
+.input-group input::placeholder { color: var(--text-muted); }
+.input-group input:focus {
+  border-color: var(--accent);
+  box-shadow: var(--glow-sm), inset 0 0 20px rgba(0, 212, 255, 0.03);
+}
+.input-group .input-line {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.4s ease;
+  box-shadow: var(--glow-sm);
+}
+.input-group input:focus ~ .input-line { width: 100%; }
+.btn-enter {
+  width: 100%;
+  padding: 16px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--bg-primary);
+  background: linear-gradient(135deg, var(--accent), #00a0cc);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition);
+  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.25);
+}
+.btn-enter:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px rgba(0, 212, 255, 0.35);
+}
+.btn-enter:active { transform: translateY(0); }
+
+/* ========== SECTION ========== */
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.section-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: var(--font-mono);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ========== CHAPTER GRID ========== */
+.chapters-section { padding: 40px 0 100px; }
+.chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+.chapter-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.chapter-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.chapter-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-hover);
+  box-shadow: var(--card-shadow), var(--glow-md);
+}
+.chapter-card:hover::before { opacity: 1; }
+.card-number {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  opacity: 0.7;
+}
+.card-title {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.card-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+.card-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.card-status .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* ========== AI CHAT BUTTON ========== */
+.chat-fab {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), #00a0cc);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+  transition: all var(--transition);
+  z-index: 1000;
+}
+.chat-fab:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 30px rgba(0, 212, 255, 0.45);
+}
+.chat-fab svg { width: 24px; height: 24px; fill: var(--bg-primary); }
+
+/* ========== CHAT MODAL ========== */
+.chat-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.chat-modal-overlay.active { display: flex; }
+.chat-modal {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+.chat-modal-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: var(--accent-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.chat-modal-icon svg { width: 24px; height: 24px; fill: var(--accent); }
+.chat-modal h3 {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.chat-modal p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+.chat-modal-close {
+  padding: 10px 28px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.chat-modal-close:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ========== FOOTER ========== */
+.site-footer {
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+.footer-text {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ========== PRINT ========== */
+@media print {
+  body { background: #fff; color: #000; }
+  body::before, body::after { display: none; }
+  .chat-fab, .chat-modal-overlay { display: none !important; }
+  .chapter-card { break-inside: avoid; border-color: #ccc; }
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .hero { padding: 80px 0 60px; }
+  .chapter-grid { grid-template-columns: 1fr; }
+  .chat-fab { bottom: 20px; right: 20px; width: 48px; height: 48px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container">
+    <div class="brand-mark">SBST</div>
+    <nav class="header-nav">
+      <a href="#">Curriculum</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">Science-Based · Evidence-Driven</div>
+    <h1 class="hero-title">SBST</h1>
+    <p class="hero-subtitle-en">Science-Based Strength Training Specialist</p>
+    <p class="hero-subtitle-zh">循证抗阻训练专家</p>
+    <div class="hero-line"></div>
+
+    <div class="login-section">
+      <div class="input-group">
+        <input type="text" id="studentName" placeholder="输入学员姓名 / Enter your name" autocomplete="off">
+        <div class="input-line"></div>
+      </div>
+      <button class="btn-enter" onclick="enterDashboard()">Enter →</button>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTERS -->
+<section class="chapters-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Curriculum</div>
+      <h2 class="section-title">12 Chapters</h2>
+    </div>
+    <div class="chapter-grid" id="chapterGrid"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <p class="footer-text">© 2026 3HFIT × Arise — All Rights Reserved</p>
+  </div>
+</footer>
+
+<!-- AI CHAT FAB -->
+<button class="chat-fab" onclick="openChat()">
+  <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12z"/></svg>
+</button>
+
+<!-- CHAT MODAL -->
+<div class="chat-modal-overlay" id="chatModal">
+  <div class="chat-modal">
+    <div class="chat-modal-icon">
+      <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12z"/></svg>
+    </div>
+    <h3>AI 助教</h3>
+    <p>AI Teaching Assistant is coming soon. 循证 AI 助教即将上线。</p>
+    <button class="chat-modal-close" onclick="closeChat()">Close</button>
+  </div>
+</div>
+
+<script>
+/* ========== CHAPTER DATA ========== */
+const chapters = [
+  { num: '01', title: 'Foundations of Evidence-Based Practice', desc: '循证实践基础与方法论框架' },
+  { num: '02', title: 'Functional Anatomy for Resistance Training', desc: '抗阻训练功能解剖学' },
+  { num: '03', title: 'Biomechanics of Human Movement', desc: '人体运动生物力学' },
+  { num: '04', title: 'Exercise Physiology & Energy Systems', desc: '运动生理学与能量系统' },
+  { num: '05', title: 'Program Design: Variables & Periodization', desc: '训练程序设计：变量与周期化' },
+  { num: '06', title: 'Resistance Training Techniques', desc: '抗阻训练技术与动作模式' },
+  { num: '07', title: 'Muscular Adaptation & Hypertrophy', desc: '肌肉适应与肥大机制' },
+  { num: '08', title: 'Strength & Power Development', desc: '力量与功率发展' },
+  { num: '09', title: 'Nutrition for Strength Athletes', desc: '力量训练者营养策略' },
+  { num: '10', title: 'Injury Prevention & Rehabilitation', desc: '损伤预防与康复' },
+  { num: '11', title: 'Special Populations & Programming', desc: '特殊人群训练方案' },
+  { num: '12', title: 'Professional Practice & Client Management', desc: '执业实践与客户管理' }
+];
+
+/* ========== RENDER CHAPTERS ========== */
+const grid = document.getElementById('chapterGrid');
+chapters.forEach(ch => {
+  grid.innerHTML += `
+    <div class="chapter-card">
+      <div class="card-number">CH ${ch.num}</div>
+      <div class="card-title">${ch.title}</div>
+      <div class="card-desc">${ch.desc}</div>
+      <div class="card-status"><span class="dot"></span> Coming Soon</div>
+    </div>`;
+});
+
+/* ========== LOGIN ========== */
+function enterDashboard() {
+  const name = document.getElementById('studentName').value.trim();
+  if (!name) {
+    document.getElementById('studentName').focus();
+    return;
+  }
+  localStorage.setItem('sbst_student', JSON.stringify({ name, loginAt: Date.now() }));
+  window.location.href = 'dashboard.html';
+}
+
+document.getElementById('studentName').addEventListener('keydown', e => {
+  if (e.key === 'Enter') enterDashboard();
+});
+
+/* ========== CHAT MODAL ========== */
+function openChat() { document.getElementById('chatModal').classList.add('active'); }
+function closeChat() { document.getElementById('chatModal').classList.remove('active'); }
+document.getElementById('chatModal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeChat();
+});
+</script>
+</body>
+</html>
