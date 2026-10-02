@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ch05 · Program Design: Variables & Periodization · SBST</title>
+<title>Ch05 · Overhead Press · SBST</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -73,11 +73,7 @@ body::before {
   transition: color var(--transition);
 }
 .nav-back:hover { color: var(--accent); }
-.nav-divider {
-  width: 1px;
-  height: 16px;
-  background: var(--border);
-}
+.nav-divider { width: 1px; height: 16px; background: var(--border); }
 .nav-chapter-title {
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -169,36 +165,124 @@ body::before {
 .tab-content { display: none; padding: 40px 0 80px; }
 .tab-content.active { display: block; }
 
-.placeholder {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 60px 40px;
-  text-align: center;
-}
-.placeholder-icon {
-  width: 48px;
-  height: 48px;
-  margin: 0 auto 20px;
-  border-radius: 50%;
-  background: var(--accent-dim);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.placeholder-icon svg { width: 22px; height: 22px; fill: var(--accent); }
-.placeholder h3 {
+/* ========== LECTURE STYLES ========== */
+.lecture-h3 {
   font-family: var(--font-mono);
-  font-size: 0.9rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 36px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-hover);
+}
+.lecture-h4 {
+  font-family: var(--font-mono);
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 8px;
+  margin: 28px 0 12px;
 }
-.placeholder p {
-  font-size: 0.82rem;
+.lecture-h5 {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 22px 0 10px;
+}
+.lecture-p {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  line-height: 1.75;
+  margin-bottom: 14px;
+}
+.lecture-list {
+  margin: 12px 0 16px 0;
+  padding: 0;
+  list-style: none;
+}
+.lecture-list li {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  line-height: 1.65;
+  padding: 4px 0 4px 20px;
+  position: relative;
+}
+.lecture-list li::before {
+  content: '›';
+  position: absolute;
+  left: 4px;
+  color: var(--accent);
+  font-weight: 700;
+}
+.lecture-olist {
+  margin: 12px 0 16px 0;
+  padding: 0 0 0 20px;
+  list-style: none;
+  counter-reset: lecture-counter;
+}
+.lecture-olist li {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  line-height: 1.65;
+  padding: 4px 0 4px 28px;
+  position: relative;
+  counter-increment: lecture-counter;
+}
+.lecture-olist li::before {
+  content: counter(lecture-counter) '.';
+  position: absolute;
+  left: 4px;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.lecture-blockquote {
+  margin: 16px 0;
+  padding: 14px 20px;
+  background: var(--bg-secondary);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-style: italic;
+  font-size: 0.85rem;
   color: var(--text-secondary);
   line-height: 1.6;
 }
+.lecture-blockquote a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.lecture-table-wrap {
+  margin: 20px 0;
+  overflow-x: auto;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+.lecture-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+.lecture-table th {
+  background: var(--bg-tertiary);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-hover);
+}
+.lecture-table td {
+  padding: 10px 14px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.lecture-table tr:last-child td { border-bottom: none; }
+.lecture-table tr:hover td { background: rgba(0, 212, 255, 0.02); }
 
 /* ========== FLASHCARDS ========== */
 .flashcard-grid {
@@ -275,10 +359,10 @@ body::before {
 .sop-row:hover { background: rgba(0, 212, 255, 0.02); }
 .sop-num {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--accent);
+  font-size: 0.85rem;
   width: 40px;
   flex-shrink: 0;
+  text-align: center;
 }
 .sop-label {
   font-size: 0.85rem;
@@ -315,6 +399,8 @@ body::before {
 }
 .quiz-opt:hover { border-color: var(--border-hover); color: var(--text-primary); }
 .quiz-opt.selected { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+.quiz-opt.correct { border-color: #4ade80; color: #4ade80; background: rgba(74, 222, 128, 0.1); }
+.quiz-opt.incorrect { border-color: #f87171; color: #f87171; background: rgba(248, 113, 113, 0.1); }
 
 /* ========== AI CHAT ========== */
 .chat-fab {
@@ -419,7 +505,7 @@ body::before {
     <div class="nav-left">
       <a href="dashboard.html" class="nav-back">← Dashboard</a>
       <div class="nav-divider"></div>
-      <span class="nav-chapter-title">CH 05 · Program Design: Variables & Periodization</span>
+      <span class="nav-chapter-title">CH 05 · Overhead Press</span>
     </div>
     <div class="nav-right">
       <span class="nav-user" id="navUser"></span>
@@ -431,8 +517,8 @@ body::before {
 <section class="chapter-header">
   <div class="container">
     <div class="ch-number">Chapter 05</div>
-    <h1 class="ch-title">Program Design: Variables & Periodization</h1>
-    <p class="ch-subtitle">训练程序设计：变量与周期化</p>
+    <h1 class="ch-title">Overhead Press</h1>
+    <p class="ch-subtitle">肩推</p>
   </div>
 </section>
 
@@ -447,39 +533,276 @@ body::before {
 <!-- TAB: LECTURE -->
 <div class="tab-content active" id="tab-lecture">
   <div class="container">
-    <div class="placeholder">
-      <div class="placeholder-icon">
-        <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 15h8v2H8v-2zm0-3h8v2H8v-2z"/></svg>
-      </div>
-      <h3>讲义正文</h3>
-      <p>课件上传后将自动填充。<br>Course materials will be automatically populated upon upload.</p>
-    </div>
+<h4 class="lecture-h4">8.1 解剖与功能</h4>
+<p class="lecture-p">肩推（Overhead Press）是上肢垂直推的代表动作。抬臂推举需要盂肱关节、肩胛与锁骨运动协调；站姿还增加了维持躯干和下肢支撑的要求。坐姿、跪姿和站姿肩推提供不同的支撑条件，可根据力量、肌肥大、动作控制或专项目标选择，不必排成固定的优劣顺序。</p>
+<h5 class="lecture-h5">8.1.1 前三角肌</h5>
+<p class="lecture-p">前三角肌（anterior deltoid）起自锁骨外侧三分之一前缘，止于肱骨三角肌粗隆，参与肩前屈、内旋及相关推举任务。肩推是训练前三角肌的常用动作，具体参与程度受体位、器械、轨迹和负荷影响，现有研究不足以将它列为所有人的唯一最佳动作。</p>
+<h5 class="lecture-h5">8.1.2 中三角肌与后三角肌的协同</h5>
+<p class="lecture-p">中三角肌起自肩峰，后三角肌起自肩胛冈，均止于肱骨三角肌粗隆。中束参与外展，后束参与伸展、水平外展及随体位变化的旋转作用。在肩推中，各束与肩袖及其他肌群协同产生和控制力矩。表面肌电只能描述部分活动，不能据此直接计算关节压缩力或判断肱骨头中心化程度。</p>
+<h5 class="lecture-h5">8.1.3 肩胛骨稳定肌群（前锯肌、下斜方肌、上斜方肌）</h5>
+<p class="lecture-p">肩胛骨的稳定由多组肌群协同完成。在肩推动作中，以下三组肌群的作用尤为关键：</p>
+<p class="lecture-p">前锯肌起自上部肋骨外侧面，通常描述为第1—8或第1—9肋骨，止于肩胛骨内侧缘前面。它参与肩胛前伸、上回旋、后倾及贴近胸廓的控制。Richardson等（2020）汇总了躯干和下肢参与对肩部肌电的影响，不同任务的结果并不完全一致。</p>
+<p class="lecture-p">下斜方肌主要起自中下胸椎棘突，止于肩胛冈内侧区域，与前锯肌等共同参与肩胛上回旋、后倾及稳定。其参与是正常控制的一部分，单块肌肉的激活不能保证预防所有翼状肩胛。</p>
+<p class="lecture-p">上斜方肌主要起自枕部、上项线及项韧带相关区域，止于锁骨外侧三分之一，参与肩带上提及肩胛上回旋协同。肩推中正常的肩带上提不应一概视为代偿。Bagchi与Raizada（2016）研究的是前平举变式，不能据此判断肩推握法差异。</p>
+<h5 class="lecture-h5">8.1.4 肩袖肌群在肩推中的力学角色</h5>
+<p class="lecture-p">肩袖由冈上肌、冈下肌、小圆肌及肩胛下肌组成，既参与肱骨运动，也通过协同受力控制盂肱关节。稳定是动态过程，肱骨头存在正常的微小平移；不能用完全不移动来定义正常，也不能把肩袖作用缩减为单一的压紧功能。</p>
+<p class="lecture-p">改变躯干、下肢和支撑条件可能改变肩胛肌及肩袖的参与。某些非动力链练习中冈下肌肌电较高，但这不表示肩袖直接承担肩胛稳定功能，也不说明坐姿肩推必然使肩袖过载。选择体位时应结合负荷、目标和个人耐受。</p>
+<h5 class="lecture-h5">8.1.5 动力链：核心与下肢的力量传递</h5>
+<p class="lecture-p">动力链（kinetic chain）描述身体不同部位在支撑、运动及力传递中的相互联系。严格站姿肩推需要下肢支撑与躯干控制；借力推举还利用下肢蹬伸产生动量。两者技术目标不同，动作表现也不能单独诊断某一脊柱节段不稳定。</p>
+<p class="lecture-p">跨区域练习可改变肩部肌肉参与模式，但急性肌电研究尚不能证明站姿肩推在长期力量、增肌、疼痛或损伤风险方面普遍优于坐姿。可根据训练目标组合使用，而非只选择形式更复杂的动作。</p>
+<h4 class="lecture-h4">8.2 循证依据</h4>
+<h5 class="lecture-h5">8.2.1 站姿 vs 坐姿肩推：Saeterbakken 2013 的发现</h5>
+<p class="lecture-p">Saeterbakken 等人（2013）以 15 位健康男性为受试者，进行了 1RM 哑铃肩推与杠铃肩推的测试，比较站姿与坐姿两种体位下的力量表现。</p>
+<blockquote class="lecture-blockquote">&quot;EFFECTS OF BODY POSITION AND LOADING MODALITY ON MUSCLE ACTIVITY AND STRENGTH IN SHOULDER PRESSES&quot;</blockquote>
+<blockquote class="lecture-blockquote">「体位与负荷方式对肩推中肌肉活动与力量的影响。」</blockquote>
+<p class="lecture-p">研究中，站姿哑铃肩推1RM比站姿杠铃低约7%，比坐姿哑铃低约10%。站姿哑铃的三角肌肌电较高，却是所测条件中1RM最低者。急性肌电较高与可举重量较大并不等同；这项研究也没有比较长期增肌或损伤结果。</p>
+<p class="lecture-p">实践中，外部支撑、器械和任务复杂性会共同影响表现。希望增加可举负荷时可选择较稳定条件，希望练习站姿负荷控制时可采用相应版本；两类目标可同时纳入计划，并分别记录进步。</p>
+<blockquote class="lecture-blockquote">Saeterbakken AH, Fimland MS. Effects of body position and loading modality on muscle activity and strength in shoulder presses. J Strength Cond Res. 2013;27(7):1824-1831. doi:<a href="https://doi.org/10.1519/JSC.0b013e318276b873." target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1519/JSC.0b013e318276b873.</a> PMID:23096062.</blockquote>
+<h5 class="lecture-h5">8.2.2 动力链对肩胛稳定肌激活的影响：Richardson 2020</h5>
+<p class="lecture-p">Richardson等（2020）的系统综述纳入健康人肩部肌电研究，讨论加入躯干和下肢运动后肩部肌肉募集如何变化。</p>
+<blockquote class="lecture-blockquote">&quot;Role of the kinetic chain in shoulder rehabilitation: does incorporating the trunk and lower limb into shoulder exercise regimes influence shoulder muscle recruitment patterns? Systematic review of electromyography studies.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「动力链在肩关节康复中的作用：将躯干和下肢纳入肩部训练方案是否会影响肩部肌肉募集模式？系统综述。」</blockquote>
+<p class="lecture-p">所纳入的11项研究采用不同动作和比较条件：下斜方肌在5项研究中呈较高活动、5项无显著差异；前锯肌结果同时存在增加、减少和无差异；冈下肌的多数相关比较更偏向局部练习。总体提示任务会影响募集模式，但未证明每种动力链动作都提高表现或减轻肩袖负荷。</p>
+<p class="lecture-p">实践中可依据目标选择站姿或坐姿肩推：站姿通常增加全身稳定需求，坐姿允许减少部分躯干与下肢自由度。两者的急性肌电差异不应直接解释为长期力量、肌肥大或损伤风险差异。</p>
+<blockquote class="lecture-blockquote">Richardson E, Lewis JS, Gibson J, et al. BMJ Open Sport Exerc Med. 2020;6:e000683. doi:<a href="https://doi.org/10.1136/bmjsem-2019-000683." target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1136/bmjsem-2019-000683.</a> https://pmc.ncbi.nlm.nih.gov/articles/PMC7202723/</blockquote>
+<h5 class="lecture-h5">8.2.3 肩推时肩胛骨与锁骨的运动学特征：Ichihashi 2014</h5>
+<p class="lecture-p">Ichihashi等（2014）在16名健康男性中，以2公斤负荷比较军姿推举与肩前屈，分析30°—120°抬臂范围内的肩胛及锁骨运动。</p>
+<blockquote class="lecture-blockquote">&quot;Kinematic characteristics of the scapula and clavicle during military press exercise and shoulder flexion&quot;</blockquote>
+<blockquote class="lecture-blockquote">「军事推举练习与肩关节前屈过程中肩胛骨与锁骨的运动学特征。」</blockquote>
+<p class="lecture-p">在所测条件下，军姿推举相比肩前屈出现较少肩胛内旋、较多上回旋和后倾。这描述的是健康人轻负荷任务间的即时差异，没有验证对肩胛运动障碍或神经源性翼状肩胛的治疗效果。</p>
+<p class="lecture-p">锁骨运动也随任务改变，说明头上推举需要肩复合体协调。健康样本中的运动差异不能解释为普通抬臂缺失了必要成分，或证明负重推举对肩痛者更安全。</p>
+<blockquote class="lecture-blockquote">Ichihashi N, et al. Kinematic characteristics of the scapula and clavicle during military press exercise and shoulder flexion. J Shoulder Elbow Surg. 2014;23(5):649-657. doi:<a href="https://doi.org/10.1016/j.jse.2013.11.014" target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1016/j.jse.2013.11.014</a> <a href="https://doi.org/10.1016/j.jse.2013.11.014" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1016/j.jse.2013.11.014</a></blockquote>
+<h5 class="lecture-h5">8.2.4 胸椎姿态与肩关节功能的关系</h5>
+<p class="lecture-p">胸椎姿势可影响当次肩部活动范围和肌肉参与。以下研究有助于区分即时运动学变化与长期疼痛、损伤结局：</p>
+<p class="lecture-p">胸椎姿势与肩痛。Barrett等（2016）的系统综述未发现肩痛与无肩痛人群胸椎后凸程度存在一致的显著差异；较直立姿势可能增加当次肩部活动范围，但长期临床意义仍不明确。</p>
+<blockquote class="lecture-blockquote">&quot;Is thoracic spine posture associated with shoulder pain, range of motion and function? A systematic review.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「胸椎姿态与肩部疼痛、活动度及功能是否存在关联？系统综述。」</blockquote>
+<blockquote class="lecture-blockquote">Barrett E, O&#x27;Keeffe M, O&#x27;Sullivan K, Lewis J, McCreesh K. Man Ther. 2016;26:38-46. doi:<a href="https://doi.org/10.1016/j.math.2016.07.008." target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1016/j.math.2016.07.008.</a> PMID:27475532.</blockquote>
+<p class="lecture-p">胸椎位置与即时力量。Kebaetse等（1999）在34名健康人中比较坐姿条件。含胸位肩外展范围减少约23.6°，手臂水平位的等长力降低约16.2%。该结果支持急性姿势效应，并非长期损伤因果证据。</p>
+<blockquote class="lecture-blockquote">&quot;Thoracic position effect on shoulder range of motion, strength, and three-dimensional scapular kinematics.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「胸椎位置对肩部活动度、肌力及三维肩胛骨运动学的影响。」</blockquote>
+<blockquote class="lecture-blockquote">Kebaetse M, McClure P, Pratt NA. Thoracic position effect on shoulder range of motion, strength, and three-dimensional scapular kinematics. Arch Phys Med Rehabil. 1999;80(8):945-950. https://pubmed.ncbi.nlm.nih.gov/10453773/</blockquote>
+<p class="lecture-p">静态体态与肩痛之间并非简单因果关系。胸椎姿势可能即时改变肩关节活动范围和肌肉募集，但个体差异较大；评估应结合症状、动态肩胛运动、活动度与力量，而不应仅凭“圆肩/驼背”作出诊断或处方。</p>
+<blockquote class="lecture-blockquote">&quot;A slouched body posture decreases arm mobility and changes muscle recruitment in the neck and shoulder region.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「驼背体态降低上肢活动度并改变颈肩部肌肉募集模式。」</blockquote>
+<p class="lecture-p">Malmström等（2015）发现含胸姿势降低上肢活动范围，并改变上、下斜方肌及前锯肌的肌肉工作指标。肌电变化并不能直接证明组织过载或预测未来肩痛；研究也未检验在肩推前进行特定暖身的疗效。</p>
+<blockquote class="lecture-blockquote">Malmström EM, Fransson PA, Haworth J, et al. A slouched body posture decreases arm mobility and changes muscle recruitment in the neck and shoulder region. Eur J Appl Physiol. 2015;115(12):2625-2633. <a href="https://doi.org/10.1007/s00421-015-3257-y" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1007/s00421-015-3257-y</a></blockquote>
+<p class="lecture-p">对抬臂受限或改变姿势后表现改善者，可试用胸椎活动与控制练习；若现有范围已能舒适完成推举，则不必将固定胸椎准备动作设为统一门槛。</p>
+<h5 class="lecture-h5">8.2.5 不稳定负荷肩推的急性反应</h5>
+<p class="lecture-p">Williams等（2020；线上发表于2018年）在12名健康男性中，以约50% 1RM比较三种杠铃稳定条件下的肌电和足底压力中心变化。</p>
+<blockquote class="lecture-blockquote">&quot;ACTIVITY OF SHOULDER STABILIZERS AND PRIME MOVERS DURING AN UNSTABLE OVERHEAD PRESS&quot;</blockquote>
+<blockquote class="lecture-blockquote">「不稳定负荷头顶推举过程中肩部稳定肌与原动肌的活动特征。」</blockquote>
+<p class="lecture-p">不稳定杠铃条件提高了部分肌肉的肌电活动，并增加压力中心摆动。研究没有直接测量本体感觉、临床关节稳定性或长期康复效果。这种负荷可用作特定控制任务，但不能仅因不稳定就把它视为更有效的康复工具。</p>
+<blockquote class="lecture-blockquote">Williams MR, et al. Activity of shoulder stabilizers and prime movers during an unstable overhead press. J Strength Cond Res. 2020;34(1):73-78. doi:<a href="https://doi.org/10.1519/JSC.0000000000002660" target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1519/JSC.0000000000002660</a> <a href="https://doi.org/10.1519/jsc.0000000000002660" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1519/jsc.0000000000002660</a></blockquote>
+<h5 class="lecture-h5">8.2.6 阿诺德推举与前平举研究的区别</h5>
+<p class="lecture-p">阿诺肩推（Arnold Press）是哑铃肩推的旋转变式，起始位通常掌心朝向身体，推起过程中逐渐旋转至掌心朝前。目前关于阿诺肩推相对普通哑铃肩推的直接研究数量少、样本小，证据不足以断言其能优先强化前三角肌或降低上斜方肌参与；动作选择应以无痛活动范围、控制能力和训练目标为依据。</p>
+<blockquote class="lecture-blockquote">Bagchi与Raizada（2016）：Electromyographical investigation of anterior deltoid and trapezius muscles during three different variations of front raise.</blockquote>
+<blockquote class="lecture-blockquote">「三种不同前平举变式中前三角肌与斜方肌的肌电图研究。」</blockquote>
+<p class="lecture-p">Bagchi与Raizada（2016）的10人研究比较三种前平举，不能承担肩推握法的结论。Raizada与Bagchi（2017）另在10名健康男性中比较阿诺德推举与普通哑铃肩推各5次，报告前、中三角肌急性肌电差异。小样本、短时指标及方法限制使其不能直接证明长期增肌、安全性或普遍优越。</p>
+<blockquote class="lecture-blockquote">Bagchi A, Raizada S. International Journal of Physical Education, Sports and Health. 2016;3(6):56-59.
+Raizada S, Bagchi A. Electromyographical investigation of anterior deltoid and middle deltoid during Arnold dumbbell press and overhead dumbbell press. Indian J Public Health Res Dev. 2017;8(4):653-656. doi:<a href="https://doi.org/10.5958/0976-5506.2017.00411.9." target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.5958/0976-5506.2017.00411.9.</a></blockquote>
+<h4 class="lecture-h4">8.3 教学要点</h4>
+<h5 class="lecture-h5">8.3.1 保护原则一：症状与功能分流</h5>
+<p class="lecture-p">训练前了解肩部症状、外伤和既往脱位史，观察主动上举及轻负荷耐受。教练记录表现并决定是否调整训练或转介，不能通过外观或几项动作测试确认肩袖结构完整。</p>
+<p class="lecture-p">盂肱关节的滚动、滑动及旋转共同参与抬臂。活动受限或不稳感可能涉及不同因素，不能仅由体态或抬臂角度判断肱骨头黏着、前移或半脱位。</p>
+<p class="lecture-p">脱位是关节面失去正常对合的医学事件，常涉及创伤或既有不稳定。普通肩胛或脊柱姿势、较大的手臂肌肉量不能直接作为脱位或下半脱位的诊断依据。外伤后明显畸形、不能抬臂、进行性麻木或无力，应及时接受医疗评估；教练不尝试复位。</p>
+<p class="lecture-p">活动受限的处理应依据病因。Satpute等（2015）研究了由治疗者实施的背后手动态关节松动术（MWM），对象为急性肩痛及活动障碍者。该临床手法的结果不能直接转化为教练用弹力带自行牵拉肱骨头的通用方案；普通训练可先调整范围、负荷和动作，再依据评估决定是否需要治疗。</p>
+<blockquote class="lecture-blockquote">&quot;Efficacy of Hand Behind Back Mobilization With Movement for Acute Shoulder Pain and Movement Impairment: A Randomized Controlled Trial.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「背后手动态关节松动术治疗急性肩痛与运动障碍的疗效：一项随机对照试验。」</blockquote>
+<blockquote class="lecture-blockquote">Satpute KH, Bhaskar AR, Hall T, et al. Efficacy of Hand Behind Back Mobilization With Movement for Acute Shoulder Pain and Movement Impairment: A Randomized Controlled Trial. J Manipulative Physiol Ther. 2015;38(8):560-568. https://pubmed.ncbi.nlm.nih.gov/26099206/</blockquote>
+<p class="lecture-p">以下介绍临床肩袖特殊试验的研究背景，帮助教练理解医疗报告。试验由具备相应资质的医疗人员结合病史、多个检查及必要影像解释；阴性不能保证肌腱完整，单独疼痛也不能确诊撕裂。</p>
+<p class="lecture-p">（1）冈上肌相关检查。Sgroi等（2018）在115名有肩症状者中比较常用检查。Empty Can和Full Can等试验需区分疼痛与力量下降，研究提示明显无力较单纯疼痛更有助于识别撕裂。</p>
+<blockquote class="lecture-blockquote">&quot;Diagnostic Value of Clinical Tests for Supraspinatus Tendon Tears.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「冈上肌肌腱撕裂临床检查方法的诊断价值。」</blockquote>
+<blockquote class="lecture-blockquote">Sgroi M, et al. Diagnostic Value of Clinical Tests for Supraspinatus Tendon Tears. Arthroscopy. 2018. PMID:29802066. https://pubmed.ncbi.nlm.nih.gov/29802066/</blockquote>
+<p class="lecture-p">Empty Can通常在肩胛平面抬臂约90°并使上臂内旋，Full Can采用拇指向上位置，临床检查者施加向下阻力并分别记录疼痛和力量。两侧差异需结合优势侧、既往能力及症状解释，不能以疼痛即阳性作为统一的撕裂判定规则。</p>
+<p class="lecture-p">（2）冈下肌相关检查。Sgroi等（2019）纳入91名拟行肩关节镜检查者，比较多种临床测试；该样本并非91名已确诊冈下肌损伤患者。外旋抗阻与落臂相关表现必须按研究中的标准及临床背景解释。</p>
+<blockquote class="lecture-blockquote">&quot;Diagnostic Value of Clinical Tests for Infraspinatus Tendon Tears.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「冈下肌肌腱撕裂临床检查方法的诊断价值。」</blockquote>
+<blockquote class="lecture-blockquote">Sgroi M, et al. Diagnostic Value of Clinical Tests for Infraspinatus Tendon Tears. Arthroscopy. 2019. PMID:30770251. https://pubmed.ncbi.nlm.nih.gov/30770251/</blockquote>
+<p class="lecture-p">外旋力量测量应固定肩外展角度、肘位及测力方式。例如肘屈约90°、上臂靠近体侧的测量，应与外展位测量分别记录。Kelly等（1996）讨论不同肩袖手法肌测位置的肌电参与，属于募集研究，不是肌腱撕裂的诊断准确性验证。</p>
+<blockquote class="lecture-blockquote">&quot;The Manual Muscle Examination for Rotator Cuff Strength: An Electromyographic Investigation.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「肩袖肌力的手法肌肉检查：一项肌电图研究。」</blockquote>
+<blockquote class="lecture-blockquote">Kelly BT, Kadrmas WR, Speer KP, et al. THE Manual Muscle Examination for Rotator Cuff Strength: An Electromyographic Investigation. Am J Sports Med. 1996;24(5):581-588. doi:<a href="https://doi.org/10.1177/036354659602400504" target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1177/036354659602400504</a> <a href="https://doi.org/10.1177/036354659602400504" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1177/036354659602400504</a></blockquote>
+<p class="lecture-p">（3）小圆肌相关检查。Collin等（2015）在大面积肩袖撕裂患者中比较临床检查对小圆肌情况的识别能力。该人群的结果有助于专科评估，但不能直接用于无症状健身人群的常规筛查。</p>
+<blockquote class="lecture-blockquote">&quot;What is the Best Clinical Test for Assessment of the Teres Minor in Massive Rotator Cuff Tears?&quot;</blockquote>
+<blockquote class="lecture-blockquote">「大面积肩袖撕裂中评估小圆肌的最佳临床检查方法是什么？」</blockquote>
+<blockquote class="lecture-blockquote">Collin P, et al. What is the Best Clinical Test for Assessment of the Teres Minor in Massive Rotator Cuff Tears? Clin Orthop Relat Res. 2015;473. https://pmc.ncbi.nlm.nih.gov/articles/PMC4523548/</blockquote>
+<p class="lecture-p">外旋延迟征观察检查者将手臂置于外旋位后，受试者能否主动保持。在该大面积撕裂样本中，延迟超过10°的敏感度为100%、特异度51%；超过40°时敏感度仍为100%、特异度提高至92%。这些数值依赖样本和实施方法，不是教练自行检查的通用诊断阈值。</p>
+<p class="lecture-p">（4）肩胛下肌相关检查。Lift-Off、Belly-Press等是临床评估选择。Bartsch等（2010）在50名拟行关节镜患者中发现Lift-Off敏感度40%、特异度79%，部分患者因疼痛和范围受限无法完成；因此一次表现正常不能排除全部撕裂。</p>
+<blockquote class="lecture-blockquote">Bartsch M, Greiner S, Haas NP, Scheibel M. Diagnostic values of clinical tests for subscapularis lesions. Knee Surg Sports Traumatol Arthrosc. 2010;18(12):1712-1717. doi:<a href="https://doi.org/10.1007/s00167-010-1109-1." target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1007/s00167-010-1109-1.</a> PMID:20376624.</blockquote>
+<blockquote class="lecture-blockquote">Narasimhan等（2016）另比较236名因肩袖病变接受关节镜者的术前超声与术中结果，其中肩胛下肌撕裂比例约31.4%。该比例属于手术样本，不能代表一般训练者；论文评估的是超声准确性，没有验证Lift-Off的施力方法。doi:<a href="https://doi.org/10.1007/s00264-015-3043-9；PMID:26585865。" target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1007/s00264-015-3043-9；PMID:26585865。</a></blockquote>
+<p class="lecture-p">Lift-Off观察受试者将手背置于腰后并主动抬离的能力，解释时需考虑力量、疼痛及内旋活动度限制。不能仅凭疼痛将其定义为肩胛下肌撕裂阳性，也不宜对明显受限者强行摆位。</p>
+<p class="lecture-p">若出现持续疼痛、突然无力、反复不稳或功能下降，应调整训练并按情况转介。是否暂停某负荷取决于症状和功能，不能用统一的6RM界线代替个体判断。2025年肩袖肌腱病临床实践指南强调结合评估制定主动康复和重返活动方案（doi:<a href="https://doi.org/10.2519/jospt.2025.13182；PMID:40165544）。" target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.2519/jospt.2025.13182；PMID:40165544）。</a></p>
+<h5 class="lecture-h5">8.3.2 保护原则二：肩胛骨与锁骨的启动策略</h5>
+<p class="lecture-p">肩推中肩胛与锁骨需要随上臂协调运动。Ichihashi等的健康人轻负荷结果不能保证翼状肩胛在推举中更易控制。可观察主动抬臂和轻负荷推举，按实际表现选择支撑、范围和重量。</p>
+<p class="lecture-p">需要时可在准备阶段使用轻负荷抬臂、前锯肌相关练习或简化推举，练习舒适的肩胛运动。是否加入俯卧或跪姿动作应依据当前需求，不要求人人先孤立启动某块肌肉。</p>
+<h5 class="lecture-h5">8.3.3 保护原则三：胸椎活动度准备</h5>
+<p class="lecture-p">胸椎活动练习可用于改善当次抬臂舒适度或可用范围，但并非所有肩推前的必做环节。应比较准备前后的动作和症状，保留对本人有帮助的内容。</p>
+<p class="lecture-p">可选练习之一是开书运动（open book），用于轻柔练习躯干旋转和上肢协调：</p>
+<li>1. 受试者取侧卧位，双膝屈曲</li>
+<li>2. 上方手臂从前方缓慢向后打开，如同翻开一本书</li>
+<li>3. 在舒适范围内打开上臂及躯干，不强求肩胛或手臂接触地面。</li>
+<li>4. 下肢提供支撑，避免靠强拉手臂追求末端；实际牵拉感受随个体改变。</li>
+<li>5. 保持呼吸和可控回程，出现肩痛、麻木或放射感时调整范围。</li>
+<p class="lecture-p">开书运动可作为准备活动之一，其作用应由训练者的即时反应判断。它不是肩推动作成功的必要前提，也不能仅由所谓筋膜链连接推断每一处组织都获得了相同伸展或激活。</p>
+<h5 class="lecture-h5">8.3.4 站姿肩推的执行口令与动力链整合</h5>
+<p class="lecture-p">根据所选器械和训练目标使用以下提示，再观察提示是否改善表现：</p>
+<li>1. 起始位：选择舒适站距，双脚稳定承重，躯干保持预定位置，以适度腹部张力配合呼吸。</li>
+<li>2. 握持位：杠铃置于肩前，或哑铃位于两侧舒适位置；腕、肘与器械受力方向尽量协调，握距按个体调整。</li>
+<li>3. 推起阶段：肩与肘协同推起，肩胛随抬臂上回旋。杠铃经过面部时可小幅调整头部避让，避免过大的颈腰摆动。</li>
+<li>4. 顶端阶段：在可控范围内伸肘，重量保持在稳定支撑上方，允许正常肩带上提；不要求额外强推至个人活动末端。</li>
+<p class="lecture-p">弹力带、轻哑铃或有支撑推举可用于学习过渡。土耳其式起身是可选的多步骤控制任务，需要独立教学，并非肩推的必修前置动作。若躯干明显偏离目标，可先减轻负荷、调整范围或支撑，再分析原因。</p>
+<h5 class="lecture-h5">8.3.5 呼吸配合策略</h5>
+<p class="lecture-p">轻中负荷可采用推起呼气、回程吸气。较大负荷下部分训练者会短暂屏气以增加躯干刚度，但其血压和胸内压反应需结合健康状况考虑。腹内压只是稳定机制之一，不以全程憋气或追求最大压力作为人人通用的要求。</p>
+<h4 class="lecture-h4">8.4 常见错误</h4>
+<h5 class="lecture-h5">错误一：腰椎过度伸展（腰椎代偿性前凸）</h5>
+<p class="lecture-p">错误描述：推起重量时腰部姿势出现明显、难以控制的伸展变化。它可能与负荷、疲劳、活动范围或技术策略有关，不能单凭外观认定肩或胸椎活动度不足。</p>
+<p class="lecture-p">躯干后仰会改变肩部所需角度及腰椎负荷分配；是否产生不适取决于幅度、负荷、能力及个体状况。不能仅凭姿势就判断腹内压丧失、椎间盘损伤或小关节紊乱。</p>
+<p class="lecture-p">纠正方法：先减少负荷或缩短行程，使用适度躯干张力提示；按需要尝试坐姿或其他支撑。胸椎练习只有在改善当前动作时才保留，不将开书运动视为固定解决方案。</p>
+<h5 class="lecture-h5">错误二：颈椎前引（头颈前探）</h5>
+<p class="lecture-p">错误描述：推起重量时头部明显前探或颈部姿势不适。先检查杠铃路径、负重与动作范围，再按实际需要调整，不由外观直接判断胸椎受限。</p>
+<p class="lecture-p">明显、非预期的头颈移动可能增加局部控制需求或引发不适，但不能仅由外观计算C5—C7剪切力或判定动力链断裂。</p>
+<p class="lecture-p">纠正方法：调整握距及器械路径，用小幅头部避让让杠铃通过；也可尝试哑铃。若仍不舒适，减少负荷和范围，评估是否需要进一步处理。</p>
+<h5 class="lecture-h5">错误三：肩胛骨控制不良（翼状肩胛）</h5>
+<p class="lecture-p">错误描述：肩胛内侧缘或下角出现明显翘起，尤其伴疼痛、力量下降或动作控制改变。外观不能单独识别前锯肌或下斜方肌抑制，也不等同于神经损伤诊断。</p>
+<p class="lecture-p">肩胛控制变化可能影响负荷分配，也可能是症状后的适应。出现新发、明显或持续的翼状表现时，应结合病史和神经肌肉评估分析，不能只用肌肉激活口令处理。</p>
+<p class="lecture-p">纠正方法：选择可耐受的轻负荷和支撑，观察肩胛随上臂的运动。需要时加入专项控制练习；若伴持续功能下降或明显无力、麻木，应转介。</p>
+<h5 class="lecture-h5">错误四：握持和肘部位置与负荷方向不协调</h5>
+<p class="lecture-p">错误描述：起始或推起时腕肘与器械支撑关系难以控制，或既定肘部轨迹反复偏移。肘朝前不等于肩内旋，也不等于肘部外展。</p>
+<p class="lecture-p">上臂平面、握距和前臂方向会共同影响外部力矩。不能单凭肘部朝向判断肱骨头前移或前侧结构异常应力；应结合器械路径、舒适度及负荷表现调整。</p>
+<p class="lecture-p">纠正方法：在轻负荷下寻找舒适握距和肘位，使腕肘能够控制器械。杠铃和哑铃的合适轨迹可能不同，不把前臂在所有视角完全垂直规定为唯一标准。</p>
+<h5 class="lecture-h5">错误五：严格肩推与借力推举的目标混淆</h5>
+<p class="lecture-p">严格站姿肩推主要由上肢完成推举，下肢提供稳定支撑，不要求每次屈膝蹬伸。若目标是借力推举，则需教授相应的下肢驱动和时序。</p>
+<p class="lecture-p">站姿的支撑与控制要求不同于坐姿，但没有证据证明未主动蹬伸就无法激活前锯肌或下斜方肌。应按目标评价重复标准，避免把严格肩推误判为动力链参与不足。</p>
+<p class="lecture-p">纠正方法：严格肩推保持稳定下肢支撑和可控躯干；借力推举单独练习屈膝蹬伸与上肢衔接。难以控制时降低负荷或增加支撑。</p>
+<h5 class="lecture-h5">错误六：非预期的左右偏移</h5>
+<p class="lecture-p">错误描述：杠铃或哑铃在推起过程中偏向一侧，或偏离头颈正上方，出现左右不对称的推起轨迹。</p>
+<p class="lecture-p">非预期的轨迹偏移可能来自负荷、疲劳、技术或活动范围差异。轻微不对称不自动等于损伤；突然出现、伴疼痛或力量下降时，应降低负荷并进一步评估。</p>
+<p class="lecture-p">纠正方法：① 使用哑铃肩推替代杠铃，允许双侧独立运动，减少强势侧代偿；② 从较轻负荷开始，专注双侧对称性；③ 评估是否存在已有的肩关节功能不对称，必要时进行针对性干预。</p>
+<h4 class="lecture-h4">8.5 进阶与退阶</h4>
+<p class="lecture-p">进退阶可通过负荷、活动范围、器械和支撑条件分别调节。坐姿、跪姿和站姿是不同任务选项，不是所有人必须依次通过的发育阶段。一次改变一个主要变量，更便于判断训练反应。</p>
+<h5 class="lecture-h5">支撑与范围调整选项</h5>
+<div class="lecture-table-wrap"><table class="lecture-table">
+<tr><th>调整选项</th><th>动作</th><th>支撑条件</th><th>适用方式</th></tr><tr><td>水平推过渡</td><td>仰卧哑铃地板推</td><td>背部由地面支撑</td><td>属于水平推，可练习推力与器械控制；不等同头上推，也不固定用于某一康复阶段</td></tr><tr><td>跪姿选项</td><td>高跪姿哑铃肩推</td><td>双膝支撑</td><td>改变下肢支撑方式，按膝部耐受、平衡与躯干控制选择</td></tr><tr><td>跪姿选项</td><td>半跪姿哑铃肩推</td><td>单膝支撑</td><td>不对称支撑改变平衡及躯干力矩；肌电和难度依具体负荷、侧别而变</td></tr>
+</table></div>
+<h5 class="lecture-h5">常用肩推形式</h5>
+<div class="lecture-table-wrap"><table class="lecture-table">
+<tr><th>形式</th><th>动作</th><th>支撑条件</th><th>关键特征</th></tr><tr><td>杠铃</td><td>站姿杠铃肩推</td><td>双脚支撑</td><td>双手共同控制杠铃，练习站姿负荷控制；研究不支持其对所有条件均有最大1RM</td></tr><tr><td>哑铃</td><td>站姿哑铃肩推</td><td>双脚支撑</td><td>双手独立控制；Saeterbakken研究中1RM较低而三角肌肌电较高，不能据此断定长期刺激更优。阿诺德推举含上臂旋转与抬举，不只是前臂旋前旋后</td></tr>
+</table></div>
+<h5 class="lecture-h5">特定目标的任务变化</h5>
+<div class="lecture-table-wrap"><table class="lecture-table">
+<tr><th>任务选项</th><th>动作</th><th>支撑条件</th><th>关键特征</th></tr><tr><td>摆动负荷控制</td><td>站姿不稳定负荷肩推</td><td>双脚支撑，使用可靠的专用器械与连接</td><td>可增加部分肌电和压力中心摆动；未直接证明改善本体感觉或临床稳定性</td></tr><tr><td>单腿控制</td><td>单腿站姿哑铃肩推</td><td>单脚支撑</td><td>降低可用负荷并改变平衡要求；仅在目标需要且能够控制时采用，不默认比双脚更有效</td></tr><tr><td>下肢驱动</td><td>借力推举</td><td>双脚支撑并主动屈膝蹬伸</td><td>利用下肢动量辅助推举，属于不同技术任务；按目标教授时序和负荷，不与严格肩推次数混计</td></tr>
+</table></div>
+<p class="lecture-p">当疼痛明显增加、出现突然无力或不稳、动作在降负后仍失控，或次日反应持续恶化时，应回退负荷与范围，并按情况接受评估。选择本人能完成的支撑形式即可，不必统一回到死虫或从低位重新学习全部动作。</p>
+<p class="lecture-p">本章参考文献汇总</p>
+<li>1. Saeterbakken AH, Fimland MS. Effects of body position and loading modality on muscle activity and strength in shoulder presses. J Strength Cond Res. 2013;27(7):1824-1831. doi:<a href="https://doi.org/10.1519/JSC.0b013e318276b873." target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1519/JSC.0b013e318276b873.</a></li>
+<li>2. Richardson E, Lewis JS, Gibson J, et al. Role of the kinetic chain in shoulder rehabilitation: does incorporating the trunk and lower limb into shoulder exercise regimes influence shoulder muscle recruitment patterns? Systematic review of electromyography studies. BMJ Open Sport Exerc Med. 2020;6:e000683. doi:<a href="https://doi.org/10.1136/bmjsem-2019-000683." target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1136/bmjsem-2019-000683.</a></li>
+<li>3. Ichihashi N, et al. Kinematic characteristics of the scapula and clavicle during military press exercise and shoulder flexion. J Shoulder Elbow Surg. 2014;23(5):649-657. doi:<a href="https://doi.org/10.1016/j.jse.2013.11.014" target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1016/j.jse.2013.11.014</a> <a href="https://doi.org/10.1016/j.jse.2013.11.014" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1016/j.jse.2013.11.014</a></li>
+<li>4. Barrett E, O&#x27;Keeffe M, O&#x27;Sullivan K, Lewis J, McCreesh K. Is thoracic spine posture associated with shoulder pain, range of motion and function? A systematic review. Man Ther. 2016;26:38-46. doi:<a href="https://doi.org/10.1016/j.math.2016.07.008." target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1016/j.math.2016.07.008.</a></li>
+<li>5. Kebaetse M, et al. Thoracic position effect on shoulder range of motion, strength, and three-dimensional scapular kinematics. Arch Phys Med Rehabil. 1999. https://pubmed.ncbi.nlm.nih.gov/10453773/</li>
+<li>6. Malmström EM, et al. A slouched body posture decreases arm mobility and changes muscle recruitment in the neck and shoulder region. Eur J Appl Physiol. 2015. <a href="https://doi.org/10.1007/s00421-015-3257-y" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1007/s00421-015-3257-y</a></li>
+<li>7. Williams MR, et al. Activity of shoulder stabilizers and prime movers during an unstable overhead press. J Strength Cond Res. 2020;34(1):73-78. doi:<a href="https://doi.org/10.1519/JSC.0000000000002660" target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1519/JSC.0000000000002660</a> <a href="https://doi.org/10.1519/jsc.0000000000002660" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1519/jsc.0000000000002660</a></li>
+<p class="lecture-p">8a. Bagchi A, Raizada S. Electromyographical investigation of anterior deltoid and trapezius muscles during three different variations of front raise. International Journal of Physical Education, Sports and Health. 2016;3(6):56-59.
+8b. Raizada S, Bagchi A. Electromyographical investigation of anterior deltoid and middle deltoid during Arnold dumbbell press and overhead dumbbell press. Indian J Public Health Res Dev. 2017;8(4):653-656. doi:<a href="https://doi.org/10.5958/0976-5506.2017.00411.9." target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.5958/0976-5506.2017.00411.9.</a></p>
+<li>9. Satpute KH, Bhaskar AR, Hall T, et al. Efficacy of Hand Behind Back Mobilization With Movement for Acute Shoulder Pain. J Manipulative Physiol Ther. 2015. https://pubmed.ncbi.nlm.nih.gov/26099206/</li>
+<li>10. Sgroi M, et al. Diagnostic Value of Clinical Tests for Supraspinatus Tendon Tears. Arthroscopy. 2018. PMID:29802066.</li>
+<li>11. Sgroi M, et al. Diagnostic Value of Clinical Tests for Infraspinatus Tendon Tears. Arthroscopy. 2019. PMID:30770251.</li>
+<li>12. Kelly BT, et al. The Manual Muscle Examination for Rotator Cuff Strength. Am J Sports Med. 1996. doi:<a href="https://doi.org/10.1177/036354659602400504" target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1177/036354659602400504</a> <a href="https://doi.org/10.1177/036354659602400504" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1177/036354659602400504</a></li>
+<li>13. Collin P, et al. What is the Best Clinical Test for Assessment of the Teres Minor in Massive Rotator Cuff Tears? Clin Orthop Relat Res. 2015;473. https://pmc.ncbi.nlm.nih.gov/articles/PMC4523548/</li>
+<li>14. Bartsch M, Greiner S, Haas NP, Scheibel M. Diagnostic values of clinical tests for subscapularis lesions. Knee Surg Sports Traumatol Arthrosc. 2010;18(12):1712-1717. doi:<a href="https://doi.org/10.1007/s00167-010-1109-1." target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1007/s00167-010-1109-1.</a></li>
+<li>15. Narasimhan R, Shamse K, Nash C, Dhingra D, Kennedy S. Prevalence of subscapularis tears and accuracy of shoulder ultrasound in pre-operative diagnosis. Int Orthop. 2016;40(5):975-979. doi:<a href="https://doi.org/10.1007/s00264-015-3043-9." target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1007/s00264-015-3043-9.</a> PMID:26585865.</li>
   </div>
 </div>
 
 <!-- TAB: FLASHCARDS -->
 <div class="tab-content" id="tab-flashcards">
   <div class="container">
-    <div class="placeholder" style="margin-bottom: 24px;">
-      <div class="placeholder-icon">
-        <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
-      </div>
-      <h3>知识翻卡</h3>
-      <p>课件上传后将自动生成翻卡。<br>Flashcards will be auto-generated upon upload.</p>
-    </div>
     <div class="flashcard-grid">
-      <div class="flashcard" onclick="this.classList.toggle('flipped')">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">
-            <div class="flashcard-label">Sample Card</div>
-            <div class="flashcard-text">翻卡示例 — 点击翻转</div>
-          </div>
-          <div class="flashcard-back">
-            <div class="flashcard-label">Answer</div>
-            <div class="flashcard-text">此处为答案内容</div>
-          </div>
-        </div>
-      </div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 1</div>
+      <div class="flashcard-text">肩推的动力链整合指的是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">从足底→核心→肩带→手臂的力传递链，不是孤立肩部发力</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 2</div>
+      <div class="flashcard-text">肩推前评估肩屈活动度的标准是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">≥170°方可进行完整过头推举；不足者先改善活动度或改为Landmine推举</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 3</div>
+      <div class="flashcard-text">站姿与坐姿肩推的主要区别是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">站姿需要更多核心稳定和下肢力量传递；坐姿减少下肢代偿，更适合孤立肩部训练</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 4</div>
+      <div class="flashcard-text">肩推中腰椎过度前凸代偿的原因是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">肩屈活动度不足或核心刚性不足，导致腰椎超伸补偿</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 5</div>
+      <div class="flashcard-text">肩推的杠铃轨迹应该是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">略呈弧线，从锁骨/前肩位向头顶上方略偏后方推送</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 6</div>
+      <div class="flashcard-text">半跪姿肩推的训练价值是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">减少下肢稳定需求，聚焦肩带控制与核心抗伸展能力</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 7</div>
+      <div class="flashcard-text">肩推中&quot;肋骨下沉&quot;口令的目的？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">防止腰椎过度伸展代偿，维持核心刚性</div>
+    </div>
+  </div>
+</div>
     </div>
   </div>
 </div>
@@ -487,17 +810,15 @@ body::before {
 <!-- TAB: SOP -->
 <div class="tab-content" id="tab-sop">
   <div class="container">
-    <div class="placeholder" style="margin-bottom: 24px;">
-      <div class="placeholder-icon">
-        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7v-7zm4-3h2v10h-2V7zm4 6h2v4h-2v-4z"/></svg>
-      </div>
-      <h3>SOP 工作单</h3>
-      <p>课件上传后将自动填充。<br>SOP worksheets will be automatically populated upon upload.</p>
-    </div>
     <div class="sop-placeholder">
-      <div class="sop-row"><span class="sop-num">01</span><span class="sop-label">SOP 步骤占位 — Step placeholder</span></div>
-      <div class="sop-row"><span class="sop-num">02</span><span class="sop-label">SOP 步骤占位 — Step placeholder</span></div>
-      <div class="sop-row"><span class="sop-num">03</span><span class="sop-label">SOP 步骤占位 — Step placeholder</span></div>
+<div class="sop-row"><span class="sop-num">✅</span><span class="sop-label">评估肩屈活动度≥170°方可进行完整过头推举</span></div>
+<div class="sop-row"><span class="sop-num">✅</span><span class="sop-label">起始位杠铃/哑铃位于前 rack 位或肩侧</span></div>
+<div class="sop-row"><span class="sop-num">✅</span><span class="sop-label">发力时关注&quot;头顶上方汇合&quot;而非&quot;向前推&quot;</span></div>
+<div class="sop-row"><span class="sop-num">✅</span><span class="sop-label">站姿肩推需关注核心刚性与骨盆位置</span></div>
+<div class="sop-row"><span class="sop-num">✅</span><span class="sop-label">坐姿肩推减少下肢代偿，适合初学者</span></div>
+<div class="sop-row"><span class="sop-num">❌</span><span class="sop-label">避免腰椎过度前凸代偿——提示&quot;肋骨下沉&quot;</span></div>
+<div class="sop-row"><span class="sop-num">❌</span><span class="sop-label">避免头部过度前探让过杠铃</span></div>
+<div class="sop-row"><span class="sop-num">⚠️</span><span class="sop-label">肩峰下撞击症状者评估肩胛运动学后再决定动作选择</span></div>
     </div>
   </div>
 </div>
@@ -505,22 +826,61 @@ body::before {
 <!-- TAB: QUIZ -->
 <div class="tab-content" id="tab-quiz">
   <div class="container">
-    <div class="placeholder" style="margin-bottom: 24px;">
-      <div class="placeholder-icon">
-        <svg viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg>
-      </div>
-      <h3>自测练习</h3>
-      <p>课件上传后将自动生成测试题。<br>Quiz questions will be auto-generated upon upload.</p>
-    </div>
-    <div class="quiz-item">
-      <div class="quiz-q">占位题目 — Placeholder question will appear here.</div>
-      <div class="quiz-options">
-        <div class="quiz-opt" onclick="selectOpt(this)">Option A</div>
-        <div class="quiz-opt" onclick="selectOpt(this)">Option B</div>
-        <div class="quiz-opt" onclick="selectOpt(this)">Option C</div>
-        <div class="quiz-opt" onclick="selectOpt(this)">Option D</div>
-      </div>
-    </div>
+<div class="quiz-item" data-explanation="肩屈活动度≥170°方可进行完整过头推举。">
+  <div class="quiz-q">1. 肩推前评估肩屈活动度的标准是什么？</div>
+  <div class="quiz-options">
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">≥150°</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">≥160°</div>
+<div class="quiz-opt" data-correct="true" onclick="selectOpt(this)">≥170°</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">≥180°</div>
+  </div>
+  <div class="quiz-feedback" style="display:none;margin-top:12px;padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);"></div>
+  <button class="quiz-check" onclick="checkQuiz(this)" style="margin-top:12px;padding:8px 20px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-hover);border-radius:var(--radius-sm);cursor:pointer;">检查答案</button>
+</div>
+<div class="quiz-item" data-explanation="站姿需要更多核心稳定和下肢力量传递；坐姿减少下肢代偿，更适合初学者。">
+  <div class="quiz-q">2. 站姿与坐姿肩推的主要区别是什么？</div>
+  <div class="quiz-options">
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">站推更多肩部肌肉激活</div>
+<div class="quiz-opt" data-correct="true" onclick="selectOpt(this)">坐姿减少下肢代偿适合初学者</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">站推对肩关节更安全</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">两者没有实质区别</div>
+  </div>
+  <div class="quiz-feedback" style="display:none;margin-top:12px;padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);"></div>
+  <button class="quiz-check" onclick="checkQuiz(this)" style="margin-top:12px;padding:8px 20px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-hover);border-radius:var(--radius-sm);cursor:pointer;">检查答案</button>
+</div>
+<div class="quiz-item" data-explanation="防止腰椎过度伸展代偿，维持核心刚性。">
+  <div class="quiz-q">3. 肩推中&quot;肋骨下沉&quot;口令的目的是什么？</div>
+  <div class="quiz-options">
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">增加胸椎灵活性</div>
+<div class="quiz-opt" data-correct="true" onclick="selectOpt(this)">防止腰椎过度伸展代偿，维持核心刚性</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">增加腹直肌训练效果</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">改善呼吸模式</div>
+  </div>
+  <div class="quiz-feedback" style="display:none;margin-top:12px;padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);"></div>
+  <button class="quiz-check" onclick="checkQuiz(this)" style="margin-top:12px;padding:8px 20px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-hover);border-radius:var(--radius-sm);cursor:pointer;">检查答案</button>
+</div>
+<div class="quiz-item" data-explanation="肩屈活动度不足或核心刚性不足，导致腰椎超伸补偿。">
+  <div class="quiz-q">4. 肩推中腰椎过度前凸代偿的常见原因是什么？</div>
+  <div class="quiz-options">
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">负荷过轻</div>
+<div class="quiz-opt" data-correct="true" onclick="selectOpt(this)">肩屈活动度不足或核心刚性不足</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">站距过宽</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">握距过窄</div>
+  </div>
+  <div class="quiz-feedback" style="display:none;margin-top:12px;padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);"></div>
+  <button class="quiz-check" onclick="checkQuiz(this)" style="margin-top:12px;padding:8px 20px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-hover);border-radius:var(--radius-sm);cursor:pointer;">检查答案</button>
+</div>
+<div class="quiz-item" data-explanation="半跪姿减少下肢稳定需求，聚焦肩带控制与核心抗伸展能力。">
+  <div class="quiz-q">5. 半跪姿肩推的训练价值是什么？</div>
+  <div class="quiz-options">
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">最大化肩部力量</div>
+<div class="quiz-opt" data-correct="true" onclick="selectOpt(this)">减少下肢稳定需求，聚焦肩带控制与核心抗伸展</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">增加腰椎负荷</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">减少肩关节活动范围</div>
+  </div>
+  <div class="quiz-feedback" style="display:none;margin-top:12px;padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);"></div>
+  <button class="quiz-check" onclick="checkQuiz(this)" style="margin-top:12px;padding:8px 20px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-hover);border-radius:var(--radius-sm);cursor:pointer;">检查答案</button>
+</div>
   </div>
 </div>
 
@@ -562,14 +922,36 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   });
 });
 
-/* ========== FLASHCARD ========== */
-/* Click handled inline via onclick */
-
-/* ========== QUIZ SELECT ========== */
+/* ========== QUIZ ========== */
 function selectOpt(el) {
   const siblings = el.parentElement.querySelectorAll('.quiz-opt');
-  siblings.forEach(s => s.classList.remove('selected'));
+  siblings.forEach(s => s.classList.remove('selected', 'correct', 'incorrect'));
   el.classList.add('selected');
+}
+
+function checkQuiz(btn) {
+  const item = btn.closest('.quiz-item');
+  const selected = item.querySelector('.quiz-opt.selected');
+  if (!selected) return;
+  
+  const opts = item.querySelectorAll('.quiz-opt');
+  const explanation = item.dataset.explanation;
+  const feedback = item.querySelector('.quiz-feedback');
+  
+  opts.forEach(o => {
+    o.classList.remove('selected');
+    if (o.dataset.correct === 'true') o.classList.add('correct');
+    else if (o === selected) o.classList.add('incorrect');
+  });
+  
+  feedback.style.display = 'block';
+  if (selected.dataset.correct === 'true') {
+    feedback.innerHTML = '✅ Correct! ' + explanation;
+  } else {
+    feedback.innerHTML = '❌ Incorrect. ' + explanation;
+  }
+  
+  btn.style.display = 'none';
   trackProgress('05', 'quiz');
 }
 

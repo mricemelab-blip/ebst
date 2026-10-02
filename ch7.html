@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ch07 · Muscular Adaptation & Hypertrophy · SBST</title>
+<title>Ch07 · Split Squat · SBST</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -73,11 +73,7 @@ body::before {
   transition: color var(--transition);
 }
 .nav-back:hover { color: var(--accent); }
-.nav-divider {
-  width: 1px;
-  height: 16px;
-  background: var(--border);
-}
+.nav-divider { width: 1px; height: 16px; background: var(--border); }
 .nav-chapter-title {
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -169,36 +165,124 @@ body::before {
 .tab-content { display: none; padding: 40px 0 80px; }
 .tab-content.active { display: block; }
 
-.placeholder {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 60px 40px;
-  text-align: center;
-}
-.placeholder-icon {
-  width: 48px;
-  height: 48px;
-  margin: 0 auto 20px;
-  border-radius: 50%;
-  background: var(--accent-dim);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.placeholder-icon svg { width: 22px; height: 22px; fill: var(--accent); }
-.placeholder h3 {
+/* ========== LECTURE STYLES ========== */
+.lecture-h3 {
   font-family: var(--font-mono);
-  font-size: 0.9rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 36px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-hover);
+}
+.lecture-h4 {
+  font-family: var(--font-mono);
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 8px;
+  margin: 28px 0 12px;
 }
-.placeholder p {
-  font-size: 0.82rem;
+.lecture-h5 {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 22px 0 10px;
+}
+.lecture-p {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  line-height: 1.75;
+  margin-bottom: 14px;
+}
+.lecture-list {
+  margin: 12px 0 16px 0;
+  padding: 0;
+  list-style: none;
+}
+.lecture-list li {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  line-height: 1.65;
+  padding: 4px 0 4px 20px;
+  position: relative;
+}
+.lecture-list li::before {
+  content: '›';
+  position: absolute;
+  left: 4px;
+  color: var(--accent);
+  font-weight: 700;
+}
+.lecture-olist {
+  margin: 12px 0 16px 0;
+  padding: 0 0 0 20px;
+  list-style: none;
+  counter-reset: lecture-counter;
+}
+.lecture-olist li {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  line-height: 1.65;
+  padding: 4px 0 4px 28px;
+  position: relative;
+  counter-increment: lecture-counter;
+}
+.lecture-olist li::before {
+  content: counter(lecture-counter) '.';
+  position: absolute;
+  left: 4px;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.lecture-blockquote {
+  margin: 16px 0;
+  padding: 14px 20px;
+  background: var(--bg-secondary);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-style: italic;
+  font-size: 0.85rem;
   color: var(--text-secondary);
   line-height: 1.6;
 }
+.lecture-blockquote a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.lecture-table-wrap {
+  margin: 20px 0;
+  overflow-x: auto;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+.lecture-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+.lecture-table th {
+  background: var(--bg-tertiary);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-hover);
+}
+.lecture-table td {
+  padding: 10px 14px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.lecture-table tr:last-child td { border-bottom: none; }
+.lecture-table tr:hover td { background: rgba(0, 212, 255, 0.02); }
 
 /* ========== FLASHCARDS ========== */
 .flashcard-grid {
@@ -275,10 +359,10 @@ body::before {
 .sop-row:hover { background: rgba(0, 212, 255, 0.02); }
 .sop-num {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--accent);
+  font-size: 0.85rem;
   width: 40px;
   flex-shrink: 0;
+  text-align: center;
 }
 .sop-label {
   font-size: 0.85rem;
@@ -315,6 +399,8 @@ body::before {
 }
 .quiz-opt:hover { border-color: var(--border-hover); color: var(--text-primary); }
 .quiz-opt.selected { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+.quiz-opt.correct { border-color: #4ade80; color: #4ade80; background: rgba(74, 222, 128, 0.1); }
+.quiz-opt.incorrect { border-color: #f87171; color: #f87171; background: rgba(248, 113, 113, 0.1); }
 
 /* ========== AI CHAT ========== */
 .chat-fab {
@@ -419,7 +505,7 @@ body::before {
     <div class="nav-left">
       <a href="dashboard.html" class="nav-back">← Dashboard</a>
       <div class="nav-divider"></div>
-      <span class="nav-chapter-title">CH 07 · Muscular Adaptation & Hypertrophy</span>
+      <span class="nav-chapter-title">CH 07 · Split Squat</span>
     </div>
     <div class="nav-right">
       <span class="nav-user" id="navUser"></span>
@@ -431,8 +517,8 @@ body::before {
 <section class="chapter-header">
   <div class="container">
     <div class="ch-number">Chapter 07</div>
-    <h1 class="ch-title">Muscular Adaptation & Hypertrophy</h1>
-    <p class="ch-subtitle">肌肉适应与肥大机制</p>
+    <h1 class="ch-title">Split Squat</h1>
+    <p class="ch-subtitle">分腿蹲</p>
   </div>
 </section>
 
@@ -447,39 +533,230 @@ body::before {
 <!-- TAB: LECTURE -->
 <div class="tab-content active" id="tab-lecture">
   <div class="container">
-    <div class="placeholder">
-      <div class="placeholder-icon">
-        <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 15h8v2H8v-2zm0-3h8v2H8v-2z"/></svg>
-      </div>
-      <h3>讲义正文</h3>
-      <p>课件上传后将自动填充。<br>Course materials will be automatically populated upon upload.</p>
-    </div>
+<p class="lecture-p">分腿蹲是训练单侧下肢力量、平衡与负荷控制的常用动作。原地分腿蹲（split squat）保持双脚位置相对固定；弓箭步（lunge）包含跨步及回收，两者的平衡与制动要求不同。本章以原地分腿蹲为教学基础，并讨论相关变式。教练可观察足、膝、髋与骨盆在任务中的协调表现，再调整支撑、步距、幅度和负重。该动作可用于一般体能及部分康复训练，具体用途须结合训练目标、症状、恢复阶段和专业评估。</p>
+<h4 class="lecture-h4">10.1 解剖与功能</h4>
+<h5 class="lecture-h5">10.1.1 臀中肌</h5>
+<p class="lecture-p">臀中肌（Gluteus Medius）位于臀部外上方，起自髂骨外面，止于股骨大转子，主要参与髋外展和单腿支撑时的骨盆控制。不同纤维束的作用及力臂随髋关节位置改变：前部纤维可参与内旋，后部纤维可参与外旋，因此不宜把整块臀中肌的功能概括为外展与外旋。</p>
+<p class="lecture-p">在分腿蹲中，臀中肌通过以下两个机制发挥作用：</p>
+<p class="lecture-p">其一，臀中肌参与支撑侧髋部的额状面控制，并与其他髋部肌群、膝部肌群和足踝肌群共同完成任务。缩足运动主要训练足部内在肌与足弓控制，可作为辅助练习。教练可同时观察足底接触、膝的运动方向及髋部控制，但任何一项外观偏移都不能单独证明臀中肌无力或未充分激活。</p>
+<p class="lecture-p">其二，臀中肌与躯干、骨盆周围肌群共同限制单腿支撑时过大的骨盆侧倾。分腿蹲中若出现难以控制的侧倾，可先降低负重或深度、增加手部支撑，并练习缓慢的骨盆控制。骨盆下沉与回正可作为独立练习，不要求在每次分腿蹲中主动向对侧下沉。</p>
+<p class="lecture-p">Presswood 等人（2008）的应用性综述介绍了臀中肌解剖、评估和渐进训练。侧卧力量检查及以下功能任务可提供观察线索；它们涉及多个关节和肌群，不能视为经该文验证、能够独立诊断臀中肌功能障碍的测试：</p>
+<li>1. 从静态双脚站立进入单脚站立，观察骨盆是否出现下沉；</li>
+<li>2. 单脚站立姿势下同时举起站立脚同侧手臂，观察骨盆能否维持稳定；</li>
+<li>3. 行走过程中观察是否出现骨盆下沉。</li>
+<blockquote class="lecture-blockquote">&quot;Gluteus Medius: Applied Anatomy, Dysfunction, Assessment, and Progressive Strengthening.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「臀中肌：应用解剖、功能障碍、评估与渐进性强化。」</blockquote>
+<blockquote class="lecture-blockquote">Laura Presswood et al., 2008, Strength &amp; Conditioning Journal</blockquote>
+<blockquote class="lecture-blockquote">参考来源：<a href="https://doi.org/10.1519/SSC.0b013e318187f19a" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1519/SSC.0b013e318187f19a</a></blockquote>
+<blockquote class="lecture-blockquote"><a href="https://doi.org/10.1519/ssc.0b013e318187f19a" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1519/ssc.0b013e318187f19a</a></blockquote>
+<p class="lecture-p">若上述任务中骨盆控制困难，应结合疼痛、平衡、躯干策略、活动度和力量评估，选择相应练习。臀中肌与阔筋膜张肌可共同参与髋部控制，单一任务表现不能证明阔筋膜张肌代偿性过度活跃，也不能据此预测髂胫束综合征。</p>
+<h5 class="lecture-h5">10.1.2 阔筋膜张肌与髂胫束</h5>
+<p class="lecture-p">阔筋膜张肌（Tensor Fasciae Latae, TFL）参与髋屈曲、外展和内旋，并经髂胫束参与下肢力的传递。Evan Osar 在《Corrective Exercise Solutions to Common Hip and Shoulder Dysfunction》（2012，第102—103页）提出了其代偿臀中肌额状面控制的临床解释。这属于专业著作中的解释框架，可用于提出评估假设，不能单独确立个体的疼痛原因或肌肉代偿诊断。</p>
+<p class="lecture-p">靠近骨盆一端，肌纤维含量较高的阔筋膜张肌与远端筋膜含量较高的髂胫束（Iliotibial Band, ITB）功能不同。近端肌肉主要参与髋关节运动与骨盆稳定； 根据 Godin 等人（2017）的研究，远端髂胫束在膝关节区域参与构成前外侧复合体，分为三层结构：浅层 ITB 广泛止于胫骨 Gerdy 结节；深层 Kaplan 纤维分为两束，均止于股骨远端外侧；被囊骨性层（capsulo-osseous layer）与关节囊融合，止于胫骨外侧结节。</p>
+<blockquote class="lecture-blockquote">&quot;A Comprehensive Reanalysis of the Distal Iliotibial Band: Quantitative Anatomy, Radiographic Markers, and Biomechanical Properties.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「远端髂胫束的综合再分析：定量解剖、影像学标志与生物力学特性。」</blockquote>
+<blockquote class="lecture-blockquote">Jonathan A. Godin et al., 2017, American Journal of Sports Medicine</blockquote>
+<blockquote class="lecture-blockquote"><a href="https://doi.org/10.1177/0363546517707961" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1177/0363546517707961</a></blockquote>
+<p class="lecture-p">Godin 等人的研究说明了远端髂胫束的附着与力学结构；解剖附着本身不能证明外侧紧绷的原因。大腿外侧不适可能涉及负荷变化、局部组织敏感性和多种运动策略。出现持续疼痛或功能受限时，应由相应专业人员评估；无痛训练者可按实际力量和平衡需求安排髋部训练，无须一律通过加强臀中肌来抑制阔筋膜张肌。</p>
+<h5 class="lecture-h5">10.1.3 股四头肌与肌腱系统</h5>
+<p class="lecture-p">股四头肌通常包括股直肌、股外侧肌、股内侧肌和股中间肌四个部分，是膝伸展的主要肌群。解剖研究还描述了股中间肌张肌等可变结构，不能据此将所有人的股四头肌固定定义为“至少五个头”。分腿蹲下降时，股四头肌通常以离心方式控制膝屈曲；上升时通过膝伸展产生动力。</p>
+<p class="lecture-p">肌腱连接肌肉与骨骼，在受拉时可发生形变，并在适当条件下储存和回馈弹性能量。其作用取决于肌肉力量、肌腱形变和动作时序。反向跳等动作可利用伸长—缩短过程，但跳跃高度还受力量、速度、协调及下蹲幅度影响，并非下蹲越深就一定跳得越高。分腿蹲中的肌腱负荷与跳跃中的快速储能、释能需求也不相同。</p>
+<blockquote class="lecture-blockquote">&quot;Function and biomechanics of tendons.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「肌腱的功能与生物力学。」</blockquote>
+<blockquote class="lecture-blockquote">D. T. Kirkendall, 1997, Scandinavian Journal of Medicine &amp; Science in Sports</blockquote>
+<blockquote class="lecture-blockquote">https://pubmed.ncbi.nlm.nih.gov/9211605/</blockquote>
+<p class="lecture-p">肌腱储能取决于所承受的力、伸长量以及几何和材料特性。在线性近似下，储能约为力与伸长量乘积的一半：同样外力下，刚度较大的肌腱伸长较少，储能并不必然更多；同样伸长量下则需更大的力。肌腱的刚度和形态可随长期负荷发生适应。训练应提供渐进且可恢复的机械负荷，不能将匀速或固定节律认定为提高刚度的唯一最佳方式。</p>
+<h4 class="lecture-h4">10.2 循证依据</h4>
+<h5 class="lecture-h5">10.2.1 分腿蹲在肌腱负荷渐进方案中的定位</h5>
+<p class="lecture-p">分腿蹲作为不对称踏步动作，可为单侧肌腱负荷的渐进式设计提供灵活性。</p>
+<p class="lecture-p">Baxter 等人（2021）在8名健康成人中，估算并比较了多种康复练习的跟腱负荷。所测动作的峰值负荷约从坐姿提踵的0.5倍体重至单腿向前跳的7.3倍体重不等，提示动作选择可用于安排不同等级的负荷。弓箭步是其中的一种选择；研究没有测定“能量传递效率排名”，也没有证明分腿蹲的效率最高。估算结果来自特定技术和健康样本，实际处方还需考虑负重、速度、幅度与症状。</p>
+<blockquote class="lecture-blockquote">负荷估算的边界：Wang等（2023）综述69项髌股关节非侵入评估研究，显示应力估算依赖模型、个体几何、肌力与运动输入。它有助于理解分腿蹲和深蹲的负荷变化，但不能验证Renne或Clarke试验，也不能确定所有人的安全屈膝角度。实践中应把负荷估算与症状、训练后反应及渐进适应结合使用（DOI: <a href="https://doi.org/10.3389/fbioe.2023.1197014）。" target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.3389/fbioe.2023.1197014）。</a></blockquote>
+<blockquote class="lecture-blockquote">&quot;Exercise Progression to Incrementally Load the Achilles Tendon.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「递增负荷跟腱的运动进阶方案。」</blockquote>
+<blockquote class="lecture-blockquote">Josh R. Baxter et al., 2021, Medicine &amp; Science in Sports &amp; Exercise</blockquote>
+<blockquote class="lecture-blockquote">https://pubmed.ncbi.nlm.nih.gov/32658037/</blockquote>
+<h5 class="lecture-h5">10.2.2 肌腱刚性可通过运动训练获得适应性改变</h5>
+<p class="lecture-p">肌腱会对训练负荷产生适应，但变化方向及临床意义取决于健康状态、训练剂量和测量方法。肌腱刚度、疼痛与功能应分别评价，不能把刚度增加直接等同于康复成功。</p>
+<p class="lecture-p">Andarawis-Puri 等人（2018）的机制综述讨论了肌腱损伤后的愈合与重塑，包括动物模型中不同加载时机和剂量的作用。部分早期加载可能加重疲劳损伤，而合适时机的加载可能促进重塑。因此，动物跑台实验不能直接换算为伤后人群每日跑步30—60分钟的处方。</p>
+<blockquote class="lecture-blockquote">&quot;Promoting effective tendon healing and remodeling.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「促进肌腱的有效愈合与重塑。」</blockquote>
+<blockquote class="lecture-blockquote">Nelly Andarawis-Puri et al., 2018, Journal of Orthopaedic Research</blockquote>
+<blockquote class="lecture-blockquote">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6608714/</blockquote>
+<blockquote class="lecture-blockquote">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6608714/pdf/nihms-1033443.pdf</blockquote>
+<blockquote class="lecture-blockquote">&quot;Tendon basic science: Development, repair, regeneration, and healing.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「肌腱基础科学：发育、修复、再生与愈合。」</blockquote>
+<blockquote class="lecture-blockquote">Nelly Andarawis-Puri et al., 2015, Journal of Orthopaedic Research</blockquote>
+<blockquote class="lecture-blockquote">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4427041/</blockquote>
+<blockquote class="lecture-blockquote">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4427041/pdf/nihms686585.pdf</blockquote>
+<p class="lecture-p">Visnes 等人（2007）回顾了7项研究、合计162名受试者，认为离心训练可能有助于髌腱病的治疗，但研究方案差异较大，最佳剂量及实施方式尚不确定。该结论针对临床症状与功能，不能笼统理解为所有肌腱机械能力均显著改善。</p>
+<blockquote class="lecture-blockquote">&quot;The evolution of eccentric training as treatment for patellar tendinopathy (jumper&#x27;s knee): a critical review of exercise programmes.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「离心训练作为髌骨肌腱病变（跳跃膝）治疗的演变：运动方案的批判性综述。」</blockquote>
+<blockquote class="lecture-blockquote">Håvard Visnes et al., 2007, British Journal of Sports Medicine</blockquote>
+<blockquote class="lecture-blockquote">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2658948/</blockquote>
+<blockquote class="lecture-blockquote">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2658948/pdf/217.pdf</blockquote>
+<p class="lecture-p">Lee 等人（2020）研究了34名男性运动员接受12周离心训练后的变化，发现髌腱刚度降低、应变增加与部分临床结局改善存在关联。这是特定髌腱病样本中的关系，并不证明降低刚度是所有肌腱康复的目标，也不确立刚度变化导致症状改善。</p>
+<blockquote class="lecture-blockquote">&quot;Changes on Tendon Stiffness and Clinical Outcomes in Athletes Are Associated With Patellar Tendinopathy After Eccentric Exercise.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「运动员离心训练后髌腱刚度变化与临床结局的关联。」</blockquote>
+<blockquote class="lecture-blockquote">Wai-Chun Lee et al., 2020, Clinical Journal of Sport Medicine</blockquote>
+<blockquote class="lecture-blockquote">https://pubmed.ncbi.nlm.nih.gov/31855909/</blockquote>
+<p class="lecture-p">上述研究提示肌腱具有负荷适应能力，但健康训练和肌腱病康复的目标不同。健康训练者可渐进提高负荷耐受与力量；有肌腱病者应按症状、功能、训练后反应及恢复阶段安排负荷。判断效果时，应同时记录疼痛、功能和训练耐受，避免仅用某一刚度指标评价进展。</p>
+<h5 class="lecture-h5">10.2.3 分腿蹲变式与足踝肌群活动</h5>
+<p class="lecture-p">保加利亚分腿蹲将后脚抬高，改变双腿的负荷分配与平衡要求。前腿实际承担的负荷还受步距、重心、支撑方式和外加负重影响。</p>
+<p class="lecture-p">Kim 等人（2017）对30名健康受试者的短时肌电比较发现，保加利亚分腿蹲中胫骨前肌与腓骨长肌活动高于普通弓箭步蹲，胫骨后肌未见显著差异。上述三块肌肉属于足的外在肌；腓骨长肌主要参与外翻和跖屈，不能归为内翻肌。该研究没有测量长期足形变化，不能据此宣称能够矫正扁平足或拇外翻。</p>
+<blockquote class="lecture-blockquote">&quot;Comparison of Activities of Tibialis Anterior, Peroneus Longus, and Tibialis Posterior Muscles according to Lunge Squats and Bulgarian Split Squats in a Healthy Population.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「健康人群中弓箭步蹲与保加利亚分腿蹲对胫骨前肌、腓骨长肌及胫骨后肌活动的比较。」</blockquote>
+<blockquote class="lecture-blockquote">Yong-wook Kim et al., 2017, Journal of KEMA</blockquote>
+<blockquote class="lecture-blockquote">https://www.jkema.org/archive/view_article?pid=jkema-1-1-26</blockquote>
+<p class="lecture-p">Aguilera-Castells 等人（2019）让20名活跃男性在不同条件下完成保加利亚分腿蹲，每个条件测试5次重复，比较了后脚悬吊、前脚不稳定支撑及附加振动的影响。后脚悬吊虽然改变了前脚负重，并未一致提高所测前腿肌肉活动；部分BOSU或振动条件提高了特定肌肉的短时活动。结果不等同于长期力量、增肌或康复效果更好。</p>
+<blockquote class="lecture-blockquote">&quot;Muscle activity of Bulgarian squat. Effects of additional vibration, suspension and unstable surface.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「保加利亚蹲的肌肉活动：附加振动、悬吊与不稳定支撑面的影响。」</blockquote>
+<blockquote class="lecture-blockquote">Joan Aguilera-Castells et al., 2019, PLOS ONE</blockquote>
+<blockquote class="lecture-blockquote">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6709890/pdf/pone.0221710.pdf</blockquote>
+<h4 class="lecture-h4">10.3 教学要点</h4>
+<h5 class="lecture-h5">10.3.1 足底支撑与下肢协调</h5>
+<p class="lecture-p">先建立舒适、可重复的足底接触，使脚跟与前足保持可控支撑。缩足练习可用于感知足弓变化，但不要求所有训练者持续把足弓收紧或完全限制足部旋转。可用膝盖大致顺着脚趾方向移动作为初步口令，再根据个体结构、步距与目标调整。</p>
+<p class="lecture-p">观察前脚足弓、脚跟、膝和髋的协同变化，并结合平衡与症状判断是否需要调整。正常承重包含一定足弓形变和关节运动；出现明显失控、疼痛或无法重复的动作时，可降低负荷、缩小幅度或增加支撑，不凭外观直接判定某块肌肉未激活。</p>
+<h5 class="lecture-h5">10.3.2 骨盆额状面的稳定控制</h5>
+<p class="lecture-p">选择能够控制的骨盆姿势，避免在疲劳中突然侧倾或扭转。轻度可控的骨盆运动未必是错误。若控制困难，可用手扶支撑、减小幅度或单独练习骨盆下沉与回正，再逐步整合进分腿蹲。</p>
+<p class="lecture-p">髋部肌肉活动受姿势与任务影响。Lee 等人（2014）在臀中肌无力者的侧卧等长外展中观察到，特定内旋条件可提高臀中肌与阔筋膜张肌的肌电比值；Sidorkewicz 等人（2014）也研究了非负重练习中的髋部方向。两者均不能直接推导负重分腿蹲的固定内旋或外旋口令。蚌壳式、侧卧外展和骨盆控制可按需求选用，短时肌电比值不证明其能预防髂胫束综合征。</p>
+<blockquote class="lecture-blockquote">&quot;Different hip rotations influence hip abductor muscles activity during isometric side-lying hip abduction in subjects with gluteus medius weakness.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「不同髋关节旋转对臀中肌无力者侧卧等长髋关节外展时外展肌群活动的影响。」</blockquote>
+<blockquote class="lecture-blockquote">Ji-hyun Lee et al., 2014</blockquote>
+<blockquote class="lecture-blockquote">&quot;Examining the effects of altering hip orientation on gluteus medius and tensor fasciae latae interplay during common non-weight-bearing hip rehabilitation exercises.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「改变髋关节方向对常见非负重髋关节康复练习中臀中肌与阔筋膜张肌相互作用的影响。」</blockquote>
+<blockquote class="lecture-blockquote">Natalie Sidorkewicz et al., 2014, Clinical Biomechanics</blockquote>
+<blockquote class="lecture-blockquote"><a href="https://doi.org/10.1016/j.clinbiomech.2014.09.002" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1016/j.clinbiomech.2014.09.002</a></blockquote>
+<h5 class="lecture-h5">10.3.3 分腿蹲的系统教学流程</h5>
+<p class="lecture-p">教学流程分为以下步骤：</p>
+<p class="lecture-p">首先，询问近期损伤、疼痛和负荷变化，再观察有支撑的分腿站立与浅幅屈伸。出现疼痛时停止诱发动作，并根据持续性及功能影响决定调整或转介。Renne试验属于临床诱发症状的检查，通常关注负重屈膝约30°—40°时的外侧膝痛；它不是“单脚蹲到最低点”，也不能由阳性结果直接判断阔筋膜张肌紧绷。教练的动作观察用于训练分流，不替代临床诊断。</p>
+<p class="lecture-p">其次，建立舒适的足底支撑；必要时用缩足或轻负荷平衡练习帮助感知。</p>
+<p class="lecture-p">第三，从有支撑或徒手的分腿蹲开始，在能够控制、症状可接受的范围内练习，随后逐步增加幅度或负重。一次优先调整一个主要变量，并记录训练后反应。</p>
+<p class="lecture-p">最后，根据力量、平衡或专项需求选择保加利亚分腿蹲等变式；变式并非所有人的必经进阶。</p>
+<h4 class="lecture-h4">10.4 常见错误</h4>
+<li>1. 膝部运动突然失控：若膝在下降或上升时突然明显偏移，并伴随疼痛或平衡丧失，应降低负荷或调整支撑。膝向内移动受髋、足踝、躯干和任务策略等因素影响，不能仅凭外观诊断臀中肌无力，也不能据此直接预测髂胫束综合征或髌股疼痛。</li>
+<li>2. 足底支撑难以控制：正常承重允许一定足弓形变。若足部不适或失去稳定接触，可调整步距、鞋具、幅度和负荷，必要时使用扶持；无需为了保持足弓外形而接受危险的晃动。</li>
+<li>3. 骨盆侧倾或旋转失控：先检查支撑条件、负重和动作幅度，再考虑平衡、活动度及力量等因素。可降低深度或加入骨盆控制练习，但不由单一外观诊断臀中肌或腰方肌功能不足。</li>
+<li>4. 前膝移动超出当前控制能力：膝向前移动是许多分腿蹲技术的一部分，本身不是错误。根据训练目标、足底接触、症状和负荷耐受选择移动幅度，避免突然失控或用疼痛换取深度。</li>
+<li>5. 躯干前倾不符合训练目标：一定程度的前倾可用于改变髋、膝负荷分配。若前倾突然增加并伴随失衡，可检查负重、步距、疲劳及活动度；不能单凭前倾就认定踝或髋受限。</li>
+<h4 class="lecture-h4">10.5 进阶与退阶</h4>
+<p class="lecture-p">退阶训练：</p>
+<ul class="lecture-list">
+<li>辅助支撑分腿蹲：双手扶固定物，降低平衡需求，练习舒适且可重复的下肢与骨盆控制。</li>
+<li>原地小幅度分腿蹲：在静态分腿姿势下进行小幅度屈伸，逐步增加活动范围。</li>
+</ol>
+<p class="lecture-p">标准训练：</p>
+<ul class="lecture-list">
+<li>徒手分腿蹲：在当前可控、可耐受的幅度内完成下降与起身，逐步扩展活动范围。</li>
+<li>负重分腿蹲：手持哑铃或杠铃增加负荷，在保持技术质量的前提下逐步增加训练强度。</li>
+</ol>
+<p class="lecture-p">进阶训练：</p>
+<ul class="lecture-list">
+<li>保加利亚分腿蹲：后脚抬高，按目标调整前腿负荷和平衡需求。悬吊、BOSU和振动是改变任务的选项，并不自动优于稳定支撑；以发展较大力量为目标时，可优先采用便于稳定加重的条件。</li>
+<li>爆发力分腿蹲：加入跳跃和落地后，加载速度与冲击需求明显提高。应在具备相应力量、落地控制和负荷耐受后，从低次数、低高度开始，逐步增加难度，并观察当日及次日的疼痛与恢复情况。</li>
+</ol>
   </div>
 </div>
 
 <!-- TAB: FLASHCARDS -->
 <div class="tab-content" id="tab-flashcards">
   <div class="container">
-    <div class="placeholder" style="margin-bottom: 24px;">
-      <div class="placeholder-icon">
-        <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
-      </div>
-      <h3>知识翻卡</h3>
-      <p>课件上传后将自动生成翻卡。<br>Flashcards will be auto-generated upon upload.</p>
-    </div>
     <div class="flashcard-grid">
-      <div class="flashcard" onclick="this.classList.toggle('flipped')">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">
-            <div class="flashcard-label">Sample Card</div>
-            <div class="flashcard-text">翻卡示例 — 点击翻转</div>
-          </div>
-          <div class="flashcard-back">
-            <div class="flashcard-label">Answer</div>
-            <div class="flashcard-text">此处为答案内容</div>
-          </div>
-        </div>
-      </div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 1</div>
+      <div class="flashcard-text">分腿蹲中臀中肌的主要功能是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">骨盆额状面稳定——防止摆动腿侧骨盆下沉（Trendelenburg征）</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 2</div>
+      <div class="flashcard-text">阔筋膜张肌与髂胫束的关系是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">TFL是IT band的主要张力来源之一；紧张时可能增加膝外侧压力</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 3</div>
+      <div class="flashcard-text">分腿蹲前腿的主要发力肌群是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">股四头肌（膝伸展）、臀大肌（髋伸展）、臀中肌（骨盆稳定）</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 4</div>
+      <div class="flashcard-text">分腿蹲中肌腱能量传递的含义是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">前腿的肌腱系统在离心-向心转换中储存和释放弹性能量，类似弹簧机制</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 5</div>
+      <div class="flashcard-text">足底三点支撑指的是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">大脚趾球、小脚趾球、脚跟——三点形成稳定三角</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 6</div>
+      <div class="flashcard-text">分腿蹲后腿的训练目标是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">髋关节伸展控制与膝关节稳定，非单纯&quot;后腿伸直&quot;</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 7</div>
+      <div class="flashcard-text">膝关节内扣的纠正策略是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">降低负荷→提示&quot;膝盖追第二趾&quot;→加强臀中肌激活→评估足弓控制</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 8</div>
+      <div class="flashcard-text">推雪橇作为深蹲替代训练的优势是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">减少离心负荷对关节的冲击，同时维持股四头肌训练刺激，适合关节症状者</div>
+    </div>
+  </div>
+</div>
     </div>
   </div>
 </div>
@@ -487,17 +764,15 @@ body::before {
 <!-- TAB: SOP -->
 <div class="tab-content" id="tab-sop">
   <div class="container">
-    <div class="placeholder" style="margin-bottom: 24px;">
-      <div class="placeholder-icon">
-        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7v-7zm4-3h2v10h-2V7zm4 6h2v4h-2v-4z"/></svg>
-      </div>
-      <h3>SOP 工作单</h3>
-      <p>课件上传后将自动填充。<br>SOP worksheets will be automatically populated upon upload.</p>
-    </div>
     <div class="sop-placeholder">
-      <div class="sop-row"><span class="sop-num">01</span><span class="sop-label">SOP 步骤占位 — Step placeholder</span></div>
-      <div class="sop-row"><span class="sop-num">02</span><span class="sop-label">SOP 步骤占位 — Step placeholder</span></div>
-      <div class="sop-row"><span class="sop-num">03</span><span class="sop-label">SOP 步骤占位 — Step placeholder</span></div>
+<div class="sop-row"><span class="sop-num">✅</span><span class="sop-label">评估踝关节背屈活动度：膝触墙测试≥10cm</span></div>
+<div class="sop-row"><span class="sop-num">✅</span><span class="sop-label">分腿蹲前确认骨盆额状面稳定能力</span></div>
+<div class="sop-row"><span class="sop-num">✅</span><span class="sop-label">前腿关注&quot;髋→膝→踝&quot;依次屈曲的运动序列</span></div>
+<div class="sop-row"><span class="sop-num">✅</span><span class="sop-label">后腿关注髋关节伸展控制，非过度膝关节屈曲</span></div>
+<div class="sop-row"><span class="sop-num">✅</span><span class="sop-label">足底三点支撑：大脚趾球、小脚趾球、脚跟</span></div>
+<div class="sop-row"><span class="sop-num">❌</span><span class="sop-label">避免前膝过度内扣——观察并提示&quot;膝盖追第二趾&quot;</span></div>
+<div class="sop-row"><span class="sop-num">❌</span><span class="sop-label">避免躯干过度前倾——提示&quot;胸部保持朝前&quot;</span></div>
+<div class="sop-row"><span class="sop-num">⚠️</span><span class="sop-label">跟腱/髌腱症状者先做等长负荷测试再决定训练强度</span></div>
     </div>
   </div>
 </div>
@@ -505,22 +780,61 @@ body::before {
 <!-- TAB: QUIZ -->
 <div class="tab-content" id="tab-quiz">
   <div class="container">
-    <div class="placeholder" style="margin-bottom: 24px;">
-      <div class="placeholder-icon">
-        <svg viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg>
-      </div>
-      <h3>自测练习</h3>
-      <p>课件上传后将自动生成测试题。<br>Quiz questions will be auto-generated upon upload.</p>
-    </div>
-    <div class="quiz-item">
-      <div class="quiz-q">占位题目 — Placeholder question will appear here.</div>
-      <div class="quiz-options">
-        <div class="quiz-opt" onclick="selectOpt(this)">Option A</div>
-        <div class="quiz-opt" onclick="selectOpt(this)">Option B</div>
-        <div class="quiz-opt" onclick="selectOpt(this)">Option C</div>
-        <div class="quiz-opt" onclick="selectOpt(this)">Option D</div>
-      </div>
-    </div>
+<div class="quiz-item" data-explanation="臀中肌在分腿蹲中的主要功能是骨盆额状面稳定——防止摆动腿侧骨盆下沉。">
+  <div class="quiz-q">1. 分腿蹲中臀中肌的主要功能是什么？</div>
+  <div class="quiz-options">
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">髋关节伸展</div>
+<div class="quiz-opt" data-correct="true" onclick="selectOpt(this)">骨盆额状面稳定</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">膝关节伸展</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">踝关节背屈</div>
+  </div>
+  <div class="quiz-feedback" style="display:none;margin-top:12px;padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);"></div>
+  <button class="quiz-check" onclick="checkQuiz(this)" style="margin-top:12px;padding:8px 20px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-hover);border-radius:var(--radius-sm);cursor:pointer;">检查答案</button>
+</div>
+<div class="quiz-item" data-explanation="足底三点支撑：大脚趾球、小脚趾球、脚跟，形成稳定三角。">
+  <div class="quiz-q">2. 足底三点支撑包括哪三个点？</div>
+  <div class="quiz-options">
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">脚趾尖、足弓中心、脚跟</div>
+<div class="quiz-opt" data-correct="true" onclick="selectOpt(this)">大脚趾球、小脚趾球、脚跟</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">大脚趾、小脚趾、足弓</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">前掌、中足、后跟</div>
+  </div>
+  <div class="quiz-feedback" style="display:none;margin-top:12px;padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);"></div>
+  <button class="quiz-check" onclick="checkQuiz(this)" style="margin-top:12px;padding:8px 20px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-hover);border-radius:var(--radius-sm);cursor:pointer;">检查答案</button>
+</div>
+<div class="quiz-item" data-explanation="纠正策略：降低负荷→提示&quot;膝盖追第二趾&quot;→加强臀中肌激活→评估足弓控制。">
+  <div class="quiz-q">3. 膝关节内扣（knee valgus）的纠正策略优先级是什么？</div>
+  <div class="quiz-options">
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">增加负荷→强化训练</div>
+<div class="quiz-opt" data-correct="true" onclick="selectOpt(this)">降低负荷→提示&quot;膝盖追第二趾&quot;→加强臀中肌→评估足弓</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">使用护膝</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">完全停止训练</div>
+  </div>
+  <div class="quiz-feedback" style="display:none;margin-top:12px;padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);"></div>
+  <button class="quiz-check" onclick="checkQuiz(this)" style="margin-top:12px;padding:8px 20px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-hover);border-radius:var(--radius-sm);cursor:pointer;">检查答案</button>
+</div>
+<div class="quiz-item" data-explanation="肌腱系统在离心-向心转换中储存和释放弹性能量，类似弹簧机制。">
+  <div class="quiz-q">4. 分腿蹲中肌腱能量传递的含义是什么？</div>
+  <div class="quiz-options">
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">肌肉主动收缩产生的力</div>
+<div class="quiz-opt" data-correct="true" onclick="selectOpt(this)">肌腱在离心-向心转换中储存和释放弹性能量</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">韧带对关节的保护</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">神经信号传递</div>
+  </div>
+  <div class="quiz-feedback" style="display:none;margin-top:12px;padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);"></div>
+  <button class="quiz-check" onclick="checkQuiz(this)" style="margin-top:12px;padding:8px 20px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-hover);border-radius:var(--radius-sm);cursor:pointer;">检查答案</button>
+</div>
+<div class="quiz-item" data-explanation="推雪橇减少离心负荷对关节的冲击，同时维持股四头肌训练刺激。">
+  <div class="quiz-q">5. 推雪橇作为深蹲替代训练的优势是什么？</div>
+  <div class="quiz-options">
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">增加最大力量</div>
+<div class="quiz-opt" data-correct="true" onclick="selectOpt(this)">减少离心负荷对关节的冲击同时维持股四头肌刺激</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">增加髋关节活动度</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">改善平衡能力</div>
+  </div>
+  <div class="quiz-feedback" style="display:none;margin-top:12px;padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);"></div>
+  <button class="quiz-check" onclick="checkQuiz(this)" style="margin-top:12px;padding:8px 20px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-hover);border-radius:var(--radius-sm);cursor:pointer;">检查答案</button>
+</div>
   </div>
 </div>
 
@@ -562,14 +876,36 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   });
 });
 
-/* ========== FLASHCARD ========== */
-/* Click handled inline via onclick */
-
-/* ========== QUIZ SELECT ========== */
+/* ========== QUIZ ========== */
 function selectOpt(el) {
   const siblings = el.parentElement.querySelectorAll('.quiz-opt');
-  siblings.forEach(s => s.classList.remove('selected'));
+  siblings.forEach(s => s.classList.remove('selected', 'correct', 'incorrect'));
   el.classList.add('selected');
+}
+
+function checkQuiz(btn) {
+  const item = btn.closest('.quiz-item');
+  const selected = item.querySelector('.quiz-opt.selected');
+  if (!selected) return;
+  
+  const opts = item.querySelectorAll('.quiz-opt');
+  const explanation = item.dataset.explanation;
+  const feedback = item.querySelector('.quiz-feedback');
+  
+  opts.forEach(o => {
+    o.classList.remove('selected');
+    if (o.dataset.correct === 'true') o.classList.add('correct');
+    else if (o === selected) o.classList.add('incorrect');
+  });
+  
+  feedback.style.display = 'block';
+  if (selected.dataset.correct === 'true') {
+    feedback.innerHTML = '✅ Correct! ' + explanation;
+  } else {
+    feedback.innerHTML = '❌ Incorrect. ' + explanation;
+  }
+  
+  btn.style.display = 'none';
   trackProgress('07', 'quiz');
 }
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ch08 · Strength & Power Development · SBST</title>
+<title>Ch08 · Squat · SBST</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -73,11 +73,7 @@ body::before {
   transition: color var(--transition);
 }
 .nav-back:hover { color: var(--accent); }
-.nav-divider {
-  width: 1px;
-  height: 16px;
-  background: var(--border);
-}
+.nav-divider { width: 1px; height: 16px; background: var(--border); }
 .nav-chapter-title {
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -169,36 +165,124 @@ body::before {
 .tab-content { display: none; padding: 40px 0 80px; }
 .tab-content.active { display: block; }
 
-.placeholder {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 60px 40px;
-  text-align: center;
-}
-.placeholder-icon {
-  width: 48px;
-  height: 48px;
-  margin: 0 auto 20px;
-  border-radius: 50%;
-  background: var(--accent-dim);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.placeholder-icon svg { width: 22px; height: 22px; fill: var(--accent); }
-.placeholder h3 {
+/* ========== LECTURE STYLES ========== */
+.lecture-h3 {
   font-family: var(--font-mono);
-  font-size: 0.9rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 36px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-hover);
+}
+.lecture-h4 {
+  font-family: var(--font-mono);
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 8px;
+  margin: 28px 0 12px;
 }
-.placeholder p {
-  font-size: 0.82rem;
+.lecture-h5 {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 22px 0 10px;
+}
+.lecture-p {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  line-height: 1.75;
+  margin-bottom: 14px;
+}
+.lecture-list {
+  margin: 12px 0 16px 0;
+  padding: 0;
+  list-style: none;
+}
+.lecture-list li {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  line-height: 1.65;
+  padding: 4px 0 4px 20px;
+  position: relative;
+}
+.lecture-list li::before {
+  content: '›';
+  position: absolute;
+  left: 4px;
+  color: var(--accent);
+  font-weight: 700;
+}
+.lecture-olist {
+  margin: 12px 0 16px 0;
+  padding: 0 0 0 20px;
+  list-style: none;
+  counter-reset: lecture-counter;
+}
+.lecture-olist li {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  line-height: 1.65;
+  padding: 4px 0 4px 28px;
+  position: relative;
+  counter-increment: lecture-counter;
+}
+.lecture-olist li::before {
+  content: counter(lecture-counter) '.';
+  position: absolute;
+  left: 4px;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.lecture-blockquote {
+  margin: 16px 0;
+  padding: 14px 20px;
+  background: var(--bg-secondary);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-style: italic;
+  font-size: 0.85rem;
   color: var(--text-secondary);
   line-height: 1.6;
 }
+.lecture-blockquote a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.lecture-table-wrap {
+  margin: 20px 0;
+  overflow-x: auto;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+.lecture-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+.lecture-table th {
+  background: var(--bg-tertiary);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-hover);
+}
+.lecture-table td {
+  padding: 10px 14px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.lecture-table tr:last-child td { border-bottom: none; }
+.lecture-table tr:hover td { background: rgba(0, 212, 255, 0.02); }
 
 /* ========== FLASHCARDS ========== */
 .flashcard-grid {
@@ -275,10 +359,10 @@ body::before {
 .sop-row:hover { background: rgba(0, 212, 255, 0.02); }
 .sop-num {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--accent);
+  font-size: 0.85rem;
   width: 40px;
   flex-shrink: 0;
+  text-align: center;
 }
 .sop-label {
   font-size: 0.85rem;
@@ -315,6 +399,8 @@ body::before {
 }
 .quiz-opt:hover { border-color: var(--border-hover); color: var(--text-primary); }
 .quiz-opt.selected { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+.quiz-opt.correct { border-color: #4ade80; color: #4ade80; background: rgba(74, 222, 128, 0.1); }
+.quiz-opt.incorrect { border-color: #f87171; color: #f87171; background: rgba(248, 113, 113, 0.1); }
 
 /* ========== AI CHAT ========== */
 .chat-fab {
@@ -419,7 +505,7 @@ body::before {
     <div class="nav-left">
       <a href="dashboard.html" class="nav-back">← Dashboard</a>
       <div class="nav-divider"></div>
-      <span class="nav-chapter-title">CH 08 · Strength & Power Development</span>
+      <span class="nav-chapter-title">CH 08 · Squat</span>
     </div>
     <div class="nav-right">
       <span class="nav-user" id="navUser"></span>
@@ -431,8 +517,8 @@ body::before {
 <section class="chapter-header">
   <div class="container">
     <div class="ch-number">Chapter 08</div>
-    <h1 class="ch-title">Strength & Power Development</h1>
-    <p class="ch-subtitle">力量与功率发展</p>
+    <h1 class="ch-title">Squat</h1>
+    <p class="ch-subtitle">深蹲</p>
   </div>
 </section>
 
@@ -447,39 +533,296 @@ body::before {
 <!-- TAB: LECTURE -->
 <div class="tab-content active" id="tab-lecture">
   <div class="container">
-    <div class="placeholder">
-      <div class="placeholder-icon">
-        <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 15h8v2H8v-2zm0-3h8v2H8v-2z"/></svg>
-      </div>
-      <h3>讲义正文</h3>
-      <p>课件上传后将自动填充。<br>Course materials will be automatically populated upon upload.</p>
-    </div>
+<p class="lecture-p">深蹲（Squat）是训练下肢力量和多关节协调的常用动作，与坐站转换、拾取物品及跳跃准备等日常或运动任务存在联系。生活方式、训练经历、身体比例和既往伤病会影响个人的动作选择与负荷耐受。教学应从可控制的动作与负荷开始，逐步建立力量和活动能力，而不是预先把成年人的深蹲视为不良模式或损伤来源。</p>
+<h4 class="lecture-h4">11.1 解剖与功能</h4>
+<h5 class="lecture-h5">11.1.1 股四头肌与髌骨力学</h5>
+<p class="lecture-p">传统解剖学将股四头肌描述为四个主要组成部分：股直肌、股外侧肌、股内侧肌和股中间肌，核心功能为膝关节伸展。近年的解剖研究还描述了股中间张肌等可能的附加结构，但其命名、普遍性与独立功能尚未完全统一，宜作为扩展知识而非替代标准四头肌框架。</p>
+<p class="lecture-p">股直肌起于髂骨前部，跨越髋、膝关节；其余三部分起于股骨。四部分经股四头肌腱连接髌骨，再由髌韧带连接胫骨粗隆。髌骨作为伸膝装置中的种子骨，改变伸肌的力臂。髌骨上方的股四头肌腱与下方的髌韧带是不同结构。Becker 等人（2009）的综述主要讨论股外侧肌形态，不作为附加肌束普遍存在的依据。</p>
+<blockquote class="lecture-blockquote">&quot;Gross morphology of the vastus lateralis muscle: An anatomical review.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「股外侧肌的宏观形态：解剖学综述。」</blockquote>
+<blockquote class="lecture-blockquote">Ines Becker, 2009, Clinical Anatomy</blockquote>
+<blockquote class="lecture-blockquote">https://pubmed.ncbi.nlm.nih.gov/19306318/</blockquote>
+<blockquote class="lecture-blockquote">https://pubmed.ncbi.nlm.nih.gov/19306318/</blockquote>
+<p class="lecture-p">下降阶段，膝伸肌通常以离心作用控制膝屈曲；上升阶段则产生伸膝力矩。其活动随深度、负荷、速度和技术变化，不能固定认定0°—90°为全程募集最高的区间。髌骨下方不适也不能仅凭位置诊断髌腱炎。Thomeé 等人（1996）比较了11名髌股疼痛女性和9名健康女性的坐位、站位等长伸膝表现，未研究动态深蹲中的募集峰值或治疗处方。</p>
+<blockquote class="lecture-blockquote">&quot;Quadriceps muscle performance in sitting and standing in young women with patellofemoral pain syndrome and young healthy women.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「髌股疼痛综合征年轻女性与健康年轻女性在坐位和站位下的股四头肌表现。」</blockquote>
+<blockquote class="lecture-blockquote">R. Thomeé et al., 1996, Scandinavian Journal of Medicine &amp; Science in Sports</blockquote>
+<blockquote class="lecture-blockquote">https://pubmed.ncbi.nlm.nih.gov/8896097/</blockquote>
+<blockquote class="lecture-blockquote">https://onlinelibrary.wiley.com/doi/abs/<a href="https://doi.org/10.1111/j.1600-0838.1996.tb00097.x?sid=nlm%3Apubmed" target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1111/j.1600-0838.1996.tb00097.x?sid=nlm%3Apubmed</a></blockquote>
+<blockquote class="lecture-blockquote"><a href="https://doi.org/10.1111/j.1600-0838.1996.tb00097.x" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1111/j.1600-0838.1996.tb00097.x</a></blockquote>
+<p class="lecture-p">股四头肌各部分共同参与伸膝及髌股关节受力。股内侧肌斜部（VMO）和股外侧肌（VL）的作用方向不同，但髌骨运动还受骨性结构、软组织、关节位置和整体负荷影响。髌股疼痛是多因素问题，不能将其统一归因于VL紧绷或VMO启动不足，也不能把两者的所谓张力平衡作为预防和治疗的唯一关键。</p>
+<p class="lecture-p">Smith 等人（2018）的系统综述与荟萃分析显示髌股疼痛较常见，但发生率与患病率须区别解释：军人样本的点患病率估计约13.5%，新兵研究的发生率范围差异很大，不能统一表述为每十人每年发生一例。</p>
+<blockquote class="lecture-blockquote">&quot;Incidence and prevalence of patellofemoral pain: A systematic review and meta-analysis.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「髌股疼痛的发病率与患病率：系统综述与荟萃分析。」</blockquote>
+<blockquote class="lecture-blockquote">Benjamin E. Smith et al., 2018, PLoS One</blockquote>
+<blockquote class="lecture-blockquote">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5764329/</blockquote>
+<p class="lecture-p">Van Tiggelen 等人（2009）随访79名健康男性新兵6周，观察到VMO相对VL启动延迟与后续髌股疼痛有关。该指标的区分能力有限（ROC曲线下面积0.68），可视为特定人群中的相关因素，不能独立诊断疼痛原因或决定训练方案。</p>
+<blockquote class="lecture-blockquote">&quot;Delayed vastus medialis obliquus to vastus lateralis onset timing contributes to the development of patellofemoral pain in previously healthy men: a prospective study.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「股内侧肌斜头相对于股外侧肌的激活延迟促进既往健康男性髌股疼痛的发展：一项前瞻性研究。」</blockquote>
+<blockquote class="lecture-blockquote">Damien Van Tiggelen et al., 2009</blockquote>
+<blockquote class="lecture-blockquote">https://pubmed.ncbi.nlm.nih.gov/19282508/</blockquote>
+<p class="lecture-p">髌股关节反作用力通常随膝关节屈曲角度和外部负荷增加，但不同研究的建模方法、动作变式和受试者条件差异较大，不能把不同研究的点估计直接相除为固定倍数。出现髌股疼痛时不必一概暂停深蹲；应根据症状反应调整深度、负荷、动作形式与训练量，并在需要时接受专业评估。 Wang等（2023）的系统综述进一步强调模型与输入差异，研究间点估计不能直接作为个体损伤或训练准入阈值（DOI: <a href="https://doi.org/10.3389/fbioe.2023.1197014）。" target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.3389/fbioe.2023.1197014）。</a></p>
+<p class="lecture-p">McConnell 与 Bennell（2011）的书章介绍了膝前痛的保守管理。训练时可从症状允许的膝屈曲范围开始，逐步增加幅度与负荷，并按任务需求选择深蹲、台阶或分腿蹲。起始角度和动作顺序应个体化，而非所有人固定从40°开始。</p>
+<blockquote class="lecture-blockquote">&quot;Conservative Management of Anterior Knee Pain: The McConnell Program.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「膝前痛的保守治疗：McConnell 方案。」</blockquote>
+<blockquote class="lecture-blockquote">Jenny McConnell &amp; Kim Bennell ，2011年，DOI: <a href="https://doi.org/10.1007/978-0-85729-507-1_13" target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1007/978-0-85729-507-1_13</a></blockquote>
+<h5 class="lecture-h5">11.1.2 臀大肌与髋关节旋转</h5>
+<p class="lecture-p">臀大肌是重要的髋伸肌，也常参与髋外旋。Neumann（2010）说明髋肌力臂会随关节位置改变，部分纤维束的旋转作用可能发生变化。Peduzzi de Castro 等人（2021，PMID 34391276）测量的是不同髋屈曲位置的最大等长收缩，而非动态深蹲。因此，这些资料有助于理解位置依赖的肌肉作用，却不能单独解释深蹲底部的膝向内移动，也不能把某一屈髋角度当作普适转换阈值。</p>
+<blockquote class="lecture-blockquote">“Kinesiology of the hip: a focus on muscular actions.”</blockquote>
+<blockquote class="lecture-blockquote">「髋关节运动学：聚焦肌肉作用。」</blockquote>
+<blockquote class="lecture-blockquote">Donald A. Neumann, 2010, Journal of Orthopaedic &amp; Sports Physical Therapy. DOI: <a href="https://doi.org/10.2519/jospt.2010.3025；PMID:" target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.2519/jospt.2010.3025；PMID:</a> 20118525。</blockquote>
+<p class="lecture-p">内收大肌也参与髋伸展，但肌肉具有内收作用并不意味着深蹲时一定产生可见的膝内移。膝轨迹反映髋、膝、足踝及躯干的共同策略。教练应关注运动是否可控、是否伴随疼痛及是否符合任务目标，不能从外观直接认定某块肌肉代偿或组织保护不足。</p>
+<h5 class="lecture-h5">11.1.3 内收肌群与髋关节伸展</h5>
+<p class="lecture-p">内收大肌（Adductor Magnus）不同部分具有不同作用，其中部分纤维可产生髋伸展力矩。在深蹲等动作中，它可与臀大肌等共同完成髋伸展。其参与属于正常肌肉协作，不能把训练中出现的膝向内移动直接解释为内收大肌代偿。</p>
+<h5 class="lecture-h5">11.1.4 半月板的结构与受力特点</h5>
+<p class="lecture-p">半月板是位于胫骨平台上的纤维软骨结构，参与负荷分担、接触面积调节和关节稳定。损伤机制涉及负荷大小、屈曲与旋转、组织退变及既往损伤等因素；不能认为垂直负荷或深屈膝一概不会致伤。股骨前倾角与胫骨扭转属于骨性形态，和动作中的瞬时旋转不是同一概念。Furumatsu 等人（2019）回顾100例有疼痛弹响的内侧半月板后根撕裂患者，所报告情境包括下行动作、步行及深蹲；该研究不证明所有半月板损伤主要由屈曲伴旋转造成。</p>
+<blockquote class="lecture-blockquote">&quot;Injury patterns of medial meniscus posterior root tears.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「内侧半月板后根撕裂的损伤模式。」</blockquote>
+<blockquote class="lecture-blockquote">Takayuki Furumatsu et al., 2019</blockquote>
+<blockquote class="lecture-blockquote">https://www.sciencedirect.com/science/article/pii/S1877056818303268?via%3Dihub</blockquote>
+<p class="lecture-p">训练前宜了解既往膝部损伤、近期疼痛、肿胀、卡锁及负荷变化。教练可观察并调整站距、足尖方向和深度，但不能通过外观筛查股骨前倾或胫骨扭转来保证预防半月板损伤。</p>
+<h4 class="lecture-h4">11.2 循证依据</h4>
+<h5 class="lecture-h5">11.2.1 深蹲时髌股关节的受力特征</h5>
+<p class="lecture-p">深蹲涉及髌股关节和胫股关节负荷，关节反作用力与接触应力不是同一指标。Escamilla（2001）的综述总结了深蹲膝关节生物力学，为理解角度、负重和肌肉作用提供了框架；估算的关节负荷不能直接换算成个体损伤概率。</p>
+<blockquote class="lecture-blockquote">&quot;Knee biomechanics of the dynamic squat exercise.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「动态深蹲练习的膝关节生物力学。」</blockquote>
+<blockquote class="lecture-blockquote">R. F. Escamilla et al., 2001, Medicine &amp; Science in Sports &amp; Exercise</blockquote>
+<blockquote class="lecture-blockquote">https://pubmed.ncbi.nlm.nih.gov/11194098/</blockquote>
+<blockquote class="lecture-blockquote"><a href="https://doi.org/10.1097/00005768-200101000-00020" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1097/00005768-200101000-00020</a></blockquote>
+<p class="lecture-p">Doberstein 等人（2008）以关节镜检查为参照，研究Clarke征对髌骨软骨软化的诊断价值，报告敏感度0.39、特异度0.67。该结果衡量的是诊断效度，不是深蹲负荷是否安全的测试。</p>
+<blockquote class="lecture-blockquote">&quot;The diagnostic value of the Clarke sign in assessing chondromalacia patella.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「Clarke 征在评估髌骨软化症中的诊断价值。」</blockquote>
+<blockquote class="lecture-blockquote">Scott T. Doberstein et al., 2008, Journal of Athletic Training</blockquote>
+<blockquote class="lecture-blockquote">https://pubmed.ncbi.nlm.nih.gov/18345345/</blockquote>
+<blockquote class="lecture-blockquote">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2267328/</blockquote>
+<blockquote class="lecture-blockquote">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2267328/pdf/i1062-6050-43-2-190.pdf</blockquote>
+<p class="lecture-p">敏感度0.39意味着阴性结果不足以排除目标病变；特异度0.67也不能解释为“阳性时较可能有病”。该研究的阳性似然比约1.18、阴性似然比约0.91，均不足以明显改变诊断概率。Clarke征不宜作为教练决定是否允许深蹲或恢复训练的依据。</p>
+<h5 class="lecture-h5">11.2.2 前蹲举与后蹲举的力学差异</h5>
+<p class="lecture-p">Gullett 等人（2009）比较了15名健康受训者的前蹲和后蹲，以影像、测力和肌电资料分析膝关节动力学与肌肉活动。在研究所用负荷条件下，后蹲的压缩力与膝伸力矩较高；两式剪切力均较小，且未见显著差异。前蹲可作为调整负荷分配的选择，但这项急性研究没有证明其长期损伤风险一定更低。</p>
+<blockquote class="lecture-blockquote">&quot;A Biomechanical Comparison of the Back and Front Squats in Healthy Trained Individuals.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「健康训练者后蹲举与前蹲举的生物力学比较。」</blockquote>
+<blockquote class="lecture-blockquote">Jonathan C. Gullett et al., 2009, Journal of Strength and Conditioning Research, 23(1):284–292. DOI: <a href="https://doi.org/10.1519/JSC.0b013e31818546bb。" target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1519/JSC.0b013e31818546bb。</a></blockquote>
+<blockquote class="lecture-blockquote">https://pubmed.ncbi.nlm.nih.gov/19002072/</blockquote>
+<p class="lecture-p">Krzyszkowski 与 Kipp（2020）研究了不同负荷下前蹲与后蹲的机械需求。在相同绝对负荷下，后蹲对髋伸肌、前蹲对膝伸肌的需求分别较大。机械力矩差异不等同于肌电差异，更不能据此判定后蹲的整体训练效率更高。</p>
+<blockquote class="lecture-blockquote">&quot;Load-dependent mechanical demands of the lower extremity during the back and front squat.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「后蹲举与前蹲举中负荷依赖性的下肢力学需求。」</blockquote>
+<blockquote class="lecture-blockquote">John Krzyszkowski et al., 2020, Journal of Sports Sciences</blockquote>
+<blockquote class="lecture-blockquote">https://pubmed.ncbi.nlm.nih.gov/32544021/</blockquote>
+<blockquote class="lecture-blockquote"><a href="https://doi.org/10.1080/02640414.2020.1766738" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1080/02640414.2020.1766738</a></blockquote>
+<h5 class="lecture-h5">11.2.3 高杠与低杠背蹲的生物力学差异</h5>
+<p class="lecture-p">Glassbrook 等人（2017）的综述以及2019年的生物力学研究提示，高杠与低杠背蹲具有不同的姿势和力学特点。低杠通常伴随更多髋屈曲与躯干前倾，高杠通常更直立。2019年研究涉及各6名力量举、举重及休闲训练男性，技术经验影响比较结果。可按专项与负荷分配选择杠位；短时角度或肌电差异不等同于长期增肌效果或绝对安全优势。</p>
+<blockquote class="lecture-blockquote">&quot;A Review of the Biomechanical Differences Between the High-Bar and Low-Bar Back-Squat.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「高杠位与低杠位背蹲举生物力学差异的综述。」</blockquote>
+<blockquote class="lecture-blockquote">Daniel J. Glassbrook et al., 2017, Journal of Strength and Conditioning Research</blockquote>
+<blockquote class="lecture-blockquote">https://pubmed.ncbi.nlm.nih.gov/28570490/</blockquote>
+<blockquote class="lecture-blockquote"><a href="https://doi.org/10.1519/jsc.0000000000002007" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1519/jsc.0000000000002007</a></blockquote>
+<blockquote class="lecture-blockquote">&quot;The High-Bar and Low-Bar Back-Squats: A Biomechanical Analysis.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「高杠位与低杠位背蹲举：生物力学分析。」</blockquote>
+<blockquote class="lecture-blockquote">Daniel J. Glassbrook et al., 2019, Journal of Strength and Conditioning Research, 33 Suppl 1:S1–S18. DOI: <a href="https://doi.org/10.1519/JSC.0000000000001836。" target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1519/JSC.0000000000001836。</a></blockquote>
+<blockquote class="lecture-blockquote">https://pubmed.ncbi.nlm.nih.gov/28195975/</blockquote>
+<p class="lecture-p">Murawa 等人（2020）比较12名有经验男性在60%—70% 1RM负荷下的高杠和低杠背蹲，观察到部分负荷和阶段中后侧肌群肌电较高。该研究主要提供急性肌肉活动资料，不能单独建立适用于所有人的踝背屈门槛或长期效果排名。</p>
+<blockquote class="lecture-blockquote">&quot;Muscle activation varies between high-bar and low-bar back squat.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「高杠位与低杠位背蹲举的肌肉激活差异。」</blockquote>
+<blockquote class="lecture-blockquote">Michal Murawa et al., 2020, PeerJ</blockquote>
+<blockquote class="lecture-blockquote">https://pubmed.ncbi.nlm.nih.gov/32551198/</blockquote>
+<blockquote class="lecture-blockquote">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7289144/pdf/peerj-08-9256.pdf</blockquote>
+<h5 class="lecture-h5">11.2.4 踝关节活动度不足对深蹲力学的影响</h5>
+<p class="lecture-p">Macrum 等人（2012）在30名健康受试者中，以前足垫高12°模拟踝背屈受限，观察到深蹲中的膝运动学和肌电改变。研究没有直接测量膝关节压力，模拟限制也不完全等同于临床活动度受限，因此不能据此断言踝背屈不足必然增加膝部压力或损伤。</p>
+<blockquote class="lecture-blockquote">&quot;Effect of limiting ankle-dorsiflexion range of motion on lower extremity kinematics and muscle-activation patterns during a squat.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「限制踝关节背屈活动度对深蹲中下肢运动学与肌肉激活模式的影响。」</blockquote>
+<blockquote class="lecture-blockquote">Elisabeth Macrum et al., 2012, Journal of Sport Rehabilitation</blockquote>
+<blockquote class="lecture-blockquote"><a href="https://doi.org/10.1123/jsr.21.2.144" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1123/jsr.21.2.144</a></blockquote>
+<p class="lecture-p">深蹲所需踝背屈随身体比例、站距、深度、杠位及鞋跟高度变化。负重弓步测试可记录踝活动度的个体基线和变化，但角度与距墙厘米数不能不加条件地互换，也不存在由本章证据建立的普适合格线。可在初评、症状或技术明显变化时复测，不要求每次训练前固定测试。</p>
+<h5 class="lecture-h5">11.2.5 视线方向对深蹲运动学的影响</h5>
+<p class="lecture-p">Donnelly 等人（2006）让10名有深蹲经验的男性在低强度条件下比较向上、向前和向下注视。整体运动学差异有限；向下注视相对向上条件增加了髋屈曲，躯干屈曲仅呈趋势。该结果提示视线可影响姿势，但不能证明向下看普遍错误或训练时必须始终平视。</p>
+<blockquote class="lecture-blockquote">&quot;The effect of the direction of gaze on kinematics of the squat exercise.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「视线方向对深蹲运动学的影响。」</blockquote>
+<blockquote class="lecture-blockquote">David V. Donnelly et al., 2006, Journal of Strength and Conditioning Research</blockquote>
+<blockquote class="lecture-blockquote">https://pubmed.ncbi.nlm.nih.gov/16503674/</blockquote>
+<blockquote class="lecture-blockquote"><a href="https://doi.org/10.1519/00124278-200602000-00023" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1519/00124278-200602000-00023</a></blockquote>
+<h5 class="lecture-h5">11.2.6 膝关节内扣的解剖与力学机制</h5>
+<p class="lecture-p">深蹲起身时膝的轨迹可能变化，分析时应区分关节位置、肌肉力矩与实际动作，避免由单一外观直接推断病因：</p>
+<p class="lecture-p">其一，髋屈曲位置会改变臀肌部分纤维的力臂，但解剖力臂变化不直接证明动态膝内移由某一纤维束的旋转功能转换引起（Neumann, 2010）。</p>
+<p class="lecture-p">其二，内收大肌可正常参与髋伸展；其活动不必然伴随可见的髋内收或膝内移。</p>
+<p class="lecture-p">其三，髋外展能力、足踝控制、躯干策略、疲劳和任务目标都可能影响膝轨迹，需要结合多项观察和个体评估判断。</p>
+<p class="lecture-p">教学中可先用较轻负荷建立可重复的轨迹，再逐步加重。若出现突然失控、疼痛或不稳，应调整负荷和动作。可控的少量膝内移不等同组织损伤，不能仅凭膝的位置预测风险。</p>
+<h5 class="lecture-h5">11.2.7 深蹲深度与损伤风险的文献综述</h5>
+<p class="lecture-p">Hartmann 等人（2013）综述了下蹲深度和负荷对膝关节及脊柱的影响。接触面积、关节角度与外部负荷共同影响受力，较深屈膝并不等同于损伤。文中引用的运动员资料可提供背景，但不能用不同项目的损伤比例直接证明某种深度对所有人更安全。</p>
+<blockquote class="lecture-blockquote">&quot;Analysis of the load on the knee joint and vertebral column with changes in squatting depth and weight load.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「下蹲深度与负荷变化对膝关节和脊柱负荷的分析。」</blockquote>
+<blockquote class="lecture-blockquote">Hagen Hartmann et al., 2013, Sports Medicine</blockquote>
+<blockquote class="lecture-blockquote">https://pubmed.ncbi.nlm.nih.gov/23821469/</blockquote>
+<p class="lecture-p">退役举重运动员的横断面损伤率不能完整反映长期退行性改变。影像学研究显示，40岁以上人群中半月板撕裂较常见，但这一背景流行率不能用于推导深蹲致伤。内侧半月板后根撕裂等特定亚型可能与深屈膝、旋转和负荷等因素相关；相关性同样不等于深蹲本身造成损伤。训练建议应根据症状、既往损伤、负荷耐受和动作控制个体化制定。</p>
+<p class="lecture-p">具备相应能力、经过渐进适应且无相关限制的训练者，可以选择较深的深蹲。深度应服务于力量、活动范围或专项目标；有疼痛、既往损伤或术后限制时，应采用当前可耐受的范围并按评估进展。</p>
+<h5 class="lecture-h5">11.2.8 前后十字韧带损伤个案的深蹲策略</h5>
+<p class="lecture-p">对于前后十字韧带损伤或术后康复的个案，深蹲时需采取差异化策略：</p>
+<p class="lecture-p">前十字韧带（ACL）损伤或重建后应保留分期、渐进的股四头肌训练，而不是笼统减少其参与。ACL负荷与屈膝角度、肌肉作用及多平面负荷有关；许多条件下浅屈曲负荷更高，不能把90°规定为最大危险点。具体开链、闭链练习的范围和负荷取决于恢复阶段、移植物、症状及医疗方案。Sinclair 等人比较14名健康受训男性不同鞋类下的深蹲，观察到跑鞋相对赤足增加部分运动学指标和股直肌肌电；这不是ACL患者的康复研究。</p>
+<blockquote class="lecture-blockquote">&quot;The influence of different footwear on 3-D kinematics and muscle activation during the barbell back squat in males.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「不同鞋类对男性杠铃背蹲举三维运动学与肌肉激活的影响。」</blockquote>
+<blockquote class="lecture-blockquote">Jonathan Sinclair et al., 2015（2014年在线发表）, European Journal of Sport Science. DOI: <a href="https://doi.org/10.1080/17461391.2014.965752。" target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1080/17461391.2014.965752。</a></blockquote>
+<blockquote class="lecture-blockquote">https://pubmed.ncbi.nlm.nih.gov/25331484/</blockquote>
+<blockquote class="lecture-blockquote"><a href="https://doi.org/10.1080/17461391.2014.965752" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1080/17461391.2014.965752</a></blockquote>
+<p class="lecture-p">后十字韧带（PCL）在部分深屈曲任务中的负荷可能较高，腘绳肌作用也可增加胫骨后向剪切。损伤或术后训练应遵守对应阶段的医疗方案，逐步恢复幅度、力量和功能；不能将90°—120°设为所有人的永久禁区，也不应一概取消腘绳肌训练。躯干角度可改变关节力矩，但不能单独决定PCL负荷。ACL康复参考Aspetar指南（2023，PMID 36731908）；PCL分期原则参考综述PMCID PMC5120848。</p>
+<h5 class="lecture-h5">11.2.9 推雪橇作为深蹲的替代训练</h5>
+<p class="lecture-p">Maddigan 等人（2014）在10名健康受训男性中，以随机交叉方式比较20步最大负重雪橇推和10RM背蹲。部分所测大腿及腹部肌电未见显著差异，雪橇推的腓肠肌活动较高、深蹲的竖脊肌活动较高。雪橇可作为不同任务条件下的训练选择，但短时肌电相近不保证长期力量或增肌效果相同，也不说明所有无法深蹲者都适合推雪橇。</p>
+<blockquote class="lecture-blockquote">&quot;Lower-Limb and Trunk Muscle Activation With Back Squats and Weighted Sled Apparatus.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「背蹲举与负重雪橇装置的下肢与躯干肌肉激活。」</blockquote>
+<blockquote class="lecture-blockquote">Meaghan E. Maddigan et al., 2014, Journal of Strength and Conditioning Research</blockquote>
+<blockquote class="lecture-blockquote">https://pubmed.ncbi.nlm.nih.gov/25226330/；DOI: <a href="https://doi.org/10.1519/JSC.0000000000000697。" target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1519/JSC.0000000000000697。</a></blockquote>
+<h4 class="lecture-h4">11.3 教学要点</h4>
+<h5 class="lecture-h5">11.3.1 踝关节背屈活动度的评估与改善</h5>
+<p class="lecture-p">踝背屈是影响深蹲策略的因素之一。负重弓步测试时应固定脚跟接触、膝移动方向和测量方法，记录左右侧基线，并结合实际深蹲需求解释。测量变化还应考虑误差；可靠性综述报告的最小可检测变化约为1.6—1.9厘米（PMID 25704110），这不是合格或损伤风险阈值。</p>
+<p class="lecture-p">若当前踝活动度妨碍目标动作，可试用调整站距、减小深度、垫跟或改变负荷位置，同时按需要安排活动度练习。疼痛或明显受限者应进一步评估；关节松动术需由具备相应资质者实施，也不能保证所有限制均可改善。</p>
+<h5 class="lecture-h5">11.3.2 训练前的症状与功能观察</h5>
+<p class="lecture-p">训练前评估应结合症状史和可耐受的功能任务，而不以Clarke征作为单项准入标准：</p>
+<li>1. 询问疼痛位置、诱发动作、肿胀、卡锁、明显不稳及近期负荷变化；</li>
+<li>2. 从有支撑、浅幅或轻负荷的深蹲开始，观察是否复制症状及是否能够控制动作；</li>
+<li>3. 记录训练中、训练后及次日反应，据此调整深度、负重和训练量。</li>
+<p class="lecture-p">Clarke征在临床中有不同操作版本，但其诊断局限不能通过改变角度消除。单纯摩擦音或弹响也不能直接证明结构病变。</p>
+<p class="lecture-p">出现明显肿胀、卡锁、不稳或持续恶化，应停止诱发症状的训练并转介评估。没有这些表现但存在可控不适时，可在专业建议下调整训练；能否进阶取决于功能与负荷反应，而非按摩后某个试验转阴。</p>
+<h5 class="lecture-h5">11.3.3 髌股疼痛的负荷管理与髋膝训练</h5>
+<p class="lecture-p">髌股疼痛的训练主线是教育、负荷管理和渐进的膝部力量训练，必要时结合髋部训练。按摩、贴扎等可按个体需要作为短期症状调节，但短时舒适不证明髌骨轨迹已经校正，也不保证能够立即恢复原负荷。</p>
+<p class="lecture-p">选择股四头肌和髋部练习时，应依据症状、力量与任务需求安排角度、负重和训练量。选择性VMO激活不是所有人的必要前置步骤。可参考2019年髌股疼痛指南（DOI: <a href="https://doi.org/10.2519/jospt.2019.0302）及2024年最佳实践指南（DOI:" target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.2519/jospt.2019.0302）及2024年最佳实践指南（DOI:</a> <a href="https://doi.org/10.1136/bjsports-2024-108110）。" target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1136/bjsports-2024-108110）。</a></p>
+<p class="lecture-p">可从等长练习、小幅深蹲、有支撑分腿蹲等可耐受任务开始，逐渐扩展负荷与范围。分腿蹲和平行站姿深蹲的难度取决于支撑、平衡和个人能力，没有固定先后顺序。调整后既观察即时反应，也跟踪次日情况；不预设15—20分钟内改善或以短时缓解作为恢复原训练量的依据。</p>
+<blockquote class="lecture-blockquote">&quot;Conservative Management of Anterior Knee Pain: The McConnell Program.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「膝前痛的保守治疗：McConnell 方案。」</blockquote>
+<blockquote class="lecture-blockquote">Jenny McConnell &amp; Kim Bennell ，2011年，DOI: <a href="https://doi.org/10.1007/978-0-85729-507-1_13" target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1007/978-0-85729-507-1_13</a></blockquote>
+<h5 class="lecture-h5">11.3.4 半月板相关症状与训练分流</h5>
+<p class="lecture-p">半月板问题不能靠教练观察腿形或一次深蹲准确筛出。训练前可重点了解以下信息：</p>
+<ul class="lecture-list">
+<li>既往膝损伤、手术以及医疗团队给定的活动限制；</li>
+<li>近期疼痛、肿胀、卡锁、不稳及负荷是否突然增加；</li>
+<li>当前站距、足尖方向和深度下的舒适程度与动作控制。</li>
+</ol>
+<p class="lecture-p">出现持续或明显症状时，应转介评估。在适宜训练的情况下，可通过可逆调整寻找耐受的动作版本；骨性形态差异并不都需要“纠正”后才能训练。</p>
+<h4 class="lecture-h4">11.4 常见错误</h4>
+<li>1. 膝轨迹失控：若膝突然明显向内移动并伴随疼痛或不稳，可减轻负荷、缩小范围并检查足踝、髋和躯干协同。不要把所有膝内移归因于臀肌纤维转换或内收肌代偿。</li>
+<li>2. 当前踝活动度与任务不匹配：可能表现为脚跟抬起或姿势调整。可测试垫跟、改变站距或深度等方案。Macrum 等人（2012）测量的是运动学和肌电，不能作为膝关节压力直接升高的证据。</li>
+<li>3. 深度超出当前耐受：根据身体条件、技术、症状和训练目标选择范围。Hartmann 等人（2013）的综述支持综合考虑深度与负荷，不代表所有人都应追求最低点。</li>
+<li>4. 视线与颈部姿势不适：选择能维持平衡和舒适颈位的注视点。平视或适度向下看均可根据杠位和技术使用，无需强制盯住正前方。</li>
+<li>5. 躯干姿势突然改变：低杠或特定身体比例可能需要较多前倾；可控前倾本身不是错误。若疲劳中明显失控，应降低负荷并检查技术、支撑与活动度。</li>
+<h4 class="lecture-h4">11.5 进阶与退阶</h4>
+<p class="lecture-p">退阶训练：</p>
+<ul class="lecture-list">
+<li>箱式深蹲（Box Squat）：用合适高度的箱体提供深度参考，练习受控接触并起身。通过高度和负荷调整任务，但不能保证对所有膝痛者都更轻松。</li>
+<li>前蹲举（Front Squat）：可用于改变负荷位置。Gullett 等人（2009）在所测条件下发现膝压缩力较低、剪切力无显著差异，不能将其视为普遍安全等级更高的退阶。若前架握持不适，可试用高脚杯深蹲。</li>
+<li>靠墙蹲（Wall Sit）：提供等长膝伸肌训练，按症状和能力选择角度与持续时间；不需要以选择性激活VMO为目标或固定从40°以下开始。</li>
+</ol>
+<p class="lecture-p">标准训练：</p>
+<ul class="lecture-list">
+<li>高杠背蹲举（High-Bar Back Squat）：通常采用较直立的躯干姿势，按个体能力渐进负重；仍需躯干控制，不能仅因腰部控制较弱便认定适合。</li>
+<li>后蹲举：可用于发展下肢力量。与前蹲的机械需求不同，选择应服从训练目标、技术经验及舒适度，不设统一的整体效率排名。</li>
+</ol>
+<p class="lecture-p">进阶训练：</p>
+<ul class="lecture-list">
+<li>低杠背蹲举（Low-Bar Back Squat）：通常伴随较多髋屈曲与躯干前倾，可满足特定力量举或髋伸需求。其适用性需结合肩部握杠、躯干控制和个体活动范围判断，而非所有人都须从高杠进阶到低杠。</li>
+<li>较深幅度深蹲（Full-Depth Squat）：在负荷耐受和控制允许的条件下扩大范围，以匹配专项或训练目标。深度不保证最大化某组深层肌纤维募集，也不代表对所有人功能价值最高。</li>
+<li>推雪橇（Sled Push）：提供不同于深蹲的下肢负荷方式。根据场地、技术及症状安排阻力、距离和次数；不能仅凭短时肌电比较承诺与深蹲相同的长期效果。</li>
+</ul>
+<h3 class="lecture-h3">§12 单元五：平板支撑与俯卧撑（Plank and Push-Up）</h3>
   </div>
 </div>
 
 <!-- TAB: FLASHCARDS -->
 <div class="tab-content" id="tab-flashcards">
   <div class="container">
-    <div class="placeholder" style="margin-bottom: 24px;">
-      <div class="placeholder-icon">
-        <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
-      </div>
-      <h3>知识翻卡</h3>
-      <p>课件上传后将自动生成翻卡。<br>Flashcards will be auto-generated upon upload.</p>
-    </div>
     <div class="flashcard-grid">
-      <div class="flashcard" onclick="this.classList.toggle('flipped')">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">
-            <div class="flashcard-label">Sample Card</div>
-            <div class="flashcard-text">翻卡示例 — 点击翻转</div>
-          </div>
-          <div class="flashcard-back">
-            <div class="flashcard-label">Answer</div>
-            <div class="flashcard-text">此处为答案内容</div>
-          </div>
-        </div>
-      </div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 1</div>
+      <div class="flashcard-text">深蹲时髌股关节的受力特征是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">膝关节屈曲角度越大，髌股关节压缩力越大；但适当深度可增强股四头肌力量</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 2</div>
+      <div class="flashcard-text">前蹲与后蹲的主要力学差异是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">前蹲躯干更直立→膝关节屈曲更大→股四头肌需求更高→腰椎负荷更低</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 3</div>
+      <div class="flashcard-text">高杠与低杠背蹲的区别是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">高杠：杠铃在C7附近，躯干更直立，膝关节屈曲更大；低杠：杠铃在三角肌后束，躯干前倾更多，髋关节需求更高</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 4</div>
+      <div class="flashcard-text">踝关节背屈不足对深蹲的影响？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">导致躯干过度前倾或脚跟抬起，影响整体力学和稳定性</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 5</div>
+      <div class="flashcard-text">膝关节内扣（knee valgus）的机制是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">股骨内旋+内收，与臀中肌控制不足、足弓塌陷、踝背屈受限相关</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 6</div>
+      <div class="flashcard-text">深蹲深度与损伤风险的关系是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">适当深度不增加损伤风险；浅蹲膝关节剪切力更小但股四头肌刺激有限；深蹲需足够活动度支撑</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 7</div>
+      <div class="flashcard-text">推雪橇为什么可作为深蹲替代？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">几乎没有离心负荷，大幅减少关节压缩力和肌肉损伤，同时提供股四头肌训练刺激</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 8</div>
+      <div class="flashcard-text">ACL损伤史者的深蹲策略是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">专科评估→控制ROM→避免剪切力大的位置→渐进负荷→关注神经肌肉控制训练</div>
+    </div>
+  </div>
+</div>
     </div>
   </div>
 </div>
@@ -487,17 +830,16 @@ body::before {
 <!-- TAB: SOP -->
 <div class="tab-content" id="tab-sop">
   <div class="container">
-    <div class="placeholder" style="margin-bottom: 24px;">
-      <div class="placeholder-icon">
-        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7v-7zm4-3h2v10h-2V7zm4 6h2v4h-2v-4z"/></svg>
-      </div>
-      <h3>SOP 工作单</h3>
-      <p>课件上传后将自动填充。<br>SOP worksheets will be automatically populated upon upload.</p>
-    </div>
     <div class="sop-placeholder">
-      <div class="sop-row"><span class="sop-num">01</span><span class="sop-label">SOP 步骤占位 — Step placeholder</span></div>
-      <div class="sop-row"><span class="sop-num">02</span><span class="sop-label">SOP 步骤占位 — Step placeholder</span></div>
-      <div class="sop-row"><span class="sop-num">03</span><span class="sop-label">SOP 步骤占位 — Step placeholder</span></div>
+<div class="sop-row"><span class="sop-num">✅</span><span class="sop-label">评估踝关节背屈活动度，不足者先改善</span></div>
+<div class="sop-row"><span class="sop-num">✅</span><span class="sop-label">站距与站姿个体化：根据髋关节解剖调整</span></div>
+<div class="sop-row"><span class="sop-num">✅</span><span class="sop-label">下蹲深度因人而异，以症状和动作为指导</span></div>
+<div class="sop-row"><span class="sop-num">✅</span><span class="sop-label">关注膝关节追踪方向与足部方向一致</span></div>
+<div class="sop-row"><span class="sop-num">✅</span><span class="sop-label">高杠位适合初学者，前蹲适合躯干直立需求者</span></div>
+<div class="sop-row"><span class="sop-num">❌</span><span class="sop-label">避免膝关节内扣不加控制</span></div>
+<div class="sop-row"><span class="sop-num">❌</span><span class="sop-label">避免因追求深度而牺牲腰椎中立</span></div>
+<div class="sop-row"><span class="sop-num">⚠️</span><span class="sop-label">ACL/PCL损伤史者需专科评估后制定训练方案</span></div>
+<div class="sop-row"><span class="sop-num">⚠️</span><span class="sop-label">髌股疼痛者优先做负荷管理，非完全禁练</span></div>
     </div>
   </div>
 </div>
@@ -505,22 +847,61 @@ body::before {
 <!-- TAB: QUIZ -->
 <div class="tab-content" id="tab-quiz">
   <div class="container">
-    <div class="placeholder" style="margin-bottom: 24px;">
-      <div class="placeholder-icon">
-        <svg viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg>
-      </div>
-      <h3>自测练习</h3>
-      <p>课件上传后将自动生成测试题。<br>Quiz questions will be auto-generated upon upload.</p>
-    </div>
-    <div class="quiz-item">
-      <div class="quiz-q">占位题目 — Placeholder question will appear here.</div>
-      <div class="quiz-options">
-        <div class="quiz-opt" onclick="selectOpt(this)">Option A</div>
-        <div class="quiz-opt" onclick="selectOpt(this)">Option B</div>
-        <div class="quiz-opt" onclick="selectOpt(this)">Option C</div>
-        <div class="quiz-opt" onclick="selectOpt(this)">Option D</div>
-      </div>
-    </div>
+<div class="quiz-item" data-explanation="前蹲躯干更直立→膝关节屈曲更大→股四头肌需求更高→腰椎负荷更低。">
+  <div class="quiz-q">1. 前蹲与后蹲的主要力学差异是什么？</div>
+  <div class="quiz-options">
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">前蹲腰椎负荷更大</div>
+<div class="quiz-opt" data-correct="true" onclick="selectOpt(this)">前蹲躯干更直立，膝关节屈曲更大，股四头肌需求更高</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">后蹲更适合初学者</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">两者力学完全相同</div>
+  </div>
+  <div class="quiz-feedback" style="display:none;margin-top:12px;padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);"></div>
+  <button class="quiz-check" onclick="checkQuiz(this)" style="margin-top:12px;padding:8px 20px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-hover);border-radius:var(--radius-sm);cursor:pointer;">检查答案</button>
+</div>
+<div class="quiz-item" data-explanation="高杠：杠铃在C7附近，躯干更直立，膝关节屈曲更大；低杠：杠铃在三角肌后束，躯干前倾更多，髋关节需求更高。">
+  <div class="quiz-q">2. 高杠与低杠背蹲的关键区别是什么？</div>
+  <div class="quiz-options">
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">高杠腰椎负荷更大</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">低杠杠铃在C7附近</div>
+<div class="quiz-opt" data-correct="true" onclick="selectOpt(this)">高杠躯干更直立膝关节屈曲更大；低杠躯干前倾更多髋关节需求更高</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">两者对肌肉激活无差异</div>
+  </div>
+  <div class="quiz-feedback" style="display:none;margin-top:12px;padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);"></div>
+  <button class="quiz-check" onclick="checkQuiz(this)" style="margin-top:12px;padding:8px 20px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-hover);border-radius:var(--radius-sm);cursor:pointer;">检查答案</button>
+</div>
+<div class="quiz-item" data-explanation="膝关节内扣的机制是股骨内旋+内收，与臀中肌控制不足、足弓塌陷、踝背屈受限相关。">
+  <div class="quiz-q">3. 膝关节内扣（knee valgus）的主要机制是什么？</div>
+  <div class="quiz-options">
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">股骨外旋+外展</div>
+<div class="quiz-opt" data-correct="true" onclick="selectOpt(this)">股骨内旋+内收</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">胫骨外旋</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">踝关节内翻</div>
+  </div>
+  <div class="quiz-feedback" style="display:none;margin-top:12px;padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);"></div>
+  <button class="quiz-check" onclick="checkQuiz(this)" style="margin-top:12px;padding:8px 20px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-hover);border-radius:var(--radius-sm);cursor:pointer;">检查答案</button>
+</div>
+<div class="quiz-item" data-explanation="适当深度不增加损伤风险；浅蹲膝关节剪切力更小但股四头肌刺激有限；深蹲需足够活动度支撑。">
+  <div class="quiz-q">4. 关于深蹲深度与损伤风险，以下哪项正确？</div>
+  <div class="quiz-options">
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">深蹲越深损伤风险越大</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">浅蹲完全没有损伤风险</div>
+<div class="quiz-opt" data-correct="true" onclick="selectOpt(this)">适当深度不增加损伤风险，深蹲需足够活动度支撑</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">深度与损伤无关</div>
+  </div>
+  <div class="quiz-feedback" style="display:none;margin-top:12px;padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);"></div>
+  <button class="quiz-check" onclick="checkQuiz(this)" style="margin-top:12px;padding:8px 20px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-hover);border-radius:var(--radius-sm);cursor:pointer;">检查答案</button>
+</div>
+<div class="quiz-item" data-explanation="推雪橇几乎没有离心负荷，大幅减少关节压缩力和肌肉损伤，同时提供股四头肌训练刺激。">
+  <div class="quiz-q">5. 推雪橇作为深蹲替代的生物力学原理是什么？</div>
+  <div class="quiz-options">
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">增加离心负荷</div>
+<div class="quiz-opt" data-correct="true" onclick="selectOpt(this)">几乎没有离心负荷，减少关节压缩力和肌肉损伤</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">完全模拟深蹲力学</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">增加腰椎轴向负荷</div>
+  </div>
+  <div class="quiz-feedback" style="display:none;margin-top:12px;padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);"></div>
+  <button class="quiz-check" onclick="checkQuiz(this)" style="margin-top:12px;padding:8px 20px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-hover);border-radius:var(--radius-sm);cursor:pointer;">检查答案</button>
+</div>
   </div>
 </div>
 
@@ -562,14 +943,36 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   });
 });
 
-/* ========== FLASHCARD ========== */
-/* Click handled inline via onclick */
-
-/* ========== QUIZ SELECT ========== */
+/* ========== QUIZ ========== */
 function selectOpt(el) {
   const siblings = el.parentElement.querySelectorAll('.quiz-opt');
-  siblings.forEach(s => s.classList.remove('selected'));
+  siblings.forEach(s => s.classList.remove('selected', 'correct', 'incorrect'));
   el.classList.add('selected');
+}
+
+function checkQuiz(btn) {
+  const item = btn.closest('.quiz-item');
+  const selected = item.querySelector('.quiz-opt.selected');
+  if (!selected) return;
+  
+  const opts = item.querySelectorAll('.quiz-opt');
+  const explanation = item.dataset.explanation;
+  const feedback = item.querySelector('.quiz-feedback');
+  
+  opts.forEach(o => {
+    o.classList.remove('selected');
+    if (o.dataset.correct === 'true') o.classList.add('correct');
+    else if (o === selected) o.classList.add('incorrect');
+  });
+  
+  feedback.style.display = 'block';
+  if (selected.dataset.correct === 'true') {
+    feedback.innerHTML = '✅ Correct! ' + explanation;
+  } else {
+    feedback.innerHTML = '❌ Incorrect. ' + explanation;
+  }
+  
+  btn.style.display = 'none';
   trackProgress('08', 'quiz');
 }
 

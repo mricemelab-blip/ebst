@@ -458,7 +458,7 @@ body::after {
   <div class="container">
     <div class="section-header">
       <div class="section-tag">Curriculum</div>
-      <h2 class="section-title">12 Chapters</h2>
+      <h2 class="section-title">10 Chapters</h2>
     </div>
     <div class="chapter-grid" id="chapterGrid"></div>
   </div>
@@ -491,30 +491,38 @@ body::after {
 <script>
 /* ========== CHAPTER DATA ========== */
 const chapters = [
-  { num: '01', title: 'Foundations of Evidence-Based Practice', desc: '循证实践基础与方法论框架' },
-  { num: '02', title: 'Functional Anatomy for Resistance Training', desc: '抗阻训练功能解剖学' },
-  { num: '03', title: 'Biomechanics of Human Movement', desc: '人体运动生物力学' },
-  { num: '04', title: 'Exercise Physiology & Energy Systems', desc: '运动生理学与能量系统' },
-  { num: '05', title: 'Program Design: Variables & Periodization', desc: '训练程序设计：变量与周期化' },
-  { num: '06', title: 'Resistance Training Techniques', desc: '抗阻训练技术与动作模式' },
-  { num: '07', title: 'Muscular Adaptation & Hypertrophy', desc: '肌肉适应与肥大机制' },
-  { num: '08', title: 'Strength & Power Development', desc: '力量与功率发展' },
-  { num: '09', title: 'Nutrition for Strength Athletes', desc: '力量训练者营养策略' },
-  { num: '10', title: 'Injury Prevention & Rehabilitation', desc: '损伤预防与康复' },
-  { num: '11', title: 'Special Populations & Programming', desc: '特殊人群训练方案' },
-  { num: '12', title: 'Professional Practice & Client Management', desc: '执业实践与客户管理' }
+  { num: '01', title: 'Lat Pulldown & Straight-Arm Pulldown', desc: '高位下拉与直臂下压', file: 'ch1.html', status: 'live' },
+  { num: '02', title: 'Pull-Up', desc: '引体向上', file: 'ch2.html', status: 'live' },
+  { num: '03', title: 'Row', desc: '划船', file: 'ch3.html', status: 'live' },
+  { num: '04', title: 'Face Pull', desc: '面拉', file: 'ch4.html', status: 'live' },
+  { num: '05', title: 'Overhead Press', desc: '肩推', file: 'ch5.html', status: 'live' },
+  { num: '06', title: 'Bench Press', desc: '卧推', file: 'ch6.html', status: 'live' },
+  { num: '07', title: 'Split Squat', desc: '分腿蹲', file: 'ch7.html', status: 'live' },
+  { num: '08', title: 'Squat', desc: '深蹲', file: 'ch8.html', status: 'live' },
+  { num: '09', title: 'Plank & Push-Up', desc: '平板支撑与俯卧撑', file: 'ch9.html', status: 'live' },
+  { num: '10', title: 'Arms & Deltoids', desc: '臂部与三角肌', file: 'ch10.html', status: 'live' }
 ];
 
 /* ========== RENDER CHAPTERS ========== */
 const grid = document.getElementById('chapterGrid');
 chapters.forEach(ch => {
-  grid.innerHTML += `
+  if (ch.status === 'live' && ch.file) {
+    grid.innerHTML += `
+    <a class="chapter-card" href="${ch.file}" style="text-decoration:none;display:block;">
+      <div class="card-number">CH ${ch.num}</div>
+      <div class="card-title">${ch.title}</div>
+      <div class="card-desc">${ch.desc}</div>
+      <div class="card-status"><span class="dot" style="background:var(--accent);"></span> Available</div>
+    </a>`;
+  } else {
+    grid.innerHTML += `
     <div class="chapter-card">
       <div class="card-number">CH ${ch.num}</div>
       <div class="card-title">${ch.title}</div>
       <div class="card-desc">${ch.desc}</div>
       <div class="card-status"><span class="dot"></span> Coming Soon</div>
     </div>`;
+  }
 });
 
 /* ========== LOGIN ========== */

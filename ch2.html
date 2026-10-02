@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ch02 · Functional Anatomy for Resistance Training · SBST</title>
+<title>Ch02 · Pull-Up · SBST</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -73,11 +73,7 @@ body::before {
   transition: color var(--transition);
 }
 .nav-back:hover { color: var(--accent); }
-.nav-divider {
-  width: 1px;
-  height: 16px;
-  background: var(--border);
-}
+.nav-divider { width: 1px; height: 16px; background: var(--border); }
 .nav-chapter-title {
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -169,36 +165,124 @@ body::before {
 .tab-content { display: none; padding: 40px 0 80px; }
 .tab-content.active { display: block; }
 
-.placeholder {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 60px 40px;
-  text-align: center;
-}
-.placeholder-icon {
-  width: 48px;
-  height: 48px;
-  margin: 0 auto 20px;
-  border-radius: 50%;
-  background: var(--accent-dim);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.placeholder-icon svg { width: 22px; height: 22px; fill: var(--accent); }
-.placeholder h3 {
+/* ========== LECTURE STYLES ========== */
+.lecture-h3 {
   font-family: var(--font-mono);
-  font-size: 0.9rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 36px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-hover);
+}
+.lecture-h4 {
+  font-family: var(--font-mono);
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 8px;
+  margin: 28px 0 12px;
 }
-.placeholder p {
-  font-size: 0.82rem;
+.lecture-h5 {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 22px 0 10px;
+}
+.lecture-p {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  line-height: 1.75;
+  margin-bottom: 14px;
+}
+.lecture-list {
+  margin: 12px 0 16px 0;
+  padding: 0;
+  list-style: none;
+}
+.lecture-list li {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  line-height: 1.65;
+  padding: 4px 0 4px 20px;
+  position: relative;
+}
+.lecture-list li::before {
+  content: '›';
+  position: absolute;
+  left: 4px;
+  color: var(--accent);
+  font-weight: 700;
+}
+.lecture-olist {
+  margin: 12px 0 16px 0;
+  padding: 0 0 0 20px;
+  list-style: none;
+  counter-reset: lecture-counter;
+}
+.lecture-olist li {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  line-height: 1.65;
+  padding: 4px 0 4px 28px;
+  position: relative;
+  counter-increment: lecture-counter;
+}
+.lecture-olist li::before {
+  content: counter(lecture-counter) '.';
+  position: absolute;
+  left: 4px;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.lecture-blockquote {
+  margin: 16px 0;
+  padding: 14px 20px;
+  background: var(--bg-secondary);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-style: italic;
+  font-size: 0.85rem;
   color: var(--text-secondary);
   line-height: 1.6;
 }
+.lecture-blockquote a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.lecture-table-wrap {
+  margin: 20px 0;
+  overflow-x: auto;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+.lecture-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+.lecture-table th {
+  background: var(--bg-tertiary);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-hover);
+}
+.lecture-table td {
+  padding: 10px 14px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.lecture-table tr:last-child td { border-bottom: none; }
+.lecture-table tr:hover td { background: rgba(0, 212, 255, 0.02); }
 
 /* ========== FLASHCARDS ========== */
 .flashcard-grid {
@@ -275,10 +359,10 @@ body::before {
 .sop-row:hover { background: rgba(0, 212, 255, 0.02); }
 .sop-num {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--accent);
+  font-size: 0.85rem;
   width: 40px;
   flex-shrink: 0;
+  text-align: center;
 }
 .sop-label {
   font-size: 0.85rem;
@@ -315,6 +399,8 @@ body::before {
 }
 .quiz-opt:hover { border-color: var(--border-hover); color: var(--text-primary); }
 .quiz-opt.selected { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+.quiz-opt.correct { border-color: #4ade80; color: #4ade80; background: rgba(74, 222, 128, 0.1); }
+.quiz-opt.incorrect { border-color: #f87171; color: #f87171; background: rgba(248, 113, 113, 0.1); }
 
 /* ========== AI CHAT ========== */
 .chat-fab {
@@ -419,7 +505,7 @@ body::before {
     <div class="nav-left">
       <a href="dashboard.html" class="nav-back">← Dashboard</a>
       <div class="nav-divider"></div>
-      <span class="nav-chapter-title">CH 02 · Functional Anatomy for Resistance Training</span>
+      <span class="nav-chapter-title">CH 02 · Pull-Up</span>
     </div>
     <div class="nav-right">
       <span class="nav-user" id="navUser"></span>
@@ -431,8 +517,8 @@ body::before {
 <section class="chapter-header">
   <div class="container">
     <div class="ch-number">Chapter 02</div>
-    <h1 class="ch-title">Functional Anatomy for Resistance Training</h1>
-    <p class="ch-subtitle">抗阻训练功能解剖学</p>
+    <h1 class="ch-title">Pull-Up</h1>
+    <p class="ch-subtitle">引体向上</p>
   </div>
 </section>
 
@@ -447,39 +533,282 @@ body::before {
 <!-- TAB: LECTURE -->
 <div class="tab-content active" id="tab-lecture">
   <div class="container">
-    <div class="placeholder">
-      <div class="placeholder-icon">
-        <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 15h8v2H8v-2zm0-3h8v2H8v-2z"/></svg>
-      </div>
-      <h3>讲义正文</h3>
-      <p>课件上传后将自动填充。<br>Course materials will be automatically populated upon upload.</p>
-    </div>
+<p class="lecture-p">引体向上是评估和训练上肢相对拉力及肌耐力的一种常用动作。Pérez-Olea等（2018）在游泳运动员中发现引体相关力学指标与游泳速度有关，但这不说明它对所有人都具有最高的功能转换率。对尚不能完成严格引体者，可从辅助引体及其他拉力练习建立能力。本单元介绍动作控制、个体差异、握法选择与循序进阶。</p>
+<h4 class="lecture-h4">§5.1 解剖与功能</h4>
+<h5 class="lecture-h5">§5.1.1 引体向上的力学分期</h5>
+<p class="lecture-p">引体向上可分为三个阶段，各阶段涉及不同的肌肉协同模式。</p>
+<p class="lecture-p">悬挂期：身体由双手支撑于横杆，上臂处于上举位置，肩胛骨随个体、握距及主动悬挂程度呈不同位置。肩袖、肩胛控制肌群和躯干肌群共同应对负荷，保持可控且能够耐受的悬挂；不要求人人强行将肩胛骨固定在同一位置。</p>
+<p class="lecture-p">向心期：通过肘屈及肩关节内收、伸展等协同将身体拉高，肩胛骨随上臂和躯干协调运动。以预先约定的动作范围判断完成度，避免单纯伸颈将下巴探过横杆。</p>
+<p class="lecture-p">离心期：从向心期最高位将身体缓慢下放，上述动作反向发生。关键在于&quot;缓慢下放&quot;的离心控制。</p>
+<h5 class="lecture-h5">§5.1.2 主要发力肌群</h5>
+<p class="lecture-p">根据力学分析，引体向上涉及的肌群如下：</p>
+<div class="lecture-table-wrap"><table class="lecture-table">
+<tr><th>关节动作或控制任务</th><th>主要相关肌群与说明</th></tr><tr><td>肘关节屈曲</td><td>肱肌、肱桡肌、肱二头肌</td></tr><tr><td>盂肱关节伸展</td><td>背阔肌、大圆肌、后三角肌等</td></tr><tr><td>盂肱关节内收</td><td>背阔肌、大圆肌、胸大肌等</td></tr><tr><td>盂肱关节外展、外旋及稳定</td><td>冈上肌参与外展；冈下肌参与外旋；肩袖共同控制肱骨头</td></tr><tr><td>肩胛胸廓回缩、倾斜等控制</td><td>斜方肌、菱形肌、前锯肌、胸小肌等按任务协同</td></tr><tr><td>肩胛下回旋相关</td><td>菱形肌、肩胛提肌、胸小肌等；实际贡献随体位改变</td></tr>
+</table></div>
+<p class="lecture-p">受控下放时，关节运动方向与主要制动力矩方向并不相同。例如肘关节在伸展，肘屈肌仍可通过离心作用抵抗重力。肩胛运动也应结合多肌群协同理解，不能把某个单独方向标记为错误体态。</p>
+<div class="lecture-table-wrap"><table class="lecture-table">
+<tr><th>下放任务</th><th>控制机制</th></tr><tr><td>肘关节受控伸展</td><td>主要由肘屈肌离心抵抗重力，非肱三头肌主导制动</td></tr><tr><td>上臂逐渐回到上举位置</td><td>肩内收、伸展相关肌群离心控制，其他肌群协同</td></tr><tr><td>肩胛与躯干控制</td><td>斜方肌、前锯肌及躯干肌群等按任务协调，不由动作方向单独推定主导肌</td></tr>
+</table></div>
+<p class="lecture-p">同时，维持整体脊椎稳定性的竖脊肌、腹外斜肌亦须全程参与，以避免出现类似kipping的身体摆动。</p>
+<h5 class="lecture-h5">§5.1.3 肌肉参与的时序特征</h5>
+<p class="lecture-p">Urbanczyk等（2020）使用运动捕捉、测力及肌骨模型分析11名受训健康男性的引体向上上拉阶段，估计不同肌肉的受力。模型估计不是直接肌电记录，也没有覆盖下放阶段。以下按教学任务分解动作，不代表人人具有相同的神经招募先后顺序。</p>
+<p class="lecture-p">准备任务一：建立可耐受的悬挂与肩关节控制</p>
+<p class="lecture-p">离地悬挂时，肩袖与其他肩部肌肉共同参与盂肱关节控制，躯干肌群协助限制不必要的摆动。冈上肌参与肱骨外展，冈下肌参与肱骨外旋，两者均属于肩袖；它们不是肩胛骨内转或外转的直接作动肌。不能仅依据模型中的受力大小，推断所有人都遵循深层先于表层的固定启动顺序。</p>
+<p class="lecture-p">准备任务二：协调肩胛骨与胸廓运动</p>
+<p class="lecture-p">上拉时肩胛骨需要随上臂运动调整。适度的肩胛控制提示可能有助于学习，但不必先用力下沉、后缩并始终锁住肩胛骨。Struyf等（2011）是肩胛位置和运动学综述，并非证明健康人依靠固定预收顺序完成引体的干预试验。</p>
+<blockquote class="lecture-blockquote">&quot;Scapular positioning and movement in unimpaired shoulders, shoulder impingement syndrome, and glenohumeral instability.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「健康肩、肩关节夹击症候群与盂肱关节不稳定中的肩胛骨位置与运动。」</blockquote>
+<p class="lecture-p">F. Struyf et al., 2011, Scandinavian Journal of Medicine &amp; Science in Sports</p>
+<p class="lecture-p"><a href="https://doi.org/10.1111/j.1600-0838.2010.01274.x" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1111/j.1600-0838.2010.01274.x</a></p>
+<p class="lecture-p">向心任务：肘屈与肩关节动作协调发力</p>
+<p class="lecture-p">肘屈肌与肩关节内收、伸展相关肌群共同将身体拉向横杆。各关节力矩随体位、负荷和握法变化，不能仅凭身体与横杆的距离判断所有肌肉的力臂，也不能规定必须先弯肘再启动背部肌群。</p>
+<p class="lecture-p">离心任务：上拉相关肌群控制下放</p>
+<p class="lecture-p">下放时主要由上拉相关肌群的离心作用控制下降速度，其他肌群按任务协同稳定。肘关节虽然伸展，肘屈肌仍提供抵抗重力的制动力矩；不要求主动用肱三头肌把身体推下去。</p>
+<p class="lecture-p">关键知识点总结：</p>
+<li>1. 悬挂期：选择可耐受的范围和辅助程度，保持肩关节、肩胛及躯干控制。</li>
+<li>2. 向心期：肘与肩协调发力，在预定动作标准下将身体拉高。</li>
+<li>3. 最高点：可短暂停顿以确认控制，不把停顿位置等同于背部肌肉必然最活跃。</li>
+<li>4. 离心期：以上拉相关肌群的离心作用控制下降，避免无准备地自由落下。</li>
+<p class="lecture-p">某个位置更困难可能与关节角度、肌肉长度、力矩、技术、负荷及疲劳有关。仅凭起始点或最高点的主观困难，不能分别诊断肩袖或背部肌群薄弱。可结合辅助量、动作范围、重复表现及必要的专项评估寻找限制。</p>
+<h4 class="lecture-h4">§5.2 循证依据</h4>
+<h5 class="lecture-h5">§5.2.1 上肢推拉能力的关联及其边界</h5>
+<blockquote class="lecture-blockquote">&quot;An analysis of the ratio and relationship between upper body pressing and pulling strength.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「上肢推与拉力量之比及其关系的分析。」</blockquote>
+<p class="lecture-p">Daniel G. Baker et al., 2004, Journal of Strength and Conditioning Research</p>
+<p class="lecture-p"><a href="https://doi.org/10.1519/R-12382.1" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1519/R-12382.1</a></p>
+<p class="lecture-p">Baker等在42名橄榄球运动员中观察到卧推与引体向上最大力量相关（r=0.81），样本平均BP/PU比值约97.7%。这些是该样本的统计描述，不是个体的合格标准。研究没有证明推拉差异可预测肩袖损伤，也没有要求先达到某个卧推水平才能练习引体。</p>
+<h5 class="lecture-h5">§5.2.2 速度衰减作为训练停止指标</h5>
+<blockquote class="lecture-blockquote">&quot;Effects of Velocity Loss During Body Mass Prone-Grip Pull-up Training on Strength and Endurance Performance.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「体重正握引体向上训练中速度衰减对力量与耐力表现的影响。」</blockquote>
+<p class="lecture-p">Miguel Sánchez-Moreno et al., 2020, Journal of Strength and Conditioning Research</p>
+<p class="lecture-p">https://pubmed.ncbi.nlm.nih.gov/32213783/</p>
+<p class="lecture-p"><a href="https://doi.org/10.1519/JSC.0000000000003500" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1519/JSC.0000000000003500</a></p>
+<p class="lecture-p">Sánchez-Moreno等比较了25%与50%速度损失方案：29名已有较好引体能力的训练男性完成8周训练，25%组在多项指标上表现较好。速度损失应以同一向心速度指标及规定基准计算，例如0.50降至0.375 m/s为25%。完整一次动作耗时不能直接替代平均推进速度，2秒一次变为5秒两次也不是25%速度下降。该阈值可作有测量条件者的训练方案之一，不是所有人必须遵守的停组规则。</p>
+<h5 class="lecture-h5">§5.2.3 不同握法的肌肉参与差异</h5>
+<blockquote class="lecture-blockquote">&quot;Electromyographic analysis of muscle activation during pull-up variations.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「引体向上变式中肌肉激活的肌电图分析。」</blockquote>
+<p class="lecture-p">James A. Dickie et al., 2017, Journal of Electromyography and Kinesiology（线上发表于2016年）</p>
+<p class="lecture-p">https://pubmed.ncbi.nlm.nih.gov/28011412/</p>
+<blockquote class="lecture-blockquote">&quot;Avoiding high-risk rotator cuff loading: Muscle force during three pull-up techniques.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「避免高风险肩袖负荷：三种引体向上技术中的肌肉力量。」</blockquote>
+<p class="lecture-p">Caryn A. Urbanczyk et al., 2020, Scandinavian Journal of Medicine &amp; Science in Sports</p>
+<p class="lecture-p">https://pubmed.ncbi.nlm.nih.gov/32715526/</p>
+<p class="lecture-p">https://onlinelibrary.wiley.com/doi/epdf/<a href="https://doi.org/10.1111/sms.13780" target="_blank" style="color:var(--accent);text-decoration:underline">doi:10.1111/sms.13780</a></p>
+<p class="lecture-p">Dickie等在19名男性中测量不同引体握法的肌电活动，握法间总体差异有限，其中正握的中斜方肌活动高于中立握。Urbanczyk等则使用模型估计肌力，两项研究的指标和条件不同。不能将它们合并成正握必然更练背、反握必然更练二头肌的统一排名，也不能仅凭某握法更容易完成来诊断单块肌肉的募集能力。</p>
+<h5 class="lecture-h5">§5.2.4 握法与肩部运动学</h5>
+<blockquote class="lecture-blockquote">&quot;Scapula kinematics of pull-up techniques: Avoiding impingement risk with training changes.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「引体向上技术的肩胛骨运动学：通过训练调整避免撞击风险。」</blockquote>
+<p class="lecture-p">Joe A. I. Prinold et al., 2016, Journal of Science and Medicine in Sport</p>
+<p class="lecture-p">https://pubmed.ncbi.nlm.nih.gov/26383875/</p>
+<p class="lecture-p">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4916995/</p>
+<p class="lecture-p">Prinold等研究了11名经常进行引体向上者的上拉运动学，比较不同握法下的肩胛与盂肱运动，没有测量长期伤害或康复结局。</p>
+<p class="lecture-p">宽握时肩胛前伸、后缩的范围较小；反握起始于较大的盂肱外旋位置，且运动偏离肩胛平面较多。作者据此讨论潜在的组织负荷与撞击机制，但这些运动学观察不能直接证明肩峰下压迫、损伤发生率，或解释所有体操与CrossFit训练者的肩痛。</p>
+<p class="lecture-p">反握并不因外旋位置就自动获得更好的肱骨头稳定性。对肩袖康复者，应结合康复阶段、症状、辅助程度和临床评估选择握法，而非将反握作为普遍优先方案。</p>
+<h5 class="lecture-h5">§5.2.5 毛巾握与其他引体变式</h5>
+<blockquote class="lecture-blockquote">&quot;Electromyographical Comparison of a Traditional, Suspension Device, and Towel Pull-Up.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「传统引体向上、悬吊装置引体向上与毛巾引体向上的肌电图比较。」</blockquote>
+<p class="lecture-p">Ronald L. Snarr et al., 2017</p>
+<p class="lecture-p">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5548150/</p>
+<p class="lecture-p">Snarr等在15名有训练经验的男女中比较传统正握、悬吊装置和毛巾引体。毛巾握的中斜方肌活动低于传统正握，背阔肌、肱二头肌及后三角肌未见显著差异。毛巾握可按握力目标选择，但不应据此预期更高中斜方肌活动。</p>
+<p class="lecture-p">毛巾握可以增加抓握任务的要求，但急性肌电结果没有验证肩胛不稳的治疗效果。中斜方肌活动高低也不能单独代表肩胛上回旋能力。因此，握法应根据目标、舒适度和控制能力选择，不把毛巾握或正握指定为统一的康复处方。</p>
+<h5 class="lecture-h5">§5.2.6 Kipping的生物力学分析</h5>
+<blockquote class="lecture-blockquote">&quot;Alterations in kinematics and muscle activation patterns with the addition of a kipping action during a pull-up activity.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「引体向上中加入摆动动作后运动学与肌肉激活模式的变化。」</blockquote>
+<p class="lecture-p">Christopher Dinunzio et al., 2019, Sports Biomechanics（线上发表于2018年）</p>
+<p class="lecture-p">https://pubmed.ncbi.nlm.nih.gov/29768093/</p>
+<p class="lecture-p"><a href="https://doi.org/10.1080/14763141.2018.1452971" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1080/14763141.2018.1452971</a></p>
+<p class="lecture-p">Kipping通过全身协调摆动利用动量辅助完成上拉，技术和严格引体不同，不能简单理解为腰椎摆得越大、越快越好。Dinunzio等比较11名运动员的严格与借力引体，测量急性运动学和肌电变化；研究没有随访伤害发生。教学时应明确动作目标、摆动幅度和进阶条件，不用该研究宣称某种节奏必然导致更高损伤率。</p>
+<h5 class="lecture-h5">§5.2.7 体重与力量比</h5>
+<blockquote class="lecture-blockquote">&quot;Training college-age women to perform the pull-up exercise.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「训练大学年龄段女性完成引体向上。」</blockquote>
+<p class="lecture-p">S. P. Flanagan et al., 2003, Research Quarterly for Exercise and Sport</p>
+<p class="lecture-p">https://pubmed.ncbi.nlm.nih.gov/12659476/</p>
+<p class="lecture-p">Flanagan等最终分析19名训练组与18名对照组女性。训练组完成12周周期化全身力量及有氧训练，能完成引体者由2人增至6人。成功者通常具有更高的最大拉力及相对力量，但样本内预测模型不能转化为所有人的力量体重门槛。</p>
+<ul class="lecture-list">
+<li>成功完成引体向上的训练者通常具有更高的相对拉力；原研究未建立可普遍适用的精确阈值</li>
+</ol>
+<p class="lecture-p">Sánchez-Moreno等（2016）另在25名受训男性中研究引体表现与体成分及下拉能力的关系，属于不同人群的横断面研究。</p>
+<blockquote class="lecture-blockquote">&quot;Determinant factors of pull-up performance in trained athletes.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「训练有素运动员引体向上表现的决定因素。」</blockquote>
+<p class="lecture-p">Miguel Sánchez-Moreno et al., 2016</p>
+<p class="lecture-p">https://pubmed.ncbi.nlm.nih.gov/26176615/</p>
+<p class="lecture-p">该研究中，引体次数与等于体重负荷的下拉次数相关（r=0.62），与下拉1RM的相关性很低（r=0.09）。不能据此规定60公斤体重必须下拉47公斤，也不能倒推理想体重。更实用的是记录同一器械、相同动作标准下的辅助量、下拉表现和引体次数，比较个体进步。</p>
+<h5 class="lecture-h5">§5.2.8 负荷监测与退阶训练</h5>
+<p class="lecture-p">负重引体的负荷—速度关系</p>
+<blockquote class="lecture-blockquote">&quot;Load-, Force-, and Power-Velocity Relationships in the Prone Pull-Up Exercise.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「正握引体向上运动中的负荷—速度、力—速度及功率—速度关系。」</blockquote>
+<p class="lecture-p">Mario Muñoz-López et al., 2017, International Journal of Sports Physiology and Performance</p>
+<p class="lecture-p">https://pubmed.ncbi.nlm.nih.gov/28253041/</p>
+<p class="lecture-p"><a href="https://doi.org/10.1123/ijspp.2016-0657" target="_blank" style="color:var(--accent);text-decoration:underline">https://doi.org/10.1123/ijspp.2016-0657</a></p>
+<p class="lecture-p">Muñoz-López等研究82名受训男性的负重引体负荷—速度关系，题目中的prone指正握条件，不是地面俯卧持棒练习。仰卧hollow或俯卧持棒可作为躯干与动作控制的准备练习，但这篇研究没有检验其向第一下引体的迁移效果。</p>
+<p class="lecture-p">减重辅助训练</p>
+<p class="lecture-p">Ronai与Scibek（2014）的动作技术专栏介绍了引体阶段、辅助方法与变式，可作为教学参考。该文不是不同辅助方法的效果比较试验。</p>
+<blockquote class="lecture-blockquote">&quot;The Pull-Up.&quot;</blockquote>
+<blockquote class="lecture-blockquote">「引体向上。」</blockquote>
+<p class="lecture-p">Peter Ronai et al., 2014, Strength and Conditioning Journal</p>
+<p class="lecture-p">https://journals.lww.com/nsca-scj/fulltext/2014/06000/thepullup.14.aspx</p>
+<p class="lecture-p">弹力带、辅助器械或脚部支撑可以分担体重，让训练者在当前能力下练习。记录辅助方式、规格或配重，并保持目标范围内的躯干控制；辅助本身不意味着只能练到手臂或必然降低躯干张力。弹力带辅助随长度改变，不能将不同规格直接视为恒定减重。</p>
+<h4 class="lecture-h4">§5.3 教学要点</h4>
+<h5 class="lecture-h5">§5.3.1 悬挂与起始位置教学</h5>
+<p class="lecture-p">双脚离地前，先确认握持和辅助设备可靠，再完成以下准备；它们是教学检查项，不是固定肌肉启动顺序：</p>
+<li>1. 选择可耐受的上举范围，避免带痛强行悬挂。</li>
+<li>2. 保持肩胛与上臂协调，不强制始终下沉后缩。</li>
+<li>3. 建立适度躯干张力，减少目标动作之外的摆动。</li>
+<p class="lecture-p">若不能保持起始位置，可增加辅助或缩短行程，再逐步扩大可控范围。</p>
+<h5 class="lecture-h5">§5.3.2 向心期协调发力</h5>
+<p class="lecture-p">肩与肘协调将身体拉向横杆。可以试用将身体拉高、肘部向下等提示，观察哪一种更有助于本人完成预定动作，不规定先弯肘后练背的唯一顺序。顶端可短暂停顿确认控制，但不把这一位置解释为背部肌肉必然最疲劳。</p>
+<h5 class="lecture-h5">§5.3.3 离心期控制</h5>
+<p class="lecture-p">下放由上拉相关肌群的离心作用为主控制，其他肌群按任务协同稳定。保持可重复的下降速度，不主动用肱三头肌把身体推下去。若无法控制下放，可降低总负荷、增加辅助或减少重复次数。</p>
+<h5 class="lecture-h5">§5.3.4 握法选择指导</h5>
+<p class="lecture-p">根据训练目标与个体状况选择握法：</p>
+<ul class="lecture-list">
+<li>目标为一般上肢拉力：从舒适、可控的握法开始，不单凭急性肌电排名选择。</li>
+<li>希望采用反握：根据腕、肘、肩的舒适度及动作表现决定，可与其他握法比较。</li>
+<li>肩袖康复期：依评估结果选择握法、辅助和范围，不预设反握更稳定。</li>
+<li>肩胛控制需要练习者：先选择能稳定完成的负荷与方式，不凭溜肩外观诊断上回旋不足，也不直接指定毛巾握。</li>
+<li>已掌握基础动作且无不适者：可按目标轮换握法，同时保持可比较的训练记录。</li>
+</ol>
+<p class="lecture-p">有肩关节损伤或不稳史者，应按症状与评估调整。反握不是人人的禁忌，也不是康复优选；疼痛、持续麻木或不稳感不能靠更换握法自行诊断解决。</p>
+<h4 class="lecture-h4">§5.4 常见错误</h4>
+<p class="lecture-p">错误一：把推拉比值当成训练资格或损伤诊断</p>
+<p class="lecture-p">Baker等报告的是特定运动员样本中的力量相关性，未建立个体损伤阈值。训练可以兼顾推与拉，但不要求先达到固定卧推水平才能开始辅助引体，也不凭某个推拉比诊断肩袖风险。</p>
+<p class="lecture-p">错误二：离心期缺乏控制</p>
+<p class="lecture-p">若目标是严格引体，顶端后应保持可控下降，避免突然失去支撑。失控时减少负荷或增加辅助；不能把每一次较快下降都等同于已经造成损伤。</p>
+<p class="lecture-p">错误三：躯干稳定性不足</p>
+<p class="lecture-p">严格引体中非预期的摆动可能来自负荷过大、疲劳、技术或动作标准不清。先调整辅助、节奏和行程，不仅凭摆动就诊断某块核心肌无力或力量链断裂。</p>
+<p class="lecture-p">错误四：混淆借力引体与严格引体的目标</p>
+<p class="lecture-p">借力引体与严格引体是不同任务。若目标是评估严格拉力，就不能把借力完成的次数计入同一标准。对需要Kipping的运动项目，可单独教授其技术和负荷管理；急性肌电研究不足以断言它必然损害基础功能。</p>
+<p class="lecture-p">错误五：忽略体重与力量比的优化</p>
+<p class="lecture-p">引体向上需要克服自身体重，因此相对拉力和体成分都会影响表现。训练者可同时提升拉力与管理体成分，但现有研究不足以支持单一、普遍适用的数值化解锁门槛。</p>
+<h4 class="lecture-h4">§5.5 进阶与退阶</h4>
+<p class="lecture-p">退阶阶段</p>
+<p class="lecture-p">依据以下表现调整辅助程度与进阶速度：</p>
+<li>1. 具备与个体水平相匹配的相对拉力和肩带控制能力；不采用未经验证的统一力量—体重比阈值</li>
+<li>2. 具备足够的躯干稳定性</li>
+<li>3. 熟悉严格引体向上的动作模式</li>
+<li>4. 在既定体重和辅助条件下，能够完成目标范围与次数；不设置未经验证的体重门槛。</li>
+<p class="lecture-p">退阶训练方法：</p>
+<ul class="lecture-list">
+<li>地面控制练习：仰卧hollow或俯卧持棒练习躯干和上肢协调；作为准备任务，不替代逐步增加的实际拉力训练。</li>
+<li>辅助引体：使用器械、弹力带或脚部支撑分担负荷，记录辅助方式，保持预定范围内的控制。</li>
+<li>高位下拉：用于增加垂直拉训练量，按舒适度和可控性选择握法，不预设正握颈前对所有人最优。</li>
+</ol>
+<p class="lecture-p">标准阶段</p>
+<ul class="lecture-list">
+<li>严格正握引体：从可控悬挂开始，肩肘协调上拉，顶端可短暂停顿，再控制下放。</li>
+<li>严格反握引体：在腕、肘、肩可耐受的范围内练习，不把反握等同于更高的关节稳定性。</li>
+<li>毛巾引体：作为抓握挑战的变式，按能力增加负荷；不是已验证的肩胛不稳康复方法。</li>
+</ol>
+<p class="lecture-p">进阶阶段</p>
+<ul class="lecture-list">
+<li>负重引体向上：在满足标准引体向上后，逐步增加外部负荷</li>
+<li>不同握距引体向上：宽握、窄握交替训练</li>
+<li>L-sit引体向上：在引体向上的同时维持L-sit姿态，增加核心挑战</li>
+<li>Kipping引体向上：仅在已掌握严格引体向上的前提下，作为运动表现训练的补充手段。不建议作为基础训练方法</li>
+</ol>
   </div>
 </div>
 
 <!-- TAB: FLASHCARDS -->
 <div class="tab-content" id="tab-flashcards">
   <div class="container">
-    <div class="placeholder" style="margin-bottom: 24px;">
-      <div class="placeholder-icon">
-        <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
-      </div>
-      <h3>知识翻卡</h3>
-      <p>课件上传后将自动生成翻卡。<br>Flashcards will be auto-generated upon upload.</p>
-    </div>
     <div class="flashcard-grid">
-      <div class="flashcard" onclick="this.classList.toggle('flipped')">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">
-            <div class="flashcard-label">Sample Card</div>
-            <div class="flashcard-text">翻卡示例 — 点击翻转</div>
-          </div>
-          <div class="flashcard-back">
-            <div class="flashcard-label">Answer</div>
-            <div class="flashcard-text">此处为答案内容</div>
-          </div>
-        </div>
-      </div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 1</div>
+      <div class="flashcard-text">引体向上的力学分期包括哪几个阶段？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">悬挂准备→肩胛激活（scapular setting）→向心拉起→顶端控制→离心回放</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 2</div>
+      <div class="flashcard-text">引体向上的三个主要发力肌群是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">背阔肌（肩内收/伸展）、肱二头肌/肱肌（肘屈曲）、下斜方肌/菱形肌（肩胛后缩下沉）</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 3</div>
+      <div class="flashcard-text">速度衰减作为训练停止指标的含义是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">当连续重复动作中速度下降超过20%时，神经肌肉疲劳显著，应停止该组</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 4</div>
+      <div class="flashcard-text">毛巾握引体向上与标准握的区别是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">毛巾握大幅增加前臂和握力需求，但可能降低背阔肌激活程度</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 5</div>
+      <div class="flashcard-text">Kipping引体向上的生物力学风险是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">利用动量减少肌肉负荷但大幅增加肩关节囊和韧带的剪切力，肩关节稳定性不足者风险高</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 6</div>
+      <div class="flashcard-text">不同握法对肩部运动学的影响是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">正手（pronated）肩关节外旋更多；中立握（neutral）对肩关节最友好；反手（supinated）肱二头肌激活更多</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 7</div>
+      <div class="flashcard-text">引体向上退阶训练的首选方式是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">离心控制（eccentric focus）或弹力带辅助，而非辅助引体器械</div>
+    </div>
+  </div>
+</div>
+<div class="flashcard" onclick="this.classList.toggle('flipped')">
+  <div class="flashcard-inner">
+    <div class="flashcard-front">
+      <div class="flashcard-label">Card 8</div>
+      <div class="flashcard-text">体重与力量比对引体向上的影响是什么？</div>
+    </div>
+    <div class="flashcard-back">
+      <div class="flashcard-label">Answer</div>
+      <div class="flashcard-text">引体向上本质是相对力量测试；体重增加1kg约需额外产生对应力矩，力量训练与体重管理需同步</div>
+    </div>
+  </div>
+</div>
     </div>
   </div>
 </div>
@@ -487,17 +816,16 @@ body::before {
 <!-- TAB: SOP -->
 <div class="tab-content" id="tab-sop">
   <div class="container">
-    <div class="placeholder" style="margin-bottom: 24px;">
-      <div class="placeholder-icon">
-        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7v-7zm4-3h2v10h-2V7zm4 6h2v4h-2v-4z"/></svg>
-      </div>
-      <h3>SOP 工作单</h3>
-      <p>课件上传后将自动填充。<br>SOP worksheets will be automatically populated upon upload.</p>
-    </div>
     <div class="sop-placeholder">
-      <div class="sop-row"><span class="sop-num">01</span><span class="sop-label">SOP 步骤占位 — Step placeholder</span></div>
-      <div class="sop-row"><span class="sop-num">02</span><span class="sop-label">SOP 步骤占位 — Step placeholder</span></div>
-      <div class="sop-row"><span class="sop-num">03</span><span class="sop-label">SOP 步骤占位 — Step placeholder</span></div>
+<div class="sop-row"><span class="sop-num">✅</span><span class="sop-label">悬挂起始位评估握力耐受和肩关节被动稳定</span></div>
+<div class="sop-row"><span class="sop-num">✅</span><span class="sop-label">退阶从弹力带辅助或离心控制开始</span></div>
+<div class="sop-row"><span class="sop-num">✅</span><span class="sop-label">向心期关注肩胛下沉→肘部向下向后的运动模式</span></div>
+<div class="sop-row"><span class="sop-num">✅</span><span class="sop-label">离心阶段3-5秒控制下放，避免自由落体</span></div>
+<div class="sop-row"><span class="sop-num">✅</span><span class="sop-label">握法选择：中立握对肩部最友好，正手次之</span></div>
+<div class="sop-row"><span class="sop-num">❌</span><span class="sop-label">禁止Kipping动作未经充分基础训练直接进行</span></div>
+<div class="sop-row"><span class="sop-num">❌</span><span class="sop-label">避免过度耸肩——肩胛上提代偿提示负荷超出能力</span></div>
+<div class="sop-row"><span class="sop-num">⚠️</span><span class="sop-label">体重与力量比是引体向上的核心限制因素</span></div>
+<div class="sop-row"><span class="sop-num">⚠️</span><span class="sop-label">速度衰减超过20%时应停止该组训练</span></div>
     </div>
   </div>
 </div>
@@ -505,22 +833,61 @@ body::before {
 <!-- TAB: QUIZ -->
 <div class="tab-content" id="tab-quiz">
   <div class="container">
-    <div class="placeholder" style="margin-bottom: 24px;">
-      <div class="placeholder-icon">
-        <svg viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg>
-      </div>
-      <h3>自测练习</h3>
-      <p>课件上传后将自动生成测试题。<br>Quiz questions will be auto-generated upon upload.</p>
-    </div>
-    <div class="quiz-item">
-      <div class="quiz-q">占位题目 — Placeholder question will appear here.</div>
-      <div class="quiz-options">
-        <div class="quiz-opt" onclick="selectOpt(this)">Option A</div>
-        <div class="quiz-opt" onclick="selectOpt(this)">Option B</div>
-        <div class="quiz-opt" onclick="selectOpt(this)">Option C</div>
-        <div class="quiz-opt" onclick="selectOpt(this)">Option D</div>
-      </div>
-    </div>
+<div class="quiz-item" data-explanation="肩胛激活在悬挂准备之后、向心拉起之前，是建立稳定发力的关键环节。">
+  <div class="quiz-q">1. 引体向上的力学分期中，肩胛激活（scapular setting）位于哪个阶段？</div>
+  <div class="quiz-options">
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">悬挂准备之前</div>
+<div class="quiz-opt" data-correct="true" onclick="selectOpt(this)">悬挂准备之后、向心拉起之前</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">向心拉起与顶端控制之间</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">离心回放之后</div>
+  </div>
+  <div class="quiz-feedback" style="display:none;margin-top:12px;padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);"></div>
+  <button class="quiz-check" onclick="checkQuiz(this)" style="margin-top:12px;padding:8px 20px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-hover);border-radius:var(--radius-sm);cursor:pointer;">检查答案</button>
+</div>
+<div class="quiz-item" data-explanation="当连续重复动作中速度下降超过20%时，神经肌肉疲劳显著，应停止该组训练。">
+  <div class="quiz-q">2. 速度衰减作为训练停止指标的标准是什么？</div>
+  <div class="quiz-options">
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">速度下降10%</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">速度下降15%</div>
+<div class="quiz-opt" data-correct="true" onclick="selectOpt(this)">速度下降20%</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">速度下降30%</div>
+  </div>
+  <div class="quiz-feedback" style="display:none;margin-top:12px;padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);"></div>
+  <button class="quiz-check" onclick="checkQuiz(this)" style="margin-top:12px;padding:8px 20px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-hover);border-radius:var(--radius-sm);cursor:pointer;">检查答案</button>
+</div>
+<div class="quiz-item" data-explanation="中立握对肩关节最友好，正手次之，毛巾握增加前臂和握力需求。">
+  <div class="quiz-q">3. 以下哪种握法对肩关节最友好？</div>
+  <div class="quiz-options">
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">正手宽握（pronated wide）</div>
+<div class="quiz-opt" data-correct="true" onclick="selectOpt(this)">中立握（neutral）</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">反手窄握（supinated narrow）</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">毛巾握（towel grip）</div>
+  </div>
+  <div class="quiz-feedback" style="display:none;margin-top:12px;padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);"></div>
+  <button class="quiz-check" onclick="checkQuiz(this)" style="margin-top:12px;padding:8px 20px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-hover);border-radius:var(--radius-sm);cursor:pointer;">检查答案</button>
+</div>
+<div class="quiz-item" data-explanation="Kipping利用动量减少肌肉负荷但大幅增加肩关节囊和韧带的剪切力。">
+  <div class="quiz-q">4. Kipping引体向上的主要生物力学风险是什么？</div>
+  <div class="quiz-options">
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">减少肌肉训练效果</div>
+<div class="quiz-opt" data-correct="true" onclick="selectOpt(this)">大幅增加肩关节囊和韧带的剪切力</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">增加肘关节内翻应力</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">导致腰椎过度伸展</div>
+  </div>
+  <div class="quiz-feedback" style="display:none;margin-top:12px;padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);"></div>
+  <button class="quiz-check" onclick="checkQuiz(this)" style="margin-top:12px;padding:8px 20px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-hover);border-radius:var(--radius-sm);cursor:pointer;">检查答案</button>
+</div>
+<div class="quiz-item" data-explanation="离心控制（eccentric focus）或弹力带辅助是退阶首选，优于辅助引体器械。">
+  <div class="quiz-q">5. 引体向上退阶训练的首选方式是什么？</div>
+  <div class="quiz-options">
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">辅助引体器械</div>
+<div class="quiz-opt" data-correct="true" onclick="selectOpt(this)">离心控制</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">弹力带辅助</div>
+<div class="quiz-opt" data-correct="false" onclick="selectOpt(this)">跳起引体</div>
+  </div>
+  <div class="quiz-feedback" style="display:none;margin-top:12px;padding:12px;background:var(--bg-tertiary);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);"></div>
+  <button class="quiz-check" onclick="checkQuiz(this)" style="margin-top:12px;padding:8px 20px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid var(--border-hover);border-radius:var(--radius-sm);cursor:pointer;">检查答案</button>
+</div>
   </div>
 </div>
 
@@ -562,14 +929,36 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   });
 });
 
-/* ========== FLASHCARD ========== */
-/* Click handled inline via onclick */
-
-/* ========== QUIZ SELECT ========== */
+/* ========== QUIZ ========== */
 function selectOpt(el) {
   const siblings = el.parentElement.querySelectorAll('.quiz-opt');
-  siblings.forEach(s => s.classList.remove('selected'));
+  siblings.forEach(s => s.classList.remove('selected', 'correct', 'incorrect'));
   el.classList.add('selected');
+}
+
+function checkQuiz(btn) {
+  const item = btn.closest('.quiz-item');
+  const selected = item.querySelector('.quiz-opt.selected');
+  if (!selected) return;
+  
+  const opts = item.querySelectorAll('.quiz-opt');
+  const explanation = item.dataset.explanation;
+  const feedback = item.querySelector('.quiz-feedback');
+  
+  opts.forEach(o => {
+    o.classList.remove('selected');
+    if (o.dataset.correct === 'true') o.classList.add('correct');
+    else if (o === selected) o.classList.add('incorrect');
+  });
+  
+  feedback.style.display = 'block';
+  if (selected.dataset.correct === 'true') {
+    feedback.innerHTML = '✅ Correct! ' + explanation;
+  } else {
+    feedback.innerHTML = '❌ Incorrect. ' + explanation;
+  }
+  
+  btn.style.display = 'none';
   trackProgress('02', 'quiz');
 }
 
