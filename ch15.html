@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ch15 · Glute Training · 臀部训练 · EBST</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ========== MACROFACTOR LIGHT THEME ========== */
+:root {
+  --bg-primary: #f5f5f5;
+  --bg-card: #ffffff;
+  --bg-dark: #111111;
+  --text-primary: #111111;
+  --text-secondary: #666666;
+  --text-muted: #999999;
+  --border: #e0e0e0;
+  --accent: #111111;
+  --accent-hover: #333333;
+  --dot-color: #d5d5d5;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --card-shadow-hover: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+a { color: inherit; }
+
+.container { max-width: 960px; }
+
+/* ========== NAV ========== */
+.top-nav {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: rgba(245, 245, 245, 0.92);
+  backdrop-filter: blur(12px);
+  z-index: 100;
+}
+.top-nav .container { display: flex; align-items: center; justify-content: space-between; }
+.nav-left { display: flex; align-items: center; gap: 16px; }
+.nav-back {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color var(--transition);
+}
+.nav-back:hover { color: var(--text-primary); }
+.nav-divider { width: 1px; height: 16px; background: var(--border); }
+.nav-chapter-title {
+  font-size: 0.75rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.nav-user { font-size: 0.7rem; color: var(--text-secondary); letter-spacing: 1px; }
+
+/* ========== CHAPTER HEADER ========== */
+.chapter-header {
+  padding: 48px 0 32px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0;
+}
+.ch-number {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.ch-title {
+  font-family: var(--font-sans);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+}
+.ch-subtitle { font-size: 0.9rem; color: var(--text-secondary); font-weight: 300; }
+
+/* ========== TABS ========== */
+.tab-bar {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 53px;
+  background: rgba(245, 245, 245, 0.95);
+  backdrop-filter: blur(12px);
+  z-index: 90;
+  overflow-x: auto;
+}
+.tab-btn {
+  padding: 14px 24px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+  position: relative;
+}
+.tab-btn:hover { color: var(--text-secondary); }
+.tab-btn.active {
+  color: var(--text-primary);
+  border-bottom-color: var(--text-primary);
+}
+.tab-btn.active::after { display: none; }
+
+/* ========== TAB CONTENT ========== */
+.tab-content { display: none; padding: 40px 0 80px; }
+.tab-content.active { display: block; }
+
+/* ========== LECTURE STYLES ========== */
+.lecture-h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 36px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.lecture-h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 28px 0 12px;
+}
+.lecture-h5 {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 22px 0 10px;
+}
+.lecture-p {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  line-height: 1.8;
+  margin-bottom: 14px;
+}
+.lecture-list {
+  margin: 12px 0 16px 0;
+  padding: 0;
+  list-style: none;
+}
+.lecture-list li {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  line-height: 1.65;
+  padding: 4px 0 4px 20px;
+  position: relative;
+}
+.lecture-list li::before {
+  content: '·';
+  position: absolute;
+  left: 6px;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+.lecture-olist {
+  margin: 12px 0 16px 0;
+  padding: 0 0 0 20px;
+  list-style: none;
+  counter-reset: lecture-counter;
+}
+.lecture-olist li {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  line-height: 1.65;
+  padding: 4px 0 4px 28px;
+  position: relative;
+  counter-increment: lecture-counter;
+}
+.lecture-olist li::before {
+  content: counter(lecture-counter) '.';
+  position: absolute;
+  left: 4px;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.lecture-blockquote {
+  margin: 16px 0;
+  padding: 14px 20px;
+  background: var(--bg-primary);
+  border-left: 3px solid var(--text-primary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.lecture-blockquote a { color: var(--text-primary); text-decoration: underline; }
+.lecture-table-wrap {
+  margin: 20px 0;
+  overflow-x: auto;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+.lecture-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+.lecture-table th {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.lecture-table td {
+  padding: 10px 14px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.lecture-table tr:last-child td { border-bottom: none; }
+.lecture-table tr:hover td { background: rgba(0,0,0,0.01); }
+
+/* ========== FLASHCARDS ========== */
+.flashcard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.flashcard { perspective: 1000px; height: 180px; cursor: pointer; }
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+.flashcard-front, .flashcard-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+}
+.flashcard-front {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--card-shadow);
+}
+.flashcard-back {
+  background: var(--bg-primary);
+  border: 1px solid var(--text-primary);
+  transform: rotateY(180deg);
+}
+.flashcard-label {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.flashcard-text {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+.flashcard-back .flashcard-text { color: var(--text-secondary); }
+
+/* ========== SOP TABLE ========== */
+.sop-placeholder {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+}
+.sop-row {
+  display: flex;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+}
+.sop-row:last-child { border-bottom: none; }
+.sop-row:hover { background: rgba(0,0,0,0.01); }
+.sop-num {
+  font-size: 0.85rem;
+  width: 40px;
+  flex-shrink: 0;
+  text-align: center;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.sop-label { font-size: 0.85rem; color: var(--text-secondary); flex: 1; }
+
+/* ========== QUIZ ========== */
+.quiz-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: var(--card-shadow);
+}
+.quiz-q {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+.quiz-opt {
+  padding: 12px 16px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.quiz-opt:hover { border-color: var(--text-primary); color: var(--text-primary); }
+.quiz-opt.selected { border-color: var(--text-primary); color: var(--text-primary); background: var(--bg-primary); }
+.quiz-opt.correct { border-color: #22c55e; color: #16a34a; background: #f0fdf4; }
+.quiz-opt.incorrect { border-color: #ef4444; color: #dc2626; background: #fef2f2; }
+.quiz-check {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 10px 28px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--bg-dark);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.quiz-check:hover { background: var(--accent-hover); }
+.quiz-feedback {
+  margin-top: 12px;
+  padding: 12px 16px;
+  font-size: 0.82rem;
+  border-radius: var(--radius-sm);
+  line-height: 1.5;
+}
+
+/* ========== AI CHAT ========== */
+.chat-fab {
+  position: fixed;
+  bottom: 32px; right: 32px;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--bg-dark);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  transition: all var(--transition);
+  z-index: 1000;
+}
+.chat-fab:hover { transform: scale(1.05); background: var(--accent-hover); }
+.chat-fab svg { width: 24px; height: 24px; fill: #ffffff; }
+.chat-modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.chat-modal-overlay.active { display: flex; }
+.chat-modal {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+}
+.chat-modal-icon {
+  width: 48px; height: 48px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  display: flex; align-items: center; justify-content: center;
+}
+.chat-modal-icon svg { width: 24px; height: 24px; fill: var(--text-primary); }
+.chat-modal h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
+.chat-modal p { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 24px; }
+.chat-modal-close {
+  padding: 10px 28px;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--bg-dark);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.chat-modal-close:hover { background: var(--accent-hover); }
+
+/* ========== FOOTER ========== */
+.site-footer { padding: 32px 0; border-top: 1px solid var(--border); text-align: center; }
+.footer-text { font-size: 0.65rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; }
+
+@media print {
+  body { background: #fff; color: #000; }
+  body::before { display: none; }
+  .chat-fab, .chat-modal-overlay, .tab-bar { display: none !important; }
+  .tab-content { display: block !important; page-break-inside: avoid; }
+  .flashcard { break-inside: avoid; }
+}
+@media (max-width: 768px) {
+  .tab-btn { padding: 12px 16px; font-size: 0.65rem; }
+  .flashcard-grid { grid-template-columns: 1fr; }
+  .chat-fab { bottom: 20px; right: 20px; width: 48px; height: 48px; }
+  .nav-chapter-title { display: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+<nav class="top-nav">
+<div class="nav-left">
+<a href="dashboard.html" class="nav-back">← Dashboard</a>
+<div class="nav-divider"></div>
+<span class="nav-chapter-title">CH 14 · Glute Training</span>
+</div>
+<div class="nav-right">
+<span class="nav-user" id="navUser"></span>
+</div>
+</nav>
+
+<section class="chapter-header">
+<p class="ch-number">Chapter 14</p>
+<h1 class="ch-title">Glute Training</h1>
+<p class="ch-subtitle">来源于臀部肌的解剖、功能解剖与循证训练方法</p>
+</section>
+
+<div class="tab-bar">
+<button class="tab-btn active" data-tab="lecture">讲义正文</button>
+<button class="tab-btn" data-tab="flashcards">知识翻卡</button>
+<button class="tab-btn" data-tab="sop">SOP 工作单</button>
+<button class="tab-btn" data-tab="quiz">自测</button>
+</div>
+
+<div class="tab-content active" id="tab-lecture">
+<div style="text-align:center; padding:80px 0; color:var(--text-muted);">
+<p style="font-size:1.2rem; margin-bottom:12px;">Coming Soon</p>
+<p style="font-size:0.95rem;">课件待上传，本章内容正在制作中。</p>
+</div>
+</div>
+
+<div class="tab-content" id="tab-flashcards">
+<div style="text-align:center; padding:80px 0; color:var(--text-muted);">
+<p style="font-size:1.2rem; margin-bottom:12px;">Coming Soon</p>
+<p style="font-size:0.95rem;">知识翻卡内容将随课件一同发布。</p>
+</div>
+</div>
+
+<div class="tab-content" id="tab-sop">
+<div style="text-align:center; padding:80px 0; color:var(--text-muted);">
+<p style="font-size:1.2rem; margin-bottom:12px;">Coming Soon</p>
+<p style="font-size:0.95rem;">SOP 工作单将随课件一同发布。</p>
+</div>
+</div>
+
+<div class="tab-content" id="tab-quiz">
+<div style="text-align:center; padding:80px 0; color:var(--text-muted);">
+<p style="font-size:1.2rem; margin-bottom:12px;">Coming Soon</p>
+<p style="font-size:0.95rem;">自测题将随课件一同发布。</p>
+</div>
+</div>
+
+</div>
+<script>
+(function() {
+  var fab = document.getElementById('ebstChatFab');
+  var overlay = document.getElementById('ebstChatOverlay');
+  var iframe = document.getElementById('ebstChatFrame');
+  var isOpen = false;
+  fab.addEventListener('click', function() {
+    isOpen = !isOpen;
+    if (isOpen) {
+      if (!iframe.src) iframe.src = 'chat-widget.html';
+      overlay.classList.add('active');
+    } else {
+      overlay.classList.remove('active');
+    }
+  });
+  window.addEventListener('message', function(e) {
+    if (e.data === 'close-chat') {
+      isOpen = false;
+      overlay.classList.remove('active');
+    }
+  });
+})();
+</script>
+</body>
+</html>
