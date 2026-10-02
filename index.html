@@ -3,48 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SBST · Evidence-Based Strength Training Specialist</title>
+<title>EBST · Evidence-Based Strength Training Specialist</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ========== CSS VARIABLES ========== */
+
+/* ========== MACROFACTOR LIGHT THEME ========== */
 :root {
-  --bg-primary: #0d1117;
-  --bg-secondary: #161b22;
-  --bg-tertiary: #21262d;
-  --accent: #58a6ff;
-  --accent-dim: rgba(88, 166, 255, 0.15);
-  --accent-glow: rgba(88, 166, 255, 0.4);
-  --text-primary: #e6edf3;
-  --text-secondary: #8b949e;
-  --text-muted: #6e7681;
-  --border: rgba(255, 255, 255, 0.06);
-  --border-hover: rgba(88, 166, 255, 0.3);
-  --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-  --glow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --glow-md: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --glow-lg: 0 4px 16px rgba(0, 0, 0, 0.3);
-  --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  --bg-primary: #f5f5f5;
+  --bg-card: #ffffff;
+  --bg-dark: #111111;
+  --text-primary: #111111;
+  --text-secondary: #666666;
+  --text-muted: #999999;
+  --border: #e0e0e0;
+  --accent: #111111;
+  --accent-hover: #333333;
+  --dot-color: #d5d5d5;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --card-shadow-hover: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
   --radius: 12px;
   --radius-sm: 8px;
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-/* ========== RESET ========== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 16px; scroll-behavior: smooth; }
 body {
   font-family: var(--font-sans);
   background: var(--bg-primary);
+  background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
+  background-size: 24px 24px;
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
   line-height: 1.6;
 }
-
-/* ========== LAYOUT ========== */
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+a { color: inherit; }
 
 /* ========== HEADER ========== */
 .site-header {
@@ -53,21 +50,16 @@ body {
   position: relative;
   z-index: 10;
 }
-.site-header .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+.site-header .container { display: flex; align-items: center; justify-content: space-between; }
 .brand-mark {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--accent);
-  letter-spacing: 3px;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: 4px;
   text-transform: uppercase;
 }
 .header-nav a {
-  font-family: var(--font-mono);
   font-size: 0.75rem;
   color: var(--text-secondary);
   text-decoration: none;
@@ -75,136 +67,92 @@ body {
   text-transform: uppercase;
   transition: color var(--transition);
 }
-.header-nav a:hover { color: var(--accent); }
+.header-nav a:hover { color: var(--text-primary); }
 
 /* ========== HERO ========== */
-.hero {
-  padding: 120px 0 80px;
-  text-align: center;
-}
+.hero { padding: 100px 0 60px; text-align: center; }
 .hero-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--accent);
+  font-size: 0.7rem;
+  color: var(--text-muted);
   letter-spacing: 4px;
   text-transform: uppercase;
   margin-bottom: 24px;
-  opacity: 0.8;
 }
 .hero-title {
-  font-family: var(--font-mono);
-  font-size: clamp(2.4rem, 6vw, 4.5rem);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -1px;
+  font-family: var(--font-sans);
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -2px;
+  color: var(--text-primary);
   margin-bottom: 8px;
-  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: none;
-  filter: none);
 }
 .hero-subtitle-en {
-  font-family: var(--font-mono);
-  font-size: clamp(0.85rem, 2vw, 1.1rem);
+  font-size: clamp(0.9rem, 2vw, 1.15rem);
   color: var(--text-secondary);
-  letter-spacing: 2px;
-  margin-bottom: 12px;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
   font-weight: 400;
 }
 .hero-subtitle-zh {
   font-size: 1.1rem;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   font-weight: 300;
   margin-bottom: 48px;
 }
-.hero-line {
-  width: 60px;
-  height: 2px;
-  background: var(--accent);
-  margin: 0 auto 48px;
-  box-shadow: var(--glow-sm);
-}
+.hero-line { width: 40px; height: 2px; background: var(--text-primary); margin: 0 auto 48px; }
 
 /* ========== LOGIN FORM ========== */
-.login-section {
-  max-width: 440px;
-  margin: 0 auto 100px;
-}
-.input-group {
-  position: relative;
-  margin-bottom: 20px;
-}
+.login-section { max-width: 400px; margin: 0 auto 100px; }
+.input-group { position: relative; margin-bottom: 20px; }
 .input-group input {
   width: 100%;
   padding: 16px 20px;
   font-family: var(--font-sans);
   font-size: 0.95rem;
   color: var(--text-primary);
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   outline: none;
   transition: all var(--transition);
 }
 .input-group input::placeholder { color: var(--text-muted); }
-.input-group input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-}
-.input-group .input-line {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 2px;
-  background: var(--accent);
-  transition: width 0.4s ease;
-  box-shadow: var(--glow-sm);
-}
-.input-group input:focus ~ .input-line { width: 100%; }
+.input-group input:focus { border-color: var(--text-primary); }
+.input-group .input-line { display: none; }
 .btn-enter {
   width: 100%;
   padding: 16px;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--bg-primary);
-  background: linear-gradient(135deg, var(--accent), #388bfd);
+  color: #ffffff;
+  background: var(--bg-dark);
   border: none;
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: all var(--transition);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
-.btn-enter:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
+.btn-enter:hover { background: var(--accent-hover); transform: translateY(-1px); }
 .btn-enter:active { transform: translateY(0); }
 
 /* ========== SECTION ========== */
-.section-header {
-  text-align: center;
-  margin-bottom: 60px;
-}
+.section-header { text-align: center; margin-bottom: 60px; }
 .section-tag {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--accent);
-  letter-spacing: 3px;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 4px;
   text-transform: uppercase;
   margin-bottom: 12px;
 }
 .section-title {
-  font-family: var(--font-mono);
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-family: var(--font-sans);
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 800;
   color: var(--text-primary);
+  letter-spacing: -0.5px;
 }
 
 /* ========== CHAPTER GRID ========== */
@@ -215,49 +163,37 @@ body {
   gap: 20px;
 }
 .chapter-card {
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 28px 24px;
   transition: all var(--transition);
   position: relative;
   overflow: hidden;
+  box-shadow: var(--card-shadow);
 }
-.chapter-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  opacity: 0;
-  transition: opacity var(--transition);
-}
+.chapter-card::before { display: none; }
 .chapter-card:hover {
   transform: translateY(-4px);
-  border-color: var(--border-hover);
-  box-shadow: var(--card-shadow), var(--glow-md);
+  box-shadow: var(--card-shadow-hover);
 }
-.chapter-card:hover::before { opacity: 1; }
 .card-number {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--accent);
+  font-size: 0.65rem;
+  color: var(--text-muted);
   letter-spacing: 2px;
   margin-bottom: 12px;
-  opacity: 0.7;
+  text-transform: uppercase;
 }
 .card-title {
-  font-family: var(--font-mono);
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 8px;
   line-height: 1.4;
 }
 .card-desc {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--text-secondary);
   margin-bottom: 16px;
   line-height: 1.5;
@@ -266,53 +202,40 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-family: var(--font-mono);
   font-size: 0.7rem;
   color: var(--text-muted);
   letter-spacing: 1px;
   text-transform: uppercase;
 }
 .card-status .dot {
-  width: 6px;
-  height: 6px;
+  width: 6px; height: 6px;
   border-radius: 50%;
   background: var(--text-muted);
   animation: pulse 2s ease-in-out infinite;
 }
-@keyframes pulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
-}
+@keyframes pulse { 0%,100%{opacity:.4} 50%{opacity:1} }
 
-/* ========== AI CHAT BUTTON ========== */
+/* ========== AI CHAT ========== */
 .chat-fab {
   position: fixed;
-  bottom: 32px;
-  right: 32px;
-  width: 56px;
-  height: 56px;
+  bottom: 32px; right: 32px;
+  width: 56px; height: 56px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), #388bfd);
+  background: var(--bg-dark);
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   transition: all var(--transition);
   z-index: 1000;
 }
-.chat-fab:hover {
-  transform: scale(1.08);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-.chat-fab svg { width: 24px; height: 24px; fill: var(--bg-primary); }
-
-/* ========== CHAT MODAL ========== */
+.chat-fab:hover { transform: scale(1.05); background: var(--accent-hover); }
+.chat-fab svg { width: 24px; height: 24px; fill: #ffffff; }
 .chat-modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.7);
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.3);
   backdrop-filter: blur(4px);
   z-index: 2000;
   display: none;
@@ -321,60 +244,42 @@ body {
 }
 .chat-modal-overlay.active { display: flex; }
 .chat-modal {
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 40px;
   max-width: 420px;
   width: 90%;
   text-align: center;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
 }
 .chat-modal-icon {
-  width: 48px;
-  height: 48px;
+  width: 48px; height: 48px;
   margin: 0 auto 20px;
   border-radius: 50%;
-  background: var(--accent-dim);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: var(--bg-primary);
+  display: flex; align-items: center; justify-content: center;
 }
-.chat-modal-icon svg { width: 24px; height: 24px; fill: var(--accent); }
-.chat-modal h3 {
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-.chat-modal p {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  margin-bottom: 24px;
-}
+.chat-modal-icon svg { width: 24px; height: 24px; fill: var(--text-primary); }
+.chat-modal h3 { font-family: var(--font-sans); font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
+.chat-modal p { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 24px; }
 .chat-modal-close {
   padding: 10px 28px;
-  font-family: var(--font-mono);
   font-size: 0.75rem;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: var(--text-secondary);
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border);
+  color: #fff;
+  background: var(--bg-dark);
+  border: none;
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: all var(--transition);
 }
-.chat-modal-close:hover { border-color: var(--accent); color: var(--accent); }
+.chat-modal-close:hover { background: var(--accent-hover); }
 
 /* ========== FOOTER ========== */
-.site-footer {
-  padding: 40px 0;
-  border-top: 1px solid var(--border);
-  text-align: center;
-}
+.site-footer { padding: 40px 0; border-top: 1px solid var(--border); text-align: center; }
 .footer-text {
-  font-family: var(--font-mono);
   font-size: 0.7rem;
   color: var(--text-muted);
   letter-spacing: 2px;
@@ -384,17 +289,16 @@ body {
 /* ========== PRINT ========== */
 @media print {
   body { background: #fff; color: #000; }
-  body::before, body::after { display: none; }
+  body::before { display: none; }
   .chat-fab, .chat-modal-overlay { display: none !important; }
-  .chapter-card { break-inside: avoid; border-color: #ccc; }
+  .chapter-card { break-inside: avoid; }
 }
-
-/* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
-  .hero { padding: 80px 0 60px; }
+  .hero { padding: 60px 0 40px; }
   .chapter-grid { grid-template-columns: 1fr; }
   .chat-fab { bottom: 20px; right: 20px; width: 48px; height: 48px; }
 }
+
 </style>
 </head>
 <body>
@@ -402,7 +306,7 @@ body {
 <!-- HEADER -->
 <header class="site-header">
   <div class="container">
-    <div class="brand-mark">SBST</div>
+    <div class="brand-mark">EBST</div>
     <nav class="header-nav">
       <a href="#">Curriculum</a>
     </nav>
@@ -413,7 +317,7 @@ body {
 <section class="hero">
   <div class="container">
     <div class="hero-eyebrow">Science-Driven · Evidence-Based</div>
-    <h1 class="hero-title">SBST</h1>
+    <h1 class="hero-title">EBST</h1>
     <p class="hero-subtitle-en">Evidence-Based Strength Training Specialist</p>
     <p class="hero-subtitle-zh">循证抗阻训练专家</p>
     <div class="hero-line"></div>
