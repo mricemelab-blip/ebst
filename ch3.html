@@ -901,5 +901,102 @@ function trackProgress(chapter, type) {
   localStorage.setItem('sbst_progress', JSON.stringify(progress));
 })();
 </script>
+
+<!-- EBST AI TUTOR FAB -->
+<style>
+.ebst-chat-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.ebst-chat-fab:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+.ebst-chat-fab svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+.ebst-chat-overlay {
+  position: fixed;
+  bottom: 84px;
+  right: 24px;
+  width: 420px;
+  height: 600px;
+  max-height: calc(100vh - 120px);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.08);
+  border: 1px solid #e0e0e0;
+  z-index: 998;
+  opacity: 0;
+  transform: translateY(16px) scale(0.95);
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.ebst-chat-overlay.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+}
+.ebst-chat-overlay iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+@media (max-width: 480px) {
+  .ebst-chat-overlay {
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+}
+</style>
+<button class="ebst-chat-fab" id="ebstChatFab" aria-label="AI 助教">
+  <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12z"/></svg>
+</button>
+<div class="ebst-chat-overlay" id="ebstChatOverlay">
+  <iframe id="ebstChatFrame" src="" title="EBST AI 助教"></iframe>
+</div>
+<script>
+(function() {
+  var fab = document.getElementById('ebstChatFab');
+  var overlay = document.getElementById('ebstChatOverlay');
+  var iframe = document.getElementById('ebstChatFrame');
+  var isOpen = false;
+  fab.addEventListener('click', function() {
+    isOpen = !isOpen;
+    if (isOpen) {
+      if (!iframe.src) iframe.src = 'chat-widget.html';
+      overlay.classList.add('active');
+    } else {
+      overlay.classList.remove('active');
+    }
+  });
+  window.addEventListener('message', function(e) {
+    if (e.data === 'close-chat') {
+      isOpen = false;
+      overlay.classList.remove('active');
+    }
+  });
+})();
+</script>
 </body>
 </html>
