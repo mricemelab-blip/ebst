@@ -928,8 +928,12 @@ a { color: inherit; }
 
 <script>
 /* ========== AUTH ========== */
+const VALID_CODES = ['EBST2026', '3HFIT-ACE', 'RISE2026', 'COACH-001'];
 const student = JSON.parse(localStorage.getItem('sbst_student') || 'null');
-if (!student) { window.location.href = 'index.html'; }
+if (!student || !student.name || !student.invitationCode || !VALID_CODES.includes(student.invitationCode)) {
+  localStorage.removeItem('sbst_student');
+  window.location.href = 'index.html';
+}
 else { document.getElementById('navUser').textContent = student.name; }
 
 /* ========== TABS ========== */

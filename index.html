@@ -300,6 +300,35 @@ a { color: inherit; }
   .chat-fab { bottom: 20px; right: 20px; width: 48px; height: 48px; }
 }
 
+
+/* ========== INVITATION CODE ========== */
+.invite-error {
+  font-size: 0.8rem;
+  color: #d32f2f;
+  margin-top: -12px;
+  margin-bottom: 12px;
+  display: none;
+  padding-left: 4px;
+}
+.invite-error.visible { display: block; }
+.input-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: -12px;
+  margin-bottom: 16px;
+  padding-left: 4px;
+}
+.name-group {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+}
+.name-group.visible {
+  max-height: 200px;
+  opacity: 1;
+}
+
 </style>
 </head>
 <body>
@@ -325,10 +354,16 @@ a { color: inherit; }
 
     <div class="login-section">
       <div class="input-group">
-        <input type="text" id="studentName" placeholder="输入学员姓名 / Enter your name" autocomplete="off">
-        <div class="input-line"></div>
+        <input type="text" id="inviteCode" placeholder="输入邀请码 / Invitation code" autocomplete="off">
       </div>
-      <button class="btn-enter" onclick="enterDashboard()">Enter →</button>
+      <div class="input-hint">请输入课程邀请码</div>
+      <div class="invite-error" id="inviteError">邀请码无效，请联系课程管理员获取</div>
+      <div class="name-group" id="nameGroup">
+        <div class="input-group">
+          <input type="text" id="studentName" placeholder="输入学员姓名 / Enter your name" autocomplete="off">
+        </div>
+        <button class="btn-enter" onclick="enterDashboard()">Enter →</button>
+      </div>
     </div>
   </div>
 </section>
@@ -389,14 +424,48 @@ chapters.forEach(ch => {
   }
 });
 
+/* ========== INVITATION CODES ========== */
+const VALID_CODES = ['EBST2026', '3HFIT-ACE', 'RISE2026', 'COACH-001'];
+
+/* ========== AUTO-LOGIN CHECK ========== */
+(function() {
+  const saved = JSON.parse(localStorage.getItem('sbst_student') || 'null');
+  if (saved && saved.invitationCode && VALID_CODES.includes(saved.invitationCode) && saved.name) {
+    window.location.href = 'dashboard.html';
+  }
+})();
+
 /* ========== LOGIN ========== */
+function validateInviteCode() {
+  const code = document.getElementById('inviteCode').value.trim();
+  const errorEl = document.getElementById('inviteError');
+  const nameGroup = document.getElementById('nameGroup');
+  if (VALID_CODES.includes(code)) {
+    errorEl.classList.remove('visible');
+    nameGroup.classList.add('visible');
+    setTimeout(() => document.getElementById('studentName').focus(), 300);
+    return true;
+  } else {
+    errorEl.classList.add('visible');
+    nameGroup.classList.remove('visible');
+    return false;
+  }
+}
+
+document.getElementById('inviteCode').addEventListener('keydown', e => {
+  if (e.key === 'Enter') validateInviteCode();
+});
+
+document.getElementById('inviteCode').addEventListener('input', function() {
+  document.getElementById('inviteError').classList.remove('visible');
+});
+
 function enterDashboard() {
   const name = document.getElementById('studentName').value.trim();
-  if (!name) {
-    document.getElementById('studentName').focus();
-    return;
-  }
-  localStorage.setItem('sbst_student', JSON.stringify({ name, loginAt: Date.now() }));
+  const code = document.getElementById('inviteCode').value.trim();
+  if (!VALID_CODES.includes(code)) { validateInviteCode(); return; }
+  if (!name) { document.getElementById('studentName').focus(); return; }
+  localStorage.setItem('sbst_student', JSON.stringify({ name, invitationCode: code, loginAt: Date.now() }));
   window.location.href = 'dashboard.html';
 }
 
