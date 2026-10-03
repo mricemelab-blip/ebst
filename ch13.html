@@ -817,14 +817,9 @@ a { color: inherit; }
 <button class="chat-fab" onclick="openChat()">
   <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12z"/></svg>
 </button>
-<div class="chat-modal-overlay" id="chatModal">
-  <div class="chat-modal">
-    <div class="chat-modal-icon">
-      <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12z"/></svg>
-    </div>
-    <h3>AI 助教</h3>
-    <p>AI Teaching Assistant is coming soon. 循证 AI 助教即将上线。</p>
-    <button class="chat-modal-close" onclick="closeChat()">Close</button>
+<div class="chat-modal-overlay" id="chatModal" onclick="if(event.target===this)closeChat()">
+  <div style="width:420px;height:600px;max-height:calc(100vh - 120px);border-radius:16px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,0.12);border:1px solid #e0e0e0;">
+    <iframe id="chatFrame" src="" style="width:100%;height:100%;border:none;" title="EBST AI 助教"></iframe>
   </div>
 </div>
 
@@ -882,7 +877,7 @@ function checkQuiz(btn) {
 }
 
 /* ========== CHAT ========== */
-function openChat() { document.getElementById('chatModal').classList.add('active'); }
+function openChat() { var f=document.getElementById('chatFrame'); f.src='chat-widget.html'; document.getElementById('chatModal').classList.add('active'); }
 function closeChat() { document.getElementById('chatModal').classList.remove('active'); }
 document.getElementById('chatModal').addEventListener('click', e => {
   if (e.target === e.currentTarget) closeChat();

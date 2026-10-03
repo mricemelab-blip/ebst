@@ -460,7 +460,7 @@ document.getElementById('progressLabel').textContent = pct + '% complete';
 function openChat() {
   var overlay = document.getElementById('chatModal');
   var frame = document.getElementById('chatFrame');
-  if (!frame.src) frame.src = 'chat-widget.html';
+  frame.src = 'chat-widget.html';
   overlay.classList.add('active');
 }
 function closeChat() { document.getElementById('chatModal').classList.remove('active'); }
