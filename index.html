@@ -311,6 +311,15 @@ a { color: inherit; }
   padding-left: 4px;
 }
 .invite-error.visible { display: block; }
+.invite-success {
+  font-size: 0.8rem;
+  color: #2e7d32;
+  margin-top: -12px;
+  margin-bottom: 12px;
+  display: none;
+  padding-left: 4px;
+}
+.invite-success.visible { display: block; }
 .input-hint {
   font-size: 0.75rem;
   color: var(--text-muted);
@@ -318,15 +327,24 @@ a { color: inherit; }
   margin-bottom: 16px;
   padding-left: 4px;
 }
-.name-group {
+.phone-group, .name-group {
   max-height: 0;
   overflow: hidden;
   opacity: 0;
   transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
 }
-.name-group.visible {
+.phone-group.visible, .name-group.visible {
   max-height: 200px;
   opacity: 1;
+}
+.btn-enter:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+.btn-enter:disabled:hover {
+  transform: none;
+  background: var(--bg-dark);
 }
 
 </style>
@@ -353,16 +371,26 @@ a { color: inherit; }
     <div class="hero-line"></div>
 
     <div class="login-section">
+      <!-- Step 1: Invitation Code -->
       <div class="input-group">
         <input type="text" id="inviteCode" placeholder="输入邀请码 / Invitation code" autocomplete="off">
       </div>
       <div class="input-hint">请输入课程邀请码</div>
       <div class="invite-error" id="inviteError">邀请码无效，请联系课程管理员获取</div>
+      <div class="invite-success" id="inviteSuccess">邀请码有效</div>
+
+      <!-- Step 2: Phone + Name (revealed after code verified) -->
+      <div class="phone-group" id="phoneGroup">
+        <div class="input-group">
+          <input type="tel" id="studentPhone" placeholder="输入手机号 / Phone number" autocomplete="off" inputmode="numeric">
+        </div>
+        <div class="input-hint">用于账号绑定，确保同一邀请码不会被多人使用</div>
+      </div>
       <div class="name-group" id="nameGroup">
         <div class="input-group">
           <input type="text" id="studentName" placeholder="输入学员姓名 / Enter your name" autocomplete="off">
         </div>
-        <button class="btn-enter" onclick="enterDashboard()">Enter →</button>
+        <button class="btn-enter" id="enterBtn" onclick="enterDashboard()" disabled>Enter →</button>
       </div>
     </div>
   </div>
@@ -424,54 +452,159 @@ chapters.forEach(ch => {
   }
 });
 
-/* ========== INVITATION CODES ========== */
-const VALID_CODES = ['EBST2026', '3HFIT-ACE', 'RISE2026', 'COACH-001'];
+/* ========== WORKER CONFIG ========== */
+const WORKER_URL = 'https://ebst-auth.mricemelab.workers.dev';  // 部署后替换
 
 /* ========== AUTO-LOGIN CHECK ========== */
 (function() {
   const saved = JSON.parse(localStorage.getItem('sbst_student') || 'null');
-  if (saved && saved.invitationCode && VALID_CODES.includes(saved.invitationCode) && saved.name) {
+  if (saved && saved.invitationCode && saved.studentPhone && saved.name) {
     window.location.href = 'dashboard.html';
   }
 })();
 
-/* ========== LOGIN ========== */
-function validateInviteCode() {
+/* ========== VERIFY INVITATION CODE ========== */
+async function verifyCode(code) {
+  const resp = await fetch(WORKER_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ code, action: 'verify' })
+  });
+  return await resp.json();
+}
+
+/* ========== CLAIM / BIND PHONE ========== */
+async function claimCode(code, phone, name) {
+  const resp = await fetch(WORKER_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ code, phone, name, action: 'claim' })
+  });
+  return await resp.json();
+}
+
+/* ========== STEP 1: VALIDATE INVITE CODE ========== */
+async function validateInviteCode() {
   const code = document.getElementById('inviteCode').value.trim();
   const errorEl = document.getElementById('inviteError');
+  const successEl = document.getElementById('inviteSuccess');
+  const phoneGroup = document.getElementById('phoneGroup');
   const nameGroup = document.getElementById('nameGroup');
-  if (VALID_CODES.includes(code)) {
-    errorEl.classList.remove('visible');
+
+  if (!code) return;
+
+  errorEl.classList.remove('visible');
+  successEl.classList.remove('visible');
+
+  try {
+    const result = await verifyCode(code);
+
+    if (!result.valid) {
+      errorEl.textContent = '邀请码无效，请联系课程管理员获取';
+      errorEl.classList.add('visible');
+      phoneGroup.classList.remove('visible');
+      nameGroup.classList.remove('visible');
+      document.getElementById('enterBtn').disabled = true;
+      return;
+    }
+
+    // Valid code
+    if (result.used) {
+      // Code already claimed - check if phone matches
+      errorEl.textContent = '该邀请码已被使用，请联系课程管理员';
+      errorEl.classList.add('visible');
+      phoneGroup.classList.remove('visible');
+      nameGroup.classList.remove('visible');
+      document.getElementById('enterBtn').disabled = true;
+      return;
+    }
+
+    // Valid & unused - show phone + name fields
+    successEl.textContent = '邀请码有效';
+    successEl.classList.add('visible');
+    phoneGroup.classList.add('visible');
     nameGroup.classList.add('visible');
-    setTimeout(() => document.getElementById('studentName').focus(), 300);
-    return true;
-  } else {
+    setTimeout(() => document.getElementById('studentPhone').focus(), 300);
+    checkReady();
+
+  } catch (e) {
+    errorEl.textContent = '验证服务暂时不可用，请稍后重试';
     errorEl.classList.add('visible');
+    phoneGroup.classList.remove('visible');
     nameGroup.classList.remove('visible');
-    return false;
+    document.getElementById('enterBtn').disabled = true;
   }
 }
 
+/* ========== CHECK IF FORM READY ========== */
+function checkReady() {
+  const phone = document.getElementById('studentPhone').value.trim();
+  const name = document.getElementById('studentName').value.trim();
+  document.getElementById('enterBtn').disabled = !(phone && name);
+}
+
+/* ========== EVENT LISTENERS ========== */
 document.getElementById('inviteCode').addEventListener('keydown', e => {
   if (e.key === 'Enter') validateInviteCode();
 });
 
 document.getElementById('inviteCode').addEventListener('input', function() {
   document.getElementById('inviteError').classList.remove('visible');
+  document.getElementById('inviteSuccess').classList.remove('visible');
 });
 
-function enterDashboard() {
-  const name = document.getElementById('studentName').value.trim();
-  const code = document.getElementById('inviteCode').value.trim();
-  if (!VALID_CODES.includes(code)) { validateInviteCode(); return; }
-  if (!name) { document.getElementById('studentName').focus(); return; }
-  localStorage.setItem('sbst_student', JSON.stringify({ name, invitationCode: code, loginAt: Date.now() }));
-  window.location.href = 'dashboard.html';
-}
+// Phone input: numeric only
+document.getElementById('studentPhone').addEventListener('input', function() {
+  this.value = this.value.replace(/[^\d]/g, '');
+  checkReady();
+});
+document.getElementById('studentPhone').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('studentName').focus();
+});
 
+document.getElementById('studentName').addEventListener('input', checkReady);
 document.getElementById('studentName').addEventListener('keydown', e => {
   if (e.key === 'Enter') enterDashboard();
 });
+
+/* ========== ENTER DASHBOARD ========== */
+async function enterDashboard() {
+  const name = document.getElementById('studentName').value.trim();
+  const phone = document.getElementById('studentPhone').value.trim();
+  const code = document.getElementById('inviteCode').value.trim();
+  const errorEl = document.getElementById('inviteError');
+  const btn = document.getElementById('enterBtn');
+
+  if (!phone || !name) return;
+
+  btn.disabled = true;
+  btn.textContent = '验证中...';
+  errorEl.classList.remove('visible');
+
+  try {
+    const result = await claimCode(code, phone, name);
+
+    if (result.success) {
+      localStorage.setItem('sbst_student', JSON.stringify({
+        name: name,
+        studentPhone: phone,
+        invitationCode: code,
+        loginAt: Date.now()
+      }));
+      window.location.href = 'dashboard.html';
+    } else {
+      errorEl.textContent = result.error || '验证失败，请重试';
+      errorEl.classList.add('visible');
+      btn.disabled = false;
+      btn.textContent = 'Enter →';
+    }
+  } catch (e) {
+    errorEl.textContent = '服务暂时不可用，请稍后重试';
+    errorEl.classList.add('visible');
+    btn.disabled = false;
+    btn.textContent = 'Enter →';
+  }
+}
 
 /* ========== CHAT MODAL ========== */
 function openChat() {

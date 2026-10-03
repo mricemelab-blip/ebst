@@ -1,0 +1,7 @@
+name = "ebst-auth"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+
+[[kv_namespaces]]
+binding = "EBST_CODES"
+id = "PLACEHOLDER"  # 创建 KV 后替换
