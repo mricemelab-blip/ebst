@@ -409,33 +409,40 @@ a { color: inherit; }
   </div>
 </div>
 
+<script src="js/fingerprint.js"></script>
+<script src="js/auth.js"></script>
 <script>
-/* ========== AUTH CHECK ========== */
-const student = JSON.parse(localStorage.getItem('sbst_student') || 'null');
-if (!student || !student.name || !student.studentPhone || !student.invitationCode) {
-  localStorage.removeItem('sbst_student');
-  window.location.href = 'index.html';
-} else {
-  document.getElementById('navUser').textContent = student.name;
-  document.getElementById('welcomeTitle').textContent = `Welcome, ${student.name}`;
-}
+/* ========== AUTH CHECK (Worker 验证) ========== */
+(async function initAuth() {
+  const result = await EBSTAuth.requireAuth();
+  if (!result) return;  // 已跳转
+
+  const name = result.name || (EBSTAuth.getStudentInfo() || {}).name || '';
+  document.getElementById('navUser').textContent = name;
+  document.getElementById('welcomeTitle').textContent = `Welcome, ${name}`;
+
+  // 降级模式提示
+  if (result.degraded) {
+    console.warn('[EBST] Running in offline/degraded mode');
+  }
+})();
 
 function logout() {
-  localStorage.removeItem('sbst_student');
-  window.location.href = 'index.html';
+  EBSTAuth.logout();
 }
 
 /* ========== CHAPTER DATA ========== */
-const chapters = [{num:1,title:"呼吸：力学基础与训练应用",status:"available"},{num:2,title:"卷腹",status:"available"},{num:3,title:"死虫与躯干控制",status:"available"},{num:4,title:"熊爬与四肢协调训练",status:"available"},{num:5,title:"平板支撑与俯卧撑",status:"available"},{num:6,title:"卧推",status:"available"},{num:7,title:"肩推",status:"available"},{num:8,title:"臂部与三角肌",status:"available"},{num:9,title:"臀推",status:"available"},{num:10,title:"硬拉",status:"available"},{num:11,title:"深蹲",status:"available"},{num:12,title:"分腿蹲",status:"available"},{num:13,title:"高位下拉与直臂下压",status:"available"},{num:14,title:"引体向上",status:"available"},{num:15,title:"划船",status:"available"},{num:16,title:"面拉",status:"available"},{num:17,title:"臀部训练",status:"coming-soon"}];
+const chapters = [{num:1,title:"呼吸：力学基础与训练应用",status:"available",file:"ch1.html"},{num:2,title:"卷腹",status:"available"},{num:3,title:"死虫与躯干控制",status:"available"},{num:4,title:"熊爬与四肢协调训练",status:"available"},{num:5,title:"平板支撑与俯卧撑",status:"available"},{num:6,title:"卧推",status:"available"},{num:7,title:"肩推",status:"available"},{num:8,title:"臂部与三角肌",status:"available"},{num:9,title:"臀推",status:"available"},{num:10,title:"硬拉",status:"available"},{num:11,title:"深蹲",status:"available"},{num:12,title:"分腿蹲",status:"available"},{num:13,title:"高位下拉与直臂下压",status:"available"},{num:14,title:"引体向上",status:"available"},{num:15,title:"划船",status:"available"},{num:16,title:"面拉",status:"available"},{num:17,title:"臀部训练",status:"coming-soon"}];
 
 const grid = document.getElementById('chapterGrid');
 chapters.forEach(ch => {
-  if (ch.status === 'live') {
+  if (ch.status === 'available') {
+    const href = ch.file || `ch${ch.num}.html`;
     grid.innerHTML += `
-    <a class="chapter-card" href="${ch.file}">
+    <a class="chapter-card" href="${href}">
       <div class="card-number">CH ${ch.num}</div>
       <div class="card-title">${ch.title}</div>
-      <div class="card-desc">${ch.desc}</div>
+      <div class="card-desc">${ch.desc || ''}</div>
       <div class="card-status"><span class="dot" style="background:var(--accent);"></span> Available</div>
     </a>`;
   } else {
@@ -443,7 +450,7 @@ chapters.forEach(ch => {
     <div class="chapter-card">
       <div class="card-number">CH ${ch.num}</div>
       <div class="card-title">${ch.title}</div>
-      <div class="card-desc">${ch.desc}</div>
+      <div class="card-desc">${ch.desc || ''}</div>
       <div class="card-status"><span class="dot"></span> Coming Soon</div>
     </div>`;
   }

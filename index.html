@@ -426,6 +426,8 @@ a { color: inherit; }
   </div>
 </div>
 
+<script src="js/fingerprint.js"></script>
+<script src="js/auth.js"></script>
 <script>
 /* ========== CHAPTER DATA ========== */
 const chapters = [{num:1,title:"呼吸：力学基础与训练应用",status:"available",file:"ch1.html"},{num:2,title:"卷腹",status:"available",file:"ch2.html"},{num:3,title:"死虫与躯干控制",status:"available",file:"ch3.html"},{num:4,title:"熊爬与四肢协调训练",status:"available",file:"ch4.html"},{num:5,title:"平板支撑与俯卧撑",status:"available",file:"ch5.html"},{num:6,title:"卧推",status:"available",file:"ch6.html"},{num:7,title:"肩推",status:"available",file:"ch7.html"},{num:8,title:"臂部与三角肌",status:"available",file:"ch8.html"},{num:9,title:"臀推",status:"available",file:"ch9.html"},{num:10,title:"硬拉",status:"available",file:"ch10.html"},{num:11,title:"深蹲",status:"available",file:"ch11.html"},{num:12,title:"分腿蹲",status:"available",file:"ch12.html"},{num:13,title:"高位下拉与直臂下压",status:"available",file:"ch13.html"},{num:14,title:"引体向上",status:"available",file:"ch14.html"},{num:15,title:"划船",status:"available",file:"ch15.html"},{num:16,title:"面拉",status:"available",file:"ch16.html"},{num:17,title:"臀部训练",status:"coming-soon"}];
@@ -452,18 +454,34 @@ chapters.forEach(ch => {
   }
 });
 
-/* ========== FRONTEND AUTH (Worker 待部署，临时方案) ========== */
+/* ========== INVITATION CODES (前端预检，Worker 最终验证) ========== */
 const VALID_CODES = ['EBST2026', '3HFIT-ACE', 'RISE2026', 'COACH-001'];
 
 /* ========== AUTO-LOGIN CHECK ========== */
-(function() {
-  const saved = JSON.parse(localStorage.getItem('sbst_student') || 'null');
-  if (saved && saved.invitationCode && saved.studentPhone && saved.name) {
-    window.location.href = 'dashboard.html';
+(async function() {
+  const token = EBSTAuth.getToken();
+  if (!token) return;
+
+  // 有 token → 尝试 Worker 验证
+  try {
+    const result = await EBSTAuth.apiVerify();
+    if (result.valid) {
+      window.location.href = 'dashboard.html';
+    } else {
+      EBSTAuth.clearToken();
+    }
+  } catch (e) {
+    // Worker 不可达 → 降级检查本地数据
+    const student = EBSTAuth.getStudentInfo();
+    if (student && student.name && student.invitationCode) {
+      window.location.href = 'dashboard.html';
+    } else {
+      EBSTAuth.clearToken();
+    }
   }
 })();
 
-/* ========== STEP 1: VALIDATE INVITE CODE (前端验证) ========== */
+/* ========== STEP 1: VALIDATE INVITE CODE (前端预检) ========== */
 function validateInviteCode() {
   const code = document.getElementById('inviteCode').value.trim();
   const errorEl = document.getElementById('inviteError');
@@ -487,7 +505,6 @@ function validateInviteCode() {
     return;
   }
 
-  // Valid code - show phone + name fields
   successEl.textContent = '邀请码有效';
   successEl.classList.add('visible');
   phoneGroup.classList.add('visible');
@@ -527,34 +544,83 @@ document.getElementById('studentName').addEventListener('keydown', e => {
   if (e.key === 'Enter') enterDashboard();
 });
 
-/* ========== ENTER DASHBOARD (前端存储) ========== */
-function enterDashboard() {
+/* ========== ENTER DASHBOARD (Worker 登录) ========== */
+async function enterDashboard() {
   const name = document.getElementById('studentName').value.trim();
   const phone = document.getElementById('studentPhone').value.trim();
   const code = document.getElementById('inviteCode').value.trim();
   const errorEl = document.getElementById('inviteError');
+  const successEl = document.getElementById('inviteSuccess');
   const btn = document.getElementById('enterBtn');
 
   if (!phone || !name) return;
 
-  // 前端验证邀请码仍然有效
+  // 前端预检
   if (!VALID_CODES.includes(code)) {
     errorEl.textContent = '邀请码已失效，请重新输入';
     errorEl.classList.add('visible');
-    btn.disabled = false;
-    btn.textContent = 'Enter →';
     return;
   }
 
-  // 存入 localStorage
-  localStorage.setItem('sbst_student', JSON.stringify({
-    name: name,
-    studentPhone: phone,
-    invitationCode: code,
-    loginAt: Date.now()
-  }));
-  localStorage.setItem('ebst_studentPhone', phone);
-  window.location.href = 'dashboard.html';
+  // 按钮 loading 状态
+  btn.disabled = true;
+  btn.textContent = 'Verifying...';
+
+  try {
+    const result = await EBSTAuth.apiLogin(phone, name, code);
+
+    if (result.success) {
+      // 存储 token 和学生信息
+      EBSTAuth.setToken(result.token);
+      EBSTAuth.setStudentInfo({
+        name: result.name,
+        phone: phone,
+        invitationCode: code,
+        loginAt: Date.now(),
+        expiresAt: result.expiresAt,
+      });
+
+      successEl.textContent = '登录成功，正在跳转...';
+      successEl.classList.add('visible');
+      errorEl.classList.remove('visible');
+
+      setTimeout(() => {
+        window.location.href = 'dashboard.html';
+      }, 500);
+    } else {
+      // Worker 返回错误
+      errorEl.textContent = result.error || '登录失败，请重试';
+      errorEl.classList.add('visible');
+      successEl.classList.remove('visible');
+
+      if (result.code === 'DEVICE_LIMIT') {
+        errorEl.textContent = result.error;
+      }
+    }
+  } catch (e) {
+    // Worker 不可达 → 降级为本地登录
+    console.warn('[EBST Auth] Worker unreachable, fallback to local login');
+    EBSTAuth.setStudentInfo({
+      name: name,
+      phone: phone,
+      invitationCode: code,
+      loginAt: Date.now(),
+      degraded: true,
+    });
+    // 生成一个本地 token（基于 fingerprint）
+    const fp = await EBSTAuth.getDeviceFingerprint();
+    const localToken = btoa(`${phone}:${Date.now()}:${fp}`).substring(0, 48);
+    EBSTAuth.setToken(localToken);
+
+    successEl.textContent = '离线模式登录';
+    successEl.classList.add('visible');
+    setTimeout(() => {
+      window.location.href = 'dashboard.html';
+    }, 500);
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Enter →';
 }
 
 /* ========== CHAT MODAL ========== */

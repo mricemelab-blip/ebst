@@ -1,7 +1,18 @@
 name = "ebst-auth"
-main = "worker.js"
+main = "worker/auth-worker.js"
 compatibility_date = "2026-10-01"
 
+# KV Namespace 绑定
+# 部署前需创建 KV namespace 并替换 ID
+# wrangler kv:namespace create EBST_AUTH
 [[kv_namespaces]]
-binding = "EBST_CODES"
-id = "PLACEHOLDER"  # 创建 KV 后替换
+binding = "EBST_AUTH"
+id = "ef16eed70f104c10b3f380b2e315ae87"
+
+# 可选：自定义域名路由
+# 在 Cloudflare Dashboard → Workers → ebst-auth → Triggers
+# 添加自定义域名如 auth.ebst.3hfit.com
+# 或在此处配置 routes:
+# routes:
+#   - pattern: "auth.ebst.3hfit.com/*"
+#     zone_name: "3hfit.com"

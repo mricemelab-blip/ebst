@@ -464,6 +464,10 @@ a { color: inherit; }
 }
 
 </style>
+<style>
+.nav-logout-btn { font-size: 0.65rem; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: color 0.3s; }
+.nav-logout-btn:hover { color: var(--text-primary); }
+</style>
 </head>
 <body>
 <div class="container">
@@ -475,6 +479,7 @@ a { color: inherit; }
 </div>
 <div class="nav-right">
 <span class="nav-user" id="navUser"></span>
+      <a class="nav-logout-btn" onclick="logout()">Logout</a>
 </div>
 </nav>
 
@@ -541,6 +546,18 @@ a { color: inherit; }
       overlay.classList.remove('active');
     }
   });
+})();
+</script>
+<script src="js/fingerprint.js"></script>
+<script src="js/auth.js"></script>
+<script>
+/* ========== EBST AUTH CHECK ========== */
+(async function() {
+  var result = await EBSTAuth.requireAuth();
+  if (!result) return;
+  var name = result.name || (EBSTAuth.getStudentInfo() || {}).name || '';
+  var navUser = document.getElementById('navUser');
+  if (navUser) navUser.textContent = name;
 })();
 </script>
 </body>

@@ -464,6 +464,10 @@ a { color: inherit; }
 }
 
 </style>
+<style>
+.nav-logout-btn { font-size: 0.65rem; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: color 0.3s; }
+.nav-logout-btn:hover { color: var(--text-primary); }
+</style>
 </head>
 <body>
 
@@ -477,6 +481,7 @@ a { color: inherit; }
     </div>
     <div class="nav-right">
       <span class="nav-user" id="navUser"></span>
+      <a class="nav-logout-btn" onclick="logout()">Logout</a>
     </div>
   </div>
 </nav>
@@ -972,4 +977,49 @@ function trackProgress(chapter, type) {
   align-items: center;
   justify-content: center;
   z-index: 999;
-  transition: all 0.3s cubic-bezie                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+  transition: all 0.3s   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+</style>
+<button class="ebst-chat-fab" id="ebstChatFab" aria-label="AI 助教">
+  <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12z"/></svg>
+</button>
+<div class="ebst-chat-overlay" id="ebstChatOverlay">
+  <iframe id="ebstChatFrame" src="" title="EBST AI 助教"></iframe>
+</div>
+<script>
+(function() {
+  var fab = document.getElementById('ebstChatFab');
+  var overlay = document.getElementById('ebstChatOverlay');
+  var iframe = document.getElementById('ebstChatFrame');
+  var isOpen = false;
+  fab.addEventListener('click', function() {
+    isOpen = !isOpen;
+    if (isOpen) {
+      if (!iframe.src) iframe.src = 'chat-widget.html';
+      overlay.classList.add('active');
+    } else {
+      overlay.classList.remove('active');
+    }
+  });
+  window.addEventListener('message', function(e) {
+    if (e.data === 'close-chat') {
+      isOpen = false;
+      overlay.classList.remove('active');
+    }
+  });
+})();
+</script>
+<script src="js/fingerprint.js"></script>
+<script src="js/auth.js"></script>
+<script>
+/* ========== EBST AUTH CHECK ========== */
+(async function() {
+  var result = await EBSTAuth.requireAuth();
+  if (!result) return;
+  var name = result.name || (EBSTAuth.getStudentInfo() || {}).name || '';
+  var navUser = document.getElementById('navUser');
+  if (navUser) navUser.textContent = name;
+})();
+</script>
+</body>
+</html>
