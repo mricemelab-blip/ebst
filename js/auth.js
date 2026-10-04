@@ -7,10 +7,17 @@
  */
 
 // ─── 配置 ──────────────────────────────────────────────
-const WORKER_URL = 'https://fragrant-river-6f9c.mrice-melab.workers.dev';
+const WORKER_URL = 'https://ebst-auth.mrice-melab.workers.dev';
 const TOKEN_KEY = 'ebst_token';
 const STUDENT_KEY = 'ebst_student';
 const FP_KEY = 'ebst_device_fp';
+const FETCH_TIMEOUT = 8000;
+
+function fetchWithTimeout(url, options) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT);
+  return fetch(url, { ...options, signal: controller.signal }).finally(() => clearTimeout(timer));
+}
 
 // ─── Token 管理 ────────────────────────────────────────
 function getToken() {
@@ -64,7 +71,7 @@ async function getDeviceFingerprint() {
 // ─── API 调用 ──────────────────────────────────────────
 async function apiLogin(phone, name, invitationCode) {
   const fp = await getDeviceFingerprint();
-  const res = await fetch(`${WORKER_URL}/api/login`, {
+  const res = await fetchWithTimeout(`${WORKER_URL}/api/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ phone, name, invitationCode, deviceFingerprint: fp }),
@@ -77,7 +84,7 @@ async function apiVerify() {
   if (!token) return { valid: false, reason: '未登录' };
 
   const fp = await getDeviceFingerprint();
-  const res = await fetch(`${WORKER_URL}/api/verify`, {
+  const res = await fetchWithTimeout(`${WORKER_URL}/api/verify`, {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${token}`,
@@ -92,7 +99,7 @@ async function apiLogout() {
   if (!token) return;
 
   const fp = await getDeviceFingerprint();
-  await fetch(`${WORKER_URL}/api/logout`, {
+  await fetchWithTimeout(`${WORKER_URL}/api/logout`, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`,
