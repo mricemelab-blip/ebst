@@ -20,7 +20,14 @@ const VALID_CODES = new Set([
   'EBST2026',
   '3HFIT-ACE',
   'RISE2026',
-  'COACH-001'
+  'COACH-001',
+  'EBST-RIFN',
+  'EBST-D71W',
+  'EBST-8UI1',
+  'EBST-L8S2',
+  'EBST-FSMH',
+  'EBST-YUST',
+  'EBST-2QQ5'
 ]);
 
 // CORS headers

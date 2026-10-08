@@ -18,7 +18,7 @@
  */
 
 // ─── 配置 ─────────────────────────────────────────────
-const VALID_CODES = new Set(['EBST2026', '3HFIT-ACE', 'RISE2026', 'COACH-001']);
+const VALID_CODES = new Set(['EBST2026', '3HFIT-ACE', 'RISE2026', 'COACH-001', 'EBST-RIFN', 'EBST-D71W', 'EBST-8UI1', 'EBST-L8S2', 'EBST-FSMH', 'EBST-YUST', 'EBST-2QQ5']);
 const TOKEN_TTL = 604800;          // 7 天（秒）
 const MAX_DEVICES = 2;             // 每个手机号最多绑定设备数
 const ADMIN_SECRET = 'ebst2026auth';  // 管理员密钥
@@ -26,7 +26,7 @@ const ADMIN_SECRET = 'ebst2026auth';  // 管理员密钥
 // ─── CORS ──────────────────────────────────────────────
 function corsHeaders(origin) {
   const allowed = [
-    'https://your-github-username.github.io',  // ← 替换为实际 GitHub Pages 域名
+    'https://mricemelab-blip.github.io',
     'http://localhost',
     'https://ebst.3hfit.com'                    // ← 如有自定义域名
   ];
