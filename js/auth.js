@@ -69,21 +69,25 @@ async function getDeviceFingerprint() {
 }
 
 // ─── API 调用 ──────────────────────────────────────────
-async function apiCheckCode(code) {
+async function apiCheckCode(code, turnstileToken) {
+  const body = { code };
+  if (turnstileToken) body.turnstileToken = turnstileToken;
   const res = await fetchWithTimeout(`${WORKER_URL}/api/check-code`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ code }),
+    body: JSON.stringify(body),
   });
   return res.json();
 }
 
-async function apiLogin(phone, name, invitationCode) {
+async function apiLogin(phone, name, invitationCode, turnstileToken) {
   const fp = await getDeviceFingerprint();
+  const body = { phone, name, invitationCode, deviceFingerprint: fp };
+  if (turnstileToken) body.turnstileToken = turnstileToken;
   const res = await fetchWithTimeout(`${WORKER_URL}/api/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ phone, name, invitationCode, deviceFingerprint: fp }),
+    body: JSON.stringify(body),
   });
   return res.json();
 }

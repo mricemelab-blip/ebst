@@ -23,6 +23,11 @@ const TOKEN_TTL = 604800;          // 7 天（秒）
 const MAX_DEVICES = 2;             // 每个手机号最多绑定设备数
 const ADMIN_SECRET = 'ebst2026auth';  // 管理员密钥
 
+// ── Rate Limiting & Turnstile ─────────────────────────
+const RATE_LIMIT_WINDOW = 600;     // 10 分钟窗口（秒）
+const RATE_LIMIT_MAX = 5;          // 窗口内最多尝试次数
+const TURNSTILE_THRESHOLD = 3;     // 连续失败 3 次后要求 Turnstile
+
 // ─── CORS ──────────────────────────────────────────────
 function corsHeaders(origin) {
   const allowed = [
@@ -115,20 +120,66 @@ export default {
 async function handleLogin(request, env, origin) {
   try {
     const body = await request.json();
-    const { phone, name, invitationCode, deviceFingerprint } = body;
+    const { phone, name, invitationCode, deviceFingerprint, turnstileToken } = body;
 
     // 参数校验
     if (!phone || !name || !invitationCode || !deviceFingerprint) {
       return json({ success: false, error: '缺少必要参数' }, 400, origin);
     }
 
+    const ip = getIP(request);
+
+    // 频率限制 + Turnstile 检查
+    const rateKey = `ratelimit:${ip}`;
+    const rateRaw = await env.EBST_AUTH.get(rateKey);
+    let rateData = rateRaw ? JSON.parse(rateRaw) : { fails: 0, windowStart: Date.now() };
+
+    if (Date.now() - rateData.windowStart > RATE_LIMIT_WINDOW * 1000) {
+      rateData = { fails: 0, windowStart: Date.now() };
+    }
+
+    if (rateData.fails >= RATE_LIMIT_MAX) {
+      return json({
+        success: false,
+        error: '尝试次数过多，请完成人机验证后重试',
+        requireTurnstile: true,
+      }, 429, origin);
+    }
+
+    if (rateData.fails >= TURNSTILE_THRESHOLD) {
+      if (!turnstileToken) {
+        return json({
+          success: false,
+          error: '请完成人机验证',
+          requireTurnstile: true,
+        }, 403, origin);
+      }
+      const tsSecret = env.TURNSTILE_SECRET_KEY;
+      if (tsSecret) {
+        const tsRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ secret: tsSecret, response: turnstileToken, remoteip: ip }),
+        });
+        const tsData = await tsRes.json();
+        if (!tsData.success) {
+          return json({ success: false, error: '人机验证失败' }, 403, origin);
+        }
+      }
+    }
+
     // 验证邀请码（从 KV 读取）
     const codeValid = await env.EBST_AUTH.get(`code:${invitationCode}`);
     if (!codeValid) {
+      rateData.fails++;
+      await env.EBST_AUTH.put(rateKey, JSON.stringify(rateData), {
+        expirationTtl: RATE_LIMIT_WINDOW,
+      });
       return json({ success: false, error: '邀请码无效' }, 401, origin);
     }
 
-    const ip = getIP(request);
+    // 验证成功 → 重置计数器
+    await env.EBST_AUTH.delete(rateKey);
     const now = Date.now();
 
     // 查询已有用户记录
@@ -361,16 +412,87 @@ async function handleChapter(request, env, origin) {
   }
 }
 
-// ─── POST /api/check-code（前端实时校验邀请码）────────────
+// ─── POST /api/check-code（前端实时校验邀请码 + 频率限制 + Turnstile）──
 async function handleCheckCode(request, env, origin) {
   try {
     const body = await request.json();
-    const { code } = body;
-    if (!code) {
+    const { code, turnstileToken } = body;
+    const ip = getIP(request);
+    const rateKey = `ratelimit:${ip}`;
+
+    // 1. 频率限制检查
+    const rateRaw = await env.EBST_AUTH.get(rateKey);
+    let rateData = rateRaw ? JSON.parse(rateRaw) : { fails: 0, windowStart: Date.now() };
+
+    // 窗口过期则重置
+    if (Date.now() - rateData.windowStart > RATE_LIMIT_WINDOW * 1000) {
+      rateData = { fails: 0, windowStart: Date.now() };
+    }
+
+    // 超过最大尝试次数 → 强制要求 Turnstile
+    if (rateData.fails >= RATE_LIMIT_MAX) {
+      return json({
+        valid: false,
+        requireTurnstile: true,
+        message: '尝试次数过多，请完成人机验证',
+      }, 429, origin);
+    }
+
+    // 2. 如果之前失败次数已达阈值，必须提供 Turnstile token
+    if (rateData.fails >= TURNSTILE_THRESHOLD) {
+      if (!turnstileToken) {
+        return json({
+          valid: false,
+          requireTurnstile: true,
+        }, 200, origin);
+      }
+      // 验证 Turnstile token
+      const tsSecret = env.TURNSTILE_SECRET_KEY;
+      if (!tsSecret) {
+        // 未配置 Turnstile，放行（降级）
+        console.warn('[EBST] Turnstile secret not configured, bypassing');
+      } else {
+        const tsRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ secret: tsSecret, response: turnstileToken, remoteip: ip }),
+        });
+        const tsData = await tsRes.json();
+        if (!tsData.success) {
+          rateData.fails++;
+          await env.EBST_AUTH.put(rateKey, JSON.stringify(rateData), {
+            expirationTtl: RATE_LIMIT_WINDOW,
+          });
+          return json({ valid: false, error: '人机验证失败' }, 403, origin);
+        }
+      }
+    }
+
+    // 3. 验证邀请码
+    const trimmedCode = (code || '').trim();
+    if (!trimmedCode) {
       return json({ valid: false }, 400, origin);
     }
-    const exists = await env.EBST_AUTH.get(`code:${code.trim()}`);
-    return json({ valid: !!exists }, 200, origin);
+    const exists = await env.EBST_AUTH.get(`code:${trimmedCode}`);
+
+    if (exists) {
+      // 成功 → 重置计数器
+      await env.EBST_AUTH.delete(rateKey);
+      return json({ valid: true }, 200, origin);
+    } else {
+      // 失败 → 递增计数
+      rateData.fails++;
+      await env.EBST_AUTH.put(rateKey, JSON.stringify(rateData), {
+        expirationTtl: RATE_LIMIT_WINDOW,
+      });
+
+      const needTurnstile = rateData.fails >= TURNSTILE_THRESHOLD;
+      return json({
+        valid: false,
+        requireTurnstile: needTurnstile,
+        attemptsLeft: RATE_LIMIT_MAX - rateData.fails,
+      }, 200, origin);
+    }
   } catch (e) {
     return json({ valid: false, error: e.message }, 500, origin);
   }

@@ -379,6 +379,9 @@ a { color: inherit; }
       <div class="invite-error" id="inviteError">邀请码无效，请联系课程管理员获取</div>
       <div class="invite-success" id="inviteSuccess">邀请码有效</div>
 
+      <!-- Turnstile Widget (hidden until needed) -->
+      <div id="turnstileContainer" style="display:none;margin:12px 0;"></div>
+
       <!-- Step 2: Phone + Name (revealed after code verified) -->
       <div class="phone-group" id="phoneGroup">
         <div class="input-group">
@@ -427,6 +430,11 @@ a { color: inherit; }
 </div>
 
 <script src="js/fingerprint.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+<script>
+// Turnstile 站点密钥（创建后替换）
+window.TURNSTILE_SITE_KEY = '0x4AAAAAAAE4iHq68BcKlJzL';
+</script>
 <script src="js/auth.js"></script>
 <script>
 /* ========== CHAPTER DATA ========== */
@@ -480,8 +488,11 @@ chapters.forEach(ch => {
   }
 })();
 
-/* ========== STEP 1: VALIDATE INVITE CODE (Worker API) ========== */
-async function validateInviteCode() {
+/* ========== STEP 1: VALIDATE INVITE CODE (Worker API + Turnstile) ========== */
+let turnstileWidgetId = null;
+let turnstileToken = null;
+
+async function validateInviteCode(extraToken) {
   const code = document.getElementById('inviteCode').value.trim();
   const errorEl = document.getElementById('inviteError');
   const successEl = document.getElementById('inviteSuccess');
@@ -496,11 +507,20 @@ async function validateInviteCode() {
   successEl.classList.add('visible');
 
   try {
-    const result = await EBSTAuth.apiCheckCode(code);
+    const token = extraToken || turnstileToken || null;
+    const result = await EBSTAuth.apiCheckCode(code, token);
     successEl.classList.remove('visible');
 
+    if (result.requireTurnstile) {
+      // 需要人机验证 → 显示 Turnstile widget
+      showTurnstileWidget();
+      return;
+    }
+
     if (!result.valid) {
-      errorEl.textContent = '邀请码无效，请联系课程管理员获取';
+      errorEl.textContent = result.attemptsLeft !== undefined
+        ? `邀请码无效（还剩 ${result.attemptsLeft} 次尝试机会）`
+        : '邀请码无效，请联系课程管理员获取';
       errorEl.classList.add('visible');
       phoneGroup.classList.remove('visible');
       nameGroup.classList.remove('visible');
@@ -512,6 +532,8 @@ async function validateInviteCode() {
     successEl.classList.add('visible');
     phoneGroup.classList.add('visible');
     nameGroup.classList.add('visible');
+    // 隐藏 Turnstile widget
+    hideTurnstileWidget();
     setTimeout(() => document.getElementById('studentPhone').focus(), 300);
     checkReady();
   } catch (e) {
@@ -519,6 +541,40 @@ async function validateInviteCode() {
     errorEl.textContent = '网络连接失败，请检查网络后重试';
     errorEl.classList.add('visible');
   }
+}
+
+function showTurnstileWidget() {
+  const container = document.getElementById('turnstileContainer');
+  if (!container) return;
+  container.style.display = 'block';
+  container.innerHTML = '';
+
+  if (typeof turnstile !== 'undefined' && window.TURNSTILE_SITE_KEY) {
+    turnstileWidgetId = turnstile.render(container, {
+      sitekey: window.TURNSTILE_SITE_KEY,
+      callback: function(token) {
+        turnstileToken = token;
+        // Turnstile 通过后自动重新验证邀请码
+        validateInviteCode(token);
+      },
+      'error-callback': function() {
+        turnstileToken = null;
+        const errorEl = document.getElementById('inviteError');
+        errorEl.textContent = '人机验证失败，请重试';
+        errorEl.classList.add('visible');
+      },
+    });
+  }
+}
+
+function hideTurnstileWidget() {
+  const container = document.getElementById('turnstileContainer');
+  if (container) container.style.display = 'none';
+  if (turnstileWidgetId !== null && typeof turnstile !== 'undefined') {
+    try { turnstile.remove(turnstileWidgetId); } catch(e) {}
+    turnstileWidgetId = null;
+  }
+  turnstileToken = null;
 }
 
 /* ========== CHECK IF FORM READY ========== */
@@ -568,7 +624,7 @@ async function enterDashboard() {
   btn.textContent = 'Verifying...';
 
   try {
-    const result = await EBSTAuth.apiLogin(phone, name, code);
+    const result = await EBSTAuth.apiLogin(phone, name, code, turnstileToken);
 
     if (result.success) {
       // 存储 token 和学生信息
