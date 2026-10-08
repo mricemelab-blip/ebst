@@ -15,20 +15,7 @@
  * 8. 更新 index.html 中的 WORKER_URL
  */
 
-// 预设邀请码列表
-const VALID_CODES = new Set([
-  'EBST2026',
-  '3HFIT-ACE',
-  'RISE2026',
-  'COACH-001',
-  'EBST-RIFN',
-  'EBST-D71W',
-  'EBST-8UI1',
-  'EBST-L8S2',
-  'EBST-FSMH',
-  'EBST-YUST',
-  'EBST-2QQ5'
-]);
+// 邀请码从 KV 读取，不再硬编码
 
 // CORS headers
 const CORS_HEADERS = {
@@ -54,7 +41,8 @@ export default {
 
       // Action: 'verify' = 仅验证邀请码, 'claim' = 绑定手机号
       if (action === 'verify') {
-        if (VALID_CODES.has(code)) {
+        const codeExists = await env.EBST_CODES.get(`code:${code}`);
+        if (codeExists) {
           // 检查是否已被使用
           const existing = await env.EBST_CODES.get(code);
           if (existing) {
@@ -84,13 +72,6 @@ export default {
           return new Response(JSON.stringify({
             success: false,
             error: '缺少必要参数'
-          }), { headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' } });
-        }
-
-        if (!VALID_CODES.has(code)) {
-          return new Response(JSON.stringify({
-            success: false,
-            error: '邀请码无效'
           }), { headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' } });
         }
 

@@ -69,6 +69,15 @@ async function getDeviceFingerprint() {
 }
 
 // ─── API 调用 ──────────────────────────────────────────
+async function apiCheckCode(code) {
+  const res = await fetchWithTimeout(`${WORKER_URL}/api/check-code`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ code }),
+  });
+  return res.json();
+}
+
 async function apiLogin(phone, name, invitationCode) {
   const fp = await getDeviceFingerprint();
   const res = await fetchWithTimeout(`${WORKER_URL}/api/login`, {
@@ -153,7 +162,7 @@ window.EBSTAuth = {
   getToken, setToken, clearToken,
   getStudentInfo, setStudentInfo,
   getDeviceFingerprint,
-  apiLogin, apiVerify, apiLogout,
+  apiCheckCode, apiLogin, apiVerify, apiLogout,
   requireAuth, logout,
   WORKER_URL,
 };

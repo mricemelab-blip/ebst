@@ -454,8 +454,7 @@ chapters.forEach(ch => {
   }
 });
 
-/* ========== INVITATION CODES (前端预检，Worker 最终验证) ========== */
-const VALID_CODES = ['EBST2026', '3HFIT-ACE', 'RISE2026', 'COACH-001', 'EBST-RIFN', 'EBST-D71W', 'EBST-8UI1', 'EBST-L8S2', 'EBST-FSMH', 'EBST-YUST', 'EBST-2QQ5'];
+/* ========== INVITATION CODE VALIDATION (Worker API) ========== */
 
 /* ========== AUTO-LOGIN CHECK ========== */
 (async function() {
@@ -481,8 +480,8 @@ const VALID_CODES = ['EBST2026', '3HFIT-ACE', 'RISE2026', 'COACH-001', 'EBST-RIF
   }
 })();
 
-/* ========== STEP 1: VALIDATE INVITE CODE (前端预检) ========== */
-function validateInviteCode() {
+/* ========== STEP 1: VALIDATE INVITE CODE (Worker API) ========== */
+async function validateInviteCode() {
   const code = document.getElementById('inviteCode').value.trim();
   const errorEl = document.getElementById('inviteError');
   const successEl = document.getElementById('inviteSuccess');
@@ -493,24 +492,33 @@ function validateInviteCode() {
 
   errorEl.classList.remove('visible');
   successEl.classList.remove('visible');
-
-  const isValid = VALID_CODES.includes(code);
-
-  if (!isValid) {
-    errorEl.textContent = '邀请码无效，请联系课程管理员获取';
-    errorEl.classList.add('visible');
-    phoneGroup.classList.remove('visible');
-    nameGroup.classList.remove('visible');
-    document.getElementById('enterBtn').disabled = true;
-    return;
-  }
-
-  successEl.textContent = '邀请码有效';
+  successEl.textContent = '验证中...';
   successEl.classList.add('visible');
-  phoneGroup.classList.add('visible');
-  nameGroup.classList.add('visible');
-  setTimeout(() => document.getElementById('studentPhone').focus(), 300);
-  checkReady();
+
+  try {
+    const result = await EBSTAuth.apiCheckCode(code);
+    successEl.classList.remove('visible');
+
+    if (!result.valid) {
+      errorEl.textContent = '邀请码无效，请联系课程管理员获取';
+      errorEl.classList.add('visible');
+      phoneGroup.classList.remove('visible');
+      nameGroup.classList.remove('visible');
+      document.getElementById('enterBtn').disabled = true;
+      return;
+    }
+
+    successEl.textContent = '邀请码有效';
+    successEl.classList.add('visible');
+    phoneGroup.classList.add('visible');
+    nameGroup.classList.add('visible');
+    setTimeout(() => document.getElementById('studentPhone').focus(), 300);
+    checkReady();
+  } catch (e) {
+    successEl.classList.remove('visible');
+    errorEl.textContent = '网络连接失败，请检查网络后重试';
+    errorEl.classList.add('visible');
+  }
 }
 
 /* ========== CHECK IF FORM READY ========== */
@@ -554,13 +562,6 @@ async function enterDashboard() {
   const btn = document.getElementById('enterBtn');
 
   if (!phone || !name) return;
-
-  // 前端预检
-  if (!VALID_CODES.includes(code)) {
-    errorEl.textContent = '邀请码已失效，请重新输入';
-    errorEl.classList.add('visible');
-    return;
-  }
 
   // 按钮 loading 状态
   btn.disabled = true;

@@ -18,7 +18,7 @@
  */
 
 // ─── 配置 ─────────────────────────────────────────────
-const VALID_CODES = new Set(['EBST2026', '3HFIT-ACE', 'RISE2026', 'COACH-001', 'EBST-RIFN', 'EBST-D71W', 'EBST-8UI1', 'EBST-L8S2', 'EBST-FSMH', 'EBST-YUST', 'EBST-2QQ5']);
+// 邀请码存在 KV 中，key 格式: code:{code}，value: "1"
 const TOKEN_TTL = 604800;          // 7 天（秒）
 const MAX_DEVICES = 2;             // 每个手机号最多绑定设备数
 const ADMIN_SECRET = 'ebst2026auth';  // 管理员密钥
@@ -103,6 +103,9 @@ export default {
     if (path === '/api/upload-chapter' && request.method === 'POST') {
       return handleUploadChapter(request, env, origin);
     }
+    if (path === '/api/check-code' && request.method === 'POST') {
+      return handleCheckCode(request, env, origin);
+    }
 
     return json({ error: 'Not found' }, 404, origin);
   },
@@ -119,8 +122,9 @@ async function handleLogin(request, env, origin) {
       return json({ success: false, error: '缺少必要参数' }, 400, origin);
     }
 
-    // 验证邀请码
-    if (!VALID_CODES.has(invitationCode)) {
+    // 验证邀请码（从 KV 读取）
+    const codeValid = await env.EBST_AUTH.get(`code:${invitationCode}`);
+    if (!codeValid) {
       return json({ success: false, error: '邀请码无效' }, 401, origin);
     }
 
@@ -354,6 +358,21 @@ async function handleChapter(request, env, origin) {
 
   } catch (e) {
     return json({ error: e.message }, 500, origin);
+  }
+}
+
+// ─── POST /api/check-code（前端实时校验邀请码）────────────
+async function handleCheckCode(request, env, origin) {
+  try {
+    const body = await request.json();
+    const { code } = body;
+    if (!code) {
+      return json({ valid: false }, 400, origin);
+    }
+    const exists = await env.EBST_AUTH.get(`code:${code.trim()}`);
+    return json({ valid: !!exists }, 200, origin);
+  } catch (e) {
+    return json({ valid: false, error: e.message }, 500, origin);
   }
 }
 
